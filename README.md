@@ -28,7 +28,7 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 
 ## :world_map: Screenshots
 
-Essa é uma imagem para tentar demonstrar como ficaria o jogo;
+Essa é uma imagem para tentar demonstrar como ficaria o site;
 
 ![App Screenshot](https://www.gov.br/agricultura/pt-br/assuntos/riscos-seguro/imagens/em_construao.png/@@images/image.png)
 
