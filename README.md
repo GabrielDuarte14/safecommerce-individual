@@ -6,11 +6,11 @@ A safecommerce é um projeto criado no intuito de monitorar os componentes de um
 ## :boy: Feito por 
 
 - [@Guilherme Coimbra Carneiro de Brito](https://github.com/Pedro-Jsn)
-- [@Hugo Hanashiro Galdino](https://github.com/Pedro-Jsn)
-- [@Kauan Cavazani Brianez](https://github.com/Pedro-Jsn)
-- [@Pedro Henrique Jesuino Varela](https://github.com/Pedro-Jsn)
-- [@Ryan Yuji Miyazato](https://github.com/Pedro-Jsn)
-- [@Victor Hugo Marques Do Nascimento](https://github.com/Pedro-Jsn)
+- [@Hugo Hanashiro Galdino](https://github.com/HugoHanashiro)
+- [@Kauan Cavazani Brianez](https://github.com/KauanCavazaniBrianez)
+- [@Pedro Henrique Jesuino Varela](https://github.com/Coimbra1999)
+- [@Ryan Yuji Miyazato](https://github.com/ryan-miyazato)
+- [@Victor Hugo Marques Do Nascimento](https://github.com/ViHugo03)
 
 
 ## :technologist: Feito com 
