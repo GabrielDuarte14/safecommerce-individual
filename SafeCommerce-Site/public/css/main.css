@@ -13,6 +13,9 @@
     --fonte-normal: 16px;
     --fonte-pequena: 14px;
     --fonte-micro: 12px;
+
+    /* TAMANHOS */
+    --raio-borda: 24px;
     
 }
 
@@ -107,9 +110,9 @@ a:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     height: 100%;
-    width: 18%;
+    width: 20vw;
 }
 
 .but-cadastro, .but-login {
