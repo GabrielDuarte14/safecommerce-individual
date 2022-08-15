@@ -49,6 +49,9 @@ a:hover {
     height: 10vh;
     font-size: 16px;
     border-bottom: 3px solid var(--cor-branca);
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 .header .container {
