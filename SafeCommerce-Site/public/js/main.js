@@ -8,18 +8,17 @@ class myHeader extends HTMLElement {
                 <span class="logo-titulo">SafeCommerce</span>
             </div>
             <div class="navBar">
-                <a class="item-navBar aqui">Home</a>
-                <a class="item-navBar">Serviços</a>
-                <a class="item-navBar">Sobre Nós</a>
-                <a class="item-navBar">Contato</a>
+                <a id="nav_home" href="index.html" class="item-navBar">Home</a>
+                <a id="nav_servicos" href="servicos.html" class="item-navBar">Serviços</a>
+                <a id="nav_sobrenos" href="servicos.html" class="item-navBar">Sobre Nós</a>
+                <a id="nav_download" href="download.html" class="item-navBar">Download</a>
             </div>
             <div class="registro">
                 <button class="but-login">Login</button>
                 <button class="but-cadastro">Cadastro</button>
             </div>
-
         </div>
-    </div>
+    </div> 
         `
     }
 }

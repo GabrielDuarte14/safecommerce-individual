@@ -21,7 +21,7 @@
     align-items: center;
     width:100%;
     height: 90vh;
-    border-radius: 24px;
+    border-radius: var(--raio-borda);
     /* background-color: black; */
     position: relative;
     background-image: url('../assets/banner-home.webp');
@@ -35,7 +35,7 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 24px;
-    background-image: linear-gradient(to right, var(--cor-cinza), rgb(237, 237, 237, 0.95),rgba(255,0,0,0));
+    background-image: linear-gradient(to right, var(--cor-cinza), rgb(237, 237, 237, 0.95),rgba(255,0,0,0), rgba(255,0,0,0));
     width: 100%;
     height: 100%;
     position: absolute;
@@ -76,7 +76,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* border: 2px solid red; */
     width: 100%;
     height: 100vh;
 }
@@ -89,7 +88,7 @@
     width: 100%;
     height: 100%;
     background-color: var(--cor-cinza);
-    border-radius: 24px;
+    border-radius: var(--raio-borda);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -102,3 +101,25 @@
 .social-imagem-2 {
     background-image: url('../assets/social-img2.jpeg');
 }
+
+.box-download {
+    background-color: var(--cor-cinza);
+    border-radius: var(--raio-borda);
+    background-image: url('../assets/social-img3.webp');
+    background-position: bottom;
+    background-size: cover;
+    width: 100%;
+    padding: 5%;
+    height: 55%;
+}
+
+.but-download {
+    padding: 12px;
+    font-size: var(--fonte-media);
+    font-family: var(--fonte-principal);
+    color: white;
+    background-color: var(--cor-secundaria);
+    border: 0;
+    border-radius: 3px;
+}
+
