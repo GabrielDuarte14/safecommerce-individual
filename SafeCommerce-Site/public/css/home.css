@@ -115,8 +115,9 @@
 
 .but-download {
     padding: 12px;
-    font-size: var(--fonte-media);
+    font-size: var(--fonte-normal);
     font-family: var(--fonte-principal);
+    font-weight: var(--fonte-peso);
     color: white;
     background-color: var(--cor-secundaria);
     border: 0;
