@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logar</title>
+    <link rel="stylesheet" href="css/Login.css">
+</head>
+<body>
+    <div class="banner">
+        <div class="cadastro">
+            <div class="div1">
+                <div><img id="icone" src="logo-img.png"></div>
+                <a href="Cadastro.html"><div class="frase">Ainda não tem cadastro? cadastre-se</div></a>
+            </div>
+
+            <div class="div2">
+                <input type="Text" class="ipt" id="email_ipt" 
+                placeholder="Email">
+
+                <input type="password" class="ipt" id="senha_ipt" 
+                placeholder="Senha">
+
+                <button class="bt" onclick="entrar()">Login</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+function entrar() {
+    // aguardar();
+
+    var emailVar = email_ipt.value;
+    var senhaVar = senha_ipt.value;
+
+    if (emailVar == "" || senhaVar == "") {
+        alert("erro");
+        cardErro.style.display = "block"
+        mensagem_erro.innerHTML = "Preencha todos os campos!";
+        // finalizarAguardar();
+        return false;
+    }
+    else {
+        setInterval(sumirMensagem, 5000)
+    }
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            emailServer: emailVar,
+            senhaServer: senhaVar
+        })
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!")
+
+        if (resposta.ok) {
+            console.log(resposta);
+
+            resposta.json().then(json => {
+                console.log(json);
+                console.log(JSON.stringify(json));
+
+                sessionStorage.EMAIL_USUARIO = json.email;
+                sessionStorage.NOME_USUARIO = json.nome;
+                sessionStorage.ID_USUARIO = json.id;
+
+                setTimeout(function () {
+                    window.location = "https://www.google.com/webhp?hl=pt-BR&sa=X&ved=0ahUKEwiZmqeh5MH5AhWPD7kGHdZhBFkQPAgI";
+                }, 1000); // apenas para exibir o loading
+
+            });
+
+        } else {
+
+            console.log("Houve um erro ao tentar realizar o login!");
+
+            resposta.text().then(texto => {
+                console.error(texto);
+                finalizarAguardar(texto);
+            });
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+    return false;
+}
+
+function sumirMensagem() {
+    cardErro.style.display = "none";
+}
+
+</script>

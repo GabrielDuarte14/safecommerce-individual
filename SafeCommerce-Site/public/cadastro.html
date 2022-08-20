@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre-se</title>
+    <link rel="stylesheet" href="css/Cadastro.css">
+</head>
+<body>
+    <div class="banner">
+        <div class="cadastro">
+            <div class="div1">
+                <div><img id="icone" src="logo-img.png"></div>
+                <a href="Login.html"><div class="frase">Já está cadastrado? Entrar</div></a>
+            </div>
+
+            <div class="div2">
+                <input type="Text" class="ipt" id="nome_ipt" 
+                placeholder="nome da Empresa">
+
+                <input type="Text" class="ipt" id="cnpj_ipt" 
+                placeholder="CNPJ">
+
+                <input type="Text" class="ipt" id="email_ipt" 
+                placeholder="Email">
+
+                <input type="password" class="ipt" id="senha_ipt" 
+                placeholder="Senha">
+
+                <input type="password" class="ipt" id="confirm_ipt" 
+                placeholder="Confirmação de senha">
+
+                <button class="bt" onclick="cadastrar()">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    console.log("Antes de cadastrar")
+    function cadastrar() {
+
+        var nomeVar = nome_ipt.value;
+        var cnpjVar = cnpj_ipt.value;
+        var emailVar = email_ipt.value;
+        var senhaVar = senha_ipt.value;
+        var confirmVar = confirm_ipt.value;
+        
+        if (nomeVar == "" ||cnpjVar == "" || emailVar == "" 
+        || senhaVar == "" || confirmVar == "") {
+            alert('Erro');
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "Preencha todos os campos";
+            return false;
+        }
+
+        else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
+            alert('Erro email');
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "Email errado. Utilize @ e '.com'!";
+            // finalizarAguardar();
+            return false;
+        }
+
+        if (senhaVar != confirmVar) {
+            alert('Erro senhas');
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "As senhas inseridas devem ser iguais para prosseguir!";
+            // finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+        console.log("depois de cadastrar")
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                cnpjServer: cnpjVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("Recuperando valores")
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log(sexo)
+                cardErro.style.display = "block"
+                mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
+ 
+                setTimeout(() => {
+                    window.location = "Login.html";
+                }, "2000")
+                
+                limparFormulario();
+                finalizarAguardar();
+                // finalizarAguardar();
+            } else {
+                console.log(sexo)
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            // finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+</script>

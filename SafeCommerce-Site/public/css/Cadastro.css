@@ -1,0 +1,63 @@
+body {
+    margin: 0%;
+    background-color: rgba(0, 0, 0, 0.904);
+}
+
+.banner {
+    width: 100vw;
+    height: 100vh;
+    background-color: #e3d1d5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadastro {
+    width: 70%;
+    height: 70%;
+    background-color: #dc3e1d;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 10px 5px 5px gray;
+}
+
+.div1 {
+    width: 40%;
+    height: 80%;
+    border: 2px white solid;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.div2 {
+    width: 40%;
+    height: 80%;
+    border: 2px white solid;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.ipt {
+    border-radius: 7px;
+    height: 5%;
+    width: 80%;
+}
+
+.bt {
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.frase {
+    text-decoration: none;
+    color: black;
+}
