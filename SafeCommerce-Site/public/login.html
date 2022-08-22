@@ -5,9 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logar</title>
+    <script src="js/main.js"></script>
     <link rel="stylesheet" href="css/Login.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+    <my-header></my-header>
     <div class="banner">
         <div class="cadastro">
             <div class="div1">
@@ -22,10 +25,13 @@
                 <input type="password" class="ipt" id="senha_ipt" 
                 placeholder="Senha">
 
+                <span id="mensagem_erro"></span>
+
                 <button class="bt" onclick="entrar()">Login</button>
             </div>
         </div>
     </div>
+    <my-footer></my-footer>
 </body>
 </html>
 <script>
@@ -38,6 +44,7 @@ function entrar() {
 
     if (emailVar == "" || senhaVar == "") {
         alert("Erro: preencha todos os campos");
+        mensagem_erro.innerHTML = "Preencha todos os campos!";
         return false;
     }
     else {
