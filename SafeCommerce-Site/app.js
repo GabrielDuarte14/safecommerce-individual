@@ -1,17 +1,20 @@
  process.env.AMBIENTE_PROCESSO = "desenvolvimento";
 //process.env.AMBIENTE_PROCESSO = "producao";
 
-var express = require("express");
-var cors = require("cors");
-var path = require("path");
-var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const dotenv = require('dotenv');
+const PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
 
-var app = express();
+const app = express();
 
-var indexRouter = require("./src/routes/index");
-var usuarioRouter = require("./src/routes/usuarios");
+const indexRouter = require("./src/routes/index");
+const usuarioRouter = require("./src/routes/usuarios");
 const serverRouter = require('./src/routes/servers');
 const { createPages } = require('./src/controllers/serverController');
+
+dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

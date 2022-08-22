@@ -30,7 +30,7 @@ for i in result:
             "<link rel=\"icon\" href=\"../assets/images/logo-icon.png\">\n"
             "<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\" crossorigin=\"anonymous\">\n"
             "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css\">\n"
-            "<link rel=\"stylesheet\" href=\"../css/main.css\">\n"
+            "<link rel=\"stylesheet\" href=\"../dashboard/css/main.css\">\n"
             "</head>\n"
         )
         #fim head
@@ -67,8 +67,8 @@ for i in result:
         #fim body
 
         page.write(
-            "<script src=\"../js/main.js\"></script>\n"
-            "<script src=\"../js/script.js\"></script>\n"
+            "<script src=\"../dashboard/js/main.js\"></script>\n"
+            "<script src=\"../dashboard/js/script.js\"></script>\n"
         )
 
         page.write("</html>\n")

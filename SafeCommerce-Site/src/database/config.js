@@ -1,5 +1,6 @@
 var mysql = require("mysql2");
 var sql = require('mssql');
+require('dotenv').config();
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
@@ -17,15 +18,15 @@ var sqlServerConfig = {
     }
 }
 
-// CONEXÃO DO MYSQL WORKBENCH (LOCAL)
-var mySqlConfig = {
-    host: "localhost",
-    database: "SafeCommerce",
-    user: "root",
-    password: "@Bateria14",
+// CONEXÃO DO MYSQL WORKBENCH (LOCAL) 
+const mySqlConfig = {
+    host: `${process.env.MYSQL_HOST}`,
+    user: `${process.env.MYSQL_USER}`,
+    database: `${process.env.MYSQL_DB}`,
+    password: `${process.env.MYSQL_PASSWORD}`
 };
 
-function executar(instrucao) {
+function execute(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         return new Promise(function (resolve, reject) {
@@ -67,5 +68,5 @@ function executar(instrucao) {
 }
 
 module.exports = {
-    executar
+    execute
 }

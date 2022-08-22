@@ -6,7 +6,7 @@ function entrar(email, senha) {
         SELECT * FROM empresa WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+    return database.execute(instrucao);
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
@@ -21,7 +21,7 @@ function cadastrar(nome, cnpj, email, senha) {
         INSERT INTO empresa (nome, cnpj, email, senha) VALUES ('${nome}', '${cnpj}', '${email}', '${senha}');
     `;
             console.log("Executando a instrução SQL: \n" + instrucao);
-            return database.executar(instrucao);
+            return database.execute(instrucao);
         }
 
 console.log("Instrução mysql")
