@@ -10,6 +10,8 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
+const serverRouter = require('./src/routes/servers');
+const { createPages } = require('./src/controllers/serverController');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -19,6 +21,8 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
+app.use("/servers", serverRouter);
+app.use("/python", createPages);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando!\n 

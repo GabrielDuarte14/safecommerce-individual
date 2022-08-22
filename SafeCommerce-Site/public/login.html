@@ -37,14 +37,11 @@ function entrar() {
     var senhaVar = senha_ipt.value;
 
     if (emailVar == "" || senhaVar == "") {
-        alert("erro");
-        cardErro.style.display = "block"
-        mensagem_erro.innerHTML = "Preencha todos os campos!";
-        // finalizarAguardar();
+        alert("Erro: preencha todos os campos");
         return false;
     }
     else {
-        setInterval(sumirMensagem, 5000)
+        // setInterval(sumirMensagem, 5000)
     }
 
     console.log("FORM LOGIN: ", emailVar);
@@ -74,7 +71,7 @@ function entrar() {
                 sessionStorage.ID_USUARIO = json.id;
 
                 setTimeout(function () {
-                    window.location = "https://www.google.com/webhp?hl=pt-BR&sa=X&ved=0ahUKEwiZmqeh5MH5AhWPD7kGHdZhBFkQPAgI";
+                    window.location = "./dashboard/painel.html";
                 }, 1000); // apenas para exibir o loading
 
             });
@@ -85,7 +82,7 @@ function entrar() {
 
             resposta.text().then(texto => {
                 console.error(texto);
-                finalizarAguardar(texto);
+                // finalizarAguardar(texto);
             });
         }
 
@@ -94,10 +91,6 @@ function entrar() {
     })
 
     return false;
-}
-
-function sumirMensagem() {
-    cardErro.style.display = "none";
 }
 
 </script>

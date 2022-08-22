@@ -1,36 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/sobreNos.css">
     <link rel="icon" href="assets/logo-icon.png">
+    <script src="js/main.js"></script>
 
     <title>SafeCommerce</title>
 </head>
-<body>
-    
-    <div class="header">
-        <div class="container">
-            <div class="marca">
-                <img class="logo" src="assets/logo-img.png" alt="">
-                <span class="logo-titulo">SafeCommerce</span>
-            </div>
-            <div class="navBar">
-                <a class="item-navBar">Home</a>
-                <a class="item-navBar">Serviços</a>
-                <a class="item-navBar aqui">Sobre Nós</a>
-                <a class="item-navBar">Contato</a>
-            </div>
-            <div class="registro">
-                <button class="but-login">Login</button>
-                <button class="but-cadastro">Cadastro</button>
-            </div>
 
+<body>
+
+    <my-header></my-header>
+
+    <div class="about-us-banner">
+        <div class="container">
+            <div class="box-banner-img-fundo">
+                <div class="box-banner">
+                    <span class="titulo">O MELHOR PARA TU</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-us-text">
+        <div class="container">
+            <h2>Seu negócio mais estável</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo porro veritatis atque nam cum suscipit
+                commodi ipsum quidem nihil quae dolorum tempore, quis praesentium voluptatem sapiente corporis autem
+                quisquam assumenda. Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita harum tempore,
+                iusto ducimus, eum eaque earum dignissimos eius, beatae sunt explicabo quod eos. Reprehenderit porro
+                possimus assumenda explicabo aliquid? Placeat. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Eligendi, et sequi. Laborum nesciunt quo officia veritatis ipsam obcaecati molestiae repellat tenetur,
+                incidunt accusantium aspernatur, quidem magni aut! Eveniet, qui atque.</p>
+        </div>
+    </div>
+
+    <div class="about-us-team">
+        <div class="container">
+            <div class="linha">
+                <div class="team-member">
+                    <div class="cointainer-picture">
+                    </div>
+                    <h3>alalla</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis cumque temporibus hic doloremque ipsam voluptates illo rerum optio repellendus. Quidem, ab a praesentium totam maiores fugiat incidunt officia facilis temporibus.
+                    </p>
+                </div>
+                <div class="team-member"></div>
+                <div class="team-member"></div>
+            </div>
+            <div class="linha">
+                <div class="team-member"></div>
+                <div class="team-member"></div>
+                <div class="team-member"></div>
+            </div>
         </div>
     </div>
 
 </body>
+
 </html>
+<script>
+    document.getElementById('nav_sobrenos').classList.add('aqui');
+</script>
