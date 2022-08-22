@@ -12,7 +12,7 @@
         <div class="cadastro">
             <div class="div1">
                 <div><img id="icone" src="logo-img.png"></div>
-                <a href="Login.html"><div class="frase">Já está cadastrado? Entrar</div></a>
+                <a href="login.html"><div class="frase">Já está cadastrado? Entrar</div></a>
             </div>
 
             <div class="div2">
@@ -71,12 +71,12 @@
             return false;
         }
         else {
-            setInterval(sumirMensagem, 5000)
+            console.log("foi")
         }
         console.log("depois de cadastrar")
 
         // Enviando o valor da nova input
-        fetch("/usuarios/cadastrar", {
+        fetch("/usuarios/cadastrar", {  
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -94,12 +94,11 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                console.log(sexo)
-                cardErro.style.display = "block"
-                mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
+                // cardErro.style.display = "block"
+                // mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
  
                 setTimeout(() => {
-                    window.location = "Login.html";
+                    window.location = "./login.html";
                 }, "2000")
                 
                 limparFormulario();
@@ -116,8 +115,4 @@
 
         return false;
     }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
-</script>
+    </script>

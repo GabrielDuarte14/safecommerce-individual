@@ -14,8 +14,8 @@ class myHeader extends HTMLElement {
                 <a id="nav_download" href="download.html" class="item-navBar">Download</a>
             </div>
             <div class="registro">
-                <a href="Login.html"><button class="but-login">Login</button></a>
-                <a href="Cadastro.html"><button class="but-cadastro">Cadastro</button></a>
+                <a href="login.html"><button class="but-login">Login</button></a>
+                <a href="cadastro.html"><button class="but-cadastro">Cadastro</button></a>
             </div>
         </div>
     </div> 
