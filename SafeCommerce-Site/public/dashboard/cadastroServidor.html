@@ -150,6 +150,7 @@
   const indexPage = false;
 
   document.getElementById('menu-cadastrar').classList.add('active');
+  document.getElementById('company_name').innerText = sessionStorage.NOME_USUARIO;
 
   function registerServer() {
     var modelVar = model_input.value;
