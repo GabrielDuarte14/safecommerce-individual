@@ -15,6 +15,7 @@ function registerServer(req, res) {
     var cpuAmount = req.body.cpuAmountServer;
     var ramMemory = req.body.ramMemoryServer;
     var diskAmount = req.body.diskAmountServer;
+    var idCompany = req.body.idCompanyServer;
 
     if(model === undefined) {
         res.status(400).send("O modelo está undefined!");
@@ -28,7 +29,7 @@ function registerServer(req, res) {
         res.status(400).send("A quantidade de disco está undefined!");
     }
 
-    serverModel.registerServer(model, os, cpuAmount, ramMemory, diskAmount)
+    serverModel.registerServer(model, os, cpuAmount, ramMemory, diskAmount, idCompany)
         .then(
             function (result) {
                 res.json(result);
@@ -46,9 +47,9 @@ function registerServer(req, res) {
 };
 
 function getServers(req, res) {
-    var table = req.body.tableServer;
+    var idCompany = req.body.idCompanyServer;
 
-    serverModel.getServers(table)
+    serverModel.getServers(idCompany)
         .then(
             function(result) {
                 res.json(result);

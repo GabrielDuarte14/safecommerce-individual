@@ -113,7 +113,7 @@ function closeDropdown() {
 
 
 function getData(index) {
-    var tableVar = "servidor"
+    var idCompanyVar = sessionStorage.ID_USUARIO;
 
     fetch("/servers/getServers", {
         method: "POST",
@@ -121,7 +121,7 @@ function getData(index) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            tableServer: tableVar
+            idCompanyServer: idCompanyVar
         })
     }).then((answer) => {
         console.log(answer);

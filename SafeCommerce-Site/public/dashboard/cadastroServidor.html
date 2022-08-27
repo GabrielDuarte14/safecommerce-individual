@@ -157,6 +157,7 @@
     var cpuAmountVar = cpuAmount_input.value;
     var ramMemoryVar = ramMemory_input.value;
     var diskAmountVar = diskAmount_input.value;
+    var idCompanyVar = sessionStorage.ID_USUARIO;
 
     if(modelVar === '' || osVar === '' || cpuAmountVar === '' || ramMemoryVar === '' || diskAmountVar === '') {
       alert("ERRO: campos em branco! Tente novamente.");
@@ -173,7 +174,8 @@
         osServer: osVar,
         cpuAmountServer: cpuAmountVar,
         ramMemoryServer: ramMemoryVar,
-        diskAmountServer: diskAmountVar
+        diskAmountServer: diskAmountVar,
+        idCompanyServer: idCompanyVar
       })
     }).then((answer) => {
 
