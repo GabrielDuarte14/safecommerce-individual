@@ -191,3 +191,12 @@ function setCurrentServerPage(id) {
         console.log(`Erro: ${answer}`);
     });
 }
+
+// Sair da dashboard
+
+var btnExit = document.getElementById('btn_exit');
+
+btnExit.addEventListener("click", () => {
+    sessionStorage.clear();
+    window.location = "../login.html"
+})

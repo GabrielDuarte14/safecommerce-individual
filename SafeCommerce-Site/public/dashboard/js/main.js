@@ -12,11 +12,11 @@ class mySidebar extends HTMLElement {
                 </div>
                 <ul class="navbar-nav align-self-stretch">
                     <li class="sidebar-header">Menu</li>
-                    <li><a href="./painel.html" class="nav-link text-left options-menu" role="button"><i class="bi bi-bar-chart"></i>Visão Geral</a></li>
+                    <li><a href="./painel.html" class="nav-link text-left options-menu" id="menu-painel" role="button"><i class="bi bi-bar-chart"></i>Visão Geral</a></li>
                     <li class="sidebar-header">Servidores</li>
                     <span id="server_links"></span>
                     <li class="sidebar-header">Cadastro de servidores</li>
-                    <li><a href="./cadastroServidor.html" class="nav-link text-left options-menu" role="button"><i class="bi bi-box-arrow-in-right"></i>Cadastrar</a></li>
+                    <li><a href="./cadastroServidor.html" class="nav-link text-left options-menu" id="menu-cadastrar" role="button"><i class="bi bi-box-arrow-in-right"></i>Cadastrar</a></li>
                 </ul>
             </div>
         </nav>
@@ -65,11 +65,11 @@ class myNavbar extends HTMLElement {
                                 <span class="bi bi-person-circle img-profile"></span>
                             </a></li>
                             <div class="dropdown-content" id="dropdown-content">
-                                <a href="">Company user</a>
+                                <a href="#">Company user</a>
                                 <div class="divisor"></div>
-                                <a href="">Configurações</a>
-                                <a href="">
-                                    <div>
+                                <a href="#">Configurações</a>
+                                <a href="#">
+                                    <div id="btn_exit">
                                         Sair
                                         <i class="bi bi-box-arrow-left"></i>
                                     </div>
