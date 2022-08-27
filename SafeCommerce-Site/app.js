@@ -12,7 +12,7 @@ const app = express();
 const indexRouter = require("./src/routes/index");
 const usuarioRouter = require("./src/routes/usuarios");
 const serverRouter = require('./src/routes/servers');
-const { createPages } = require('./src/controllers/serverController');
+// const { createPages } = require('./src/controllers/serverController');
 
 dotenv.config();
 
@@ -25,7 +25,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/servers", serverRouter);
-app.use("/python", createPages);
+// app.use("/python", createPages);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando!\n 

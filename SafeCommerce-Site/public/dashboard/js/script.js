@@ -97,18 +97,20 @@ function closeDropdown() {
 
 // Recebe dados do banco e exibe na sidebar
 
-function createPages() {
-    fetch("/python/createPages", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(() => {
-        console.log("Páginas criadas com sucesso");
-    }).catch(() => {
-        console.log("ERRO")
-    })
-}
+// function createPages() {
+//     fetch("/python/createPages", {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/json"
+//         }
+//     }).then(() => {
+//         console.log("Páginas criadas com sucesso");
+//     }).catch(() => {
+//         console.log("ERRO")
+//     })
+// }
+
+
 
 function getData(index) {
     var tableVar = "servidor"
@@ -133,7 +135,7 @@ function getData(index) {
                 setCards(servers);
                 setLinks(servers);    
             } else {
-                setLinks(servers);    
+                setLinks(servers); 
             }
         });
 
@@ -145,7 +147,6 @@ function getData(index) {
     }).catch((answer) => {
         console.log(`Erro: ${answer}`);
     });
-
 }
 
 function setLinks(data) {
@@ -154,7 +155,39 @@ function setLinks(data) {
     for(let i in data) {
         serverLinks.innerHTML += 
         `
-        <li><a href="./${data[i].modelo}.html" class="nav-link text-left options-menu" role="button"><i class="bi bi-hdd"></i>${data[i].modelo}</a></li>
+        <li><a onclick="setCurrentServerPage(${data[i].idServidor})" class="nav-link text-left options-menu" role="button"><i class="bi bi-hdd"></i>${data[i].modelo}</a></li>
         `
     }
 };
+
+function setCurrentServerPage(id) {
+    fetch("/servers/getCurrentServer", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idServer: id
+        })
+    }).then((answer) => {
+        console.log(answer);
+
+        answer.json().then(json => {   
+            sessionStorage.CURRENT_SERVER = ''
+            sessionStorage.CURRENT_SERVER = JSON.stringify(json);
+            sessionStorage.ID_SERVER = json[0].idServidor;
+            sessionStorage.MODEL_SERVER = json[0].modelo;
+            var currentServer = JSON.parse(sessionStorage.CURRENT_SERVER);
+            console.log(json);  
+
+            window.location = "./servidores.html";
+        });
+        if(answer.ok) {
+            console.log("A requisição foi um sucesso!");
+        } else {
+            console.log("ERROR: answer is not ok");
+        }
+    }).catch((answer) => {
+        console.log(`Erro: ${answer}`);
+    });
+}

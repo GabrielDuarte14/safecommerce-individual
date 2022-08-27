@@ -120,6 +120,11 @@ body, html {
     letter-spacing: 2px;
 }
 
+.options-menu {
+    color: #fff !important;
+    cursor: pointer;
+}
+
 .navbar-nav li .options-menu:active, .options-menu:hover, .active {
     border-left: 4px solid #fff;
 }

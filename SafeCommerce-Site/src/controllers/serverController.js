@@ -1,13 +1,13 @@
 const serverModel = require("../models/serverModel");
 
-const spawn = require('child_process').spawn;
+// const spawn = require('child_process').spawn;
 
-function createPages(req, res) {
-    var process = spawn('python', ['./public/python/createPage.py']);
-    process.stdout.on('data', (data) => {
-        console.log(data)
-    })
-}  
+// function createPages(req, res) {
+//     var process = spawn('python', ['./public/python/createPage.py']);
+//     process.stdout.on('data', (data) => {
+//         console.log(data)
+//     })
+// }  
 
 function registerServer(req, res) {
     var model = req.body.modelServer;
@@ -66,10 +66,10 @@ function getServers(req, res) {
 }
 
 function getCurrentServer(req, res) {
-    var server = req.body.currentServer;
-    console.log(server);
+    var id = req.body.idServer;
+    console.log(id);
 
-    serverModel.getCurrentServer(server)
+    serverModel.getCurrentServer(id)
         .then(
             function(result) {
                 res.json(result);
@@ -90,6 +90,6 @@ function getCurrentServer(req, res) {
 module.exports = {
     registerServer,
     getServers,
-    getCurrentServer,
-    createPages
+    getCurrentServer
+    // createPages
 }
