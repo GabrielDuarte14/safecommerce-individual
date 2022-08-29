@@ -36,7 +36,7 @@ function entrar(req, res) {
 
 }
 
-function cadastrar(req, res) {
+function cadastrarEmpresa(req, res) {
     var nome = req.body.nomeServer;
     var cnpj = req.body.cnpjServer;
     var email = req.body.emailServer;
@@ -51,7 +51,7 @@ function cadastrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
-        usuarioModel.cadastrar(nome, cnpj, email, senha)
+        usuarioModel.cadastrarEmpresa(nome, cnpj, email, senha)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -60,7 +60,37 @@ function cadastrar(req, res) {
                 function (erro) {
                     console.log(erro);
                     console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        "\nHouve um erro ao realizar o cadastro da empresa! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function cadastrarUsuario(req, res) {
+    var nome = req.body.nomeServer;
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else {
+        usuarioModel.cadastrarUsuario(nome, email, senha)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro do usuário! Erro: ",
                         erro.sqlMessage
                     );
                     res.status(500).json(erro.sqlMessage);
@@ -71,5 +101,6 @@ function cadastrar(req, res) {
 
 module.exports = {
     entrar,
-    cadastrar
+    cadastrarEmpresa,
+    cadastrarUsuario
 }
