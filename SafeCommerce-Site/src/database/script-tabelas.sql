@@ -9,6 +9,15 @@ CREATE TABLE empresa (
     cnpj CHAR(18)
 );
 
+CREATE TABLE usuario (
+	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    email VARCHAR(45),
+    senha VARCHAR(45),
+    fkEmpresa INT,
+    FOREIGN KEY(fkEmpresa) REFERENCES empresa(idEmpresa)
+);
+
 CREATE TABLE servidor (
 	idServidor INT PRIMARY KEY AUTO_INCREMENT,
     modelo VARCHAR(45),

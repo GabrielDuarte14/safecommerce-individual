@@ -1,4 +1,3 @@
-import re
 import pymysql
 
 db = pymysql.connect(host="localhost", user="aluno", passwd="sptech", db="safecommerce");
