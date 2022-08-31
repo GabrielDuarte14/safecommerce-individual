@@ -130,17 +130,17 @@ function enviarEmail(email, senha) {
         var transporter = nodemailer.createTransport({
             service: 'outlook',
             auth: {
-                user: 'kauan.brianez@sptech.school',
-                pass: '#Gf54152075899',
+                user: 'safecommerce@outlook.com.br',
+                pass: 'Grupo8-CCO',
             }
         });
 
         var mailOptions = {
-            from: 'kauan.brianez@sptech.school',
-            to: 'kauan.cavazani@gmail.com',
+            from: 'safecommerce@outlook.com.br',
+            to: 'kauan.brianez@sptech.school',
             subject: 'Acesso a plataforma SafeCommerce!',
-            html: '<h1>Bem vindo ao SafeCommerce!!!</h1><br><br>' +
-            "<p>Aqui está seu login para acessar a plataforma: </p><br><br>" +
+            html: '<h1>Bem vindo ao SafeCommerce!!!</h1><br>' +
+            "<p>Aqui está seu login para acessar a plataforma: </p><br>" +
             `Email: ${email} <br>` +
             `Senha: ${senha}`,
         };
