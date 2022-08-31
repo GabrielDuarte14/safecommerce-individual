@@ -1,0 +1,8 @@
+.card-size {
+    height: 115px !important;
+}
+
+.card-body i {
+    color: #dc3e1d;
+    font-size: 30px !important;
+}

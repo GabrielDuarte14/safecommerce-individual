@@ -1,9 +1,3 @@
-:root {
-    --cor-principal: #1c44a4;
-    --cor-secundaria: #dc3e1d;
-    --cor-fundo: #e3d1d5;
-}
-
 body {
     position: relative;
     overflow-x: hidden;

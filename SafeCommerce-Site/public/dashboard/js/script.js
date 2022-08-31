@@ -1,3 +1,23 @@
+//sessão
+function validateSession() {
+    var companyName = sessionStorage.NOME_EMPRESA;
+    var userName = sessionStorage.NOME_USUARIO;
+
+    var spanCompany = document.getElementById('company_name');
+    var spanName = document.getElementById('user_name');
+
+    if(userName != null) {
+        if (spanName != undefined) {
+            spanName.innerHTML = userName;
+        }
+    }
+    if(companyName != null) {
+        if(spanCompany != undefined) {
+            spanCompany.innerHTML = companyName;
+        }
+    }
+}
+
 // Abrir e fechar a barra lateral
 var bar = document.getElementById("bar");
 var sidebar = document.getElementById("sidebar-wrapper");
