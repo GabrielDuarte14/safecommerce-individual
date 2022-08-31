@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+var nodemailer = require('nodemailer');
 
 function entrar(req, res) {
     var email = req.body.emailServer;
@@ -71,10 +72,12 @@ function cadastrarEmpresa(req, res) {
 }
 
 function consultarEmpresa(nome, email) {
+    var emailEmpresa = nome.replace(" ", "_");
+
     usuarioModel.consultarEmpresa(nome, email)
     .then(
         function (resultado) {
-            cadastrarUsuario(resultado);
+            cadastrarUsuario(resultado, emailEmpresa);
         }
     ).catch(
         function (erro) {
@@ -88,12 +91,12 @@ function consultarEmpresa(nome, email) {
     );
 }
 
-function cadastrarUsuario(res) {
+function cadastrarUsuario(res, palavraChave) {
     var nome = 'admin';
-    var email = 'admin@email.com';
-    var senha = 'admin123';
+    var email = 'admin@' + palavraChave + '.com';
+    var senha = 'admin_' + palavraChave;
     var idEmpresa = res[0].idEmpresa;
-    console.log(idEmpresa)
+    console.log(email)
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
@@ -103,7 +106,7 @@ function cadastrarUsuario(res) {
     } else {
         usuarioModel.cadastrarUsuario(nome, email, senha, idEmpresa)
             .then(
-                // enviarEmail(email, senha),
+                enviarEmail(email, senha),
                 console.log("Usuário cadastrado com sucesso!")
             ).catch(    
                 function (erro) {
@@ -119,18 +122,36 @@ function cadastrarUsuario(res) {
 }
 
 function enviarEmail(email, senha) {
-    var nome = req.body.nomeServer;
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
-
-    if (nome == undefined) {
-        res.status(400).send("Seu nome está undefined!");
-    } else if (email == undefined) {
+    if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
+        var transporter = nodemailer.createTransport({
+            service: 'outlook',
+            auth: {
+                user: 'kauan.brianez@sptech.school',
+                pass: '#Gf54152075899',
+            }
+        });
 
+        var mailOptions = {
+            from: 'kauan.brianez@sptech.school',
+            to: 'kauan.cavazani@gmail.com',
+            subject: 'Acesso a plataforma SafeCommerce!',
+            html: '<h1>Bem vindo ao SafeCommerce!!!</h1><br><br>' +
+            "<p>Aqui está seu login para acessar a plataforma: </p><br><br>" +
+            `Email: ${email} <br>` +
+            `Senha: ${senha}`,
+        };
+
+        transporter.sendMail(mailOptions, function(error, info) {
+            if(error) {
+                console.log(error);
+            } else {
+                console.log('Email enviado: ' + info.response);
+            }
+        })
     }
 }
 

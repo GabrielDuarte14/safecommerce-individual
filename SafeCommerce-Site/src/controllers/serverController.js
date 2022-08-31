@@ -27,6 +27,8 @@ function registerServer(req, res) {
         res.status(400).send("A memória RAM está undefined!");
     } else if(diskAmount === undefined) {
         res.status(400).send("A quantidade de disco está undefined!");
+    } else if(idCompany === undefined) {
+        res.status(400).send("O ID da empresa está undefined!");
     }
 
     serverModel.registerServer(model, os, cpuAmount, ramMemory, diskAmount, idCompany)

@@ -72,9 +72,10 @@ function entrar() {
                 console.log(json);
                 console.log(JSON.stringify(json));
 
-                sessionStorage.EMAIL_USUARIO = json.email;
-                sessionStorage.NOME_USUARIO = json.nome;
-                sessionStorage.ID_USUARIO = json.idEmpresa;
+                sessionStorage.EMAIL_USUARIO = json.emailUser;
+                sessionStorage.NOME_USUARIO = json.nomeUser;
+                sessionStorage.ID_EMPRESA = json.idEmpresa;
+                sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
 
                 setTimeout(function () {
                     window.location = "./dashboard/painel.html";

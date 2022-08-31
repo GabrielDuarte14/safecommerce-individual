@@ -113,8 +113,8 @@ function closeDropdown() {
 
 
 function getData(index) {
-    var idCompanyVar = sessionStorage.ID_USUARIO;
-
+    var idCompanyVar = sessionStorage.ID_EMPRESA;
+    
     fetch("/servers/getServers", {
         method: "POST",
         headers: {
