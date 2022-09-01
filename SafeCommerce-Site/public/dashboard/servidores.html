@@ -102,6 +102,110 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-7">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold">Uso da CPU (%)</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-area">
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div></div>
+                                                </div>
+                                                <canvas id="CPULineChart" class="chartjs-render-monitor"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-5">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold">Memória em disco</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-pie pt-4 pb-2">
+                                            <div class="chartjs-size-monitor chart-size">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div></div>
+                                                </div>
+                                                <canvas id="CPUBarChart" class="chartjs-render-monitor"></canvas>
+                                            </div>
+                                            <div class="mt-4 text-center small">
+                                                <span class="mr-2">
+                                                    <i class="bi bi-circle-fill circle-size"></i>
+                                                    Total
+                                                </span>
+                                                <span class="mr-2">
+                                                    <i class="bi bi-circle-fill circle-size color-grey"></i>
+                                                    Usado
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-7">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold">Uso da RAM (%)</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-area">
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div></div>
+                                                </div>
+                                                <canvas id="RAMLineChart" class="chartjs-render-monitor"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-5">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold">Memória RAM</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-pie pt-4 pb-2">
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div></div>
+                                                </div>
+                                                <canvas id="RAMBarChart" class="chartjs-render-monitor"></canvas>
+                                            </div>
+                                            <div class="mt-4 text-center small">
+                                                <span class="mr-2">
+                                                    <i class="bi bi-circle-fill circle-size"></i>
+                                                    Total
+                                                </span>
+                                                <span class="mr-2">
+                                                    <i class="bi bi-circle-fill circle-size color-grey"></i>
+                                                    Usado
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Fim do conteudo da página -->
@@ -112,6 +216,7 @@
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/main.js"></script>
 <script src="./js/script.js"></script>
 </html>
@@ -133,5 +238,122 @@
 
     setPage()
     getData(indexPage);
+
+    function CPULineGraph() {
+        const labels = [
+            '22:06',
+            '22:07',
+            '22:08',
+            '22:09',
+            '22:10',
+            '22:11',
+        ];
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'CPU',
+                backgroundColor: '#dc3e1d',
+                borderColor: '#dc3e1d',
+                data: [0, 10, 20, 40, 60, 80, 100],
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+
+        const CPULineChart = new Chart(
+            document.getElementById('CPULineChart'),
+            config
+        );
+    }
+
+    function CPUBarGraph() {
+        const data = {
+            datasets: [{
+                label: 'My First Dataset',
+                data: [40, 60],
+                backgroundColor: [
+                    '#808080',
+                    '#dc3e1d',
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        const config = {
+            type: 'pie',
+            data: data,
+        };
+
+        const CPUBarChart = new Chart(
+            document.getElementById('CPUBarChart'),
+            config
+        );
+    }
+
+    function RAMLineGraph() {
+        const labels = [
+            '22:06',
+            '22:07',
+            '22:08',
+            '22:09',
+            '22:10',
+            '22:11',
+        ];
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'RAM',
+                backgroundColor: '#dc3e1d',
+                borderColor: '#dc3e1d',
+                data: [0, 10, 20, 40, 60, 80, 100],
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+
+        const RAMLineChart = new Chart(
+            document.getElementById('RAMLineChart'),
+            config
+        );
+    }
+
+    function RAMBarGraph() {
+        const data = {
+            datasets: [{
+                label: 'My First Dataset',
+                data: [60, 40],
+                backgroundColor: [
+                    '#808080',
+                    '#dc3e1d',
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        const config = {
+            type: 'pie',
+            data: data,
+        };
+
+        const RAMBarChart = new Chart(
+            document.getElementById('RAMBarChart'),
+            config
+        );
+    }
+
+    CPULineGraph()
+    CPUBarGraph()
+    RAMLineGraph()
+    RAMBarGraph()
 
 </script>
