@@ -20,7 +20,7 @@
 }
 
 .color-grey {
-    color: grey !important;
+    color: #808080 !important;
 }
 
 #CPUBarChart, #RAMBarChart {
