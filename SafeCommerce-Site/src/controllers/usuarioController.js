@@ -77,7 +77,7 @@ function consultarEmpresa(nome, email) {
     usuarioModel.consultarEmpresa(nome, email)
     .then(
         function (resultado) {
-            cadastrarUsuario(resultado, emailEmpresa);
+            cadastrarUsuarioAdmin(resultado, emailEmpresa);
         }
     ).catch(
         function (erro) {
@@ -91,12 +91,12 @@ function consultarEmpresa(nome, email) {
     );
 }
 
-function cadastrarUsuario(res, palavraChave) {
+function cadastrarUsuarioAdmin(res, palavraChave) {
     var nome = 'admin';
     var email = 'admin@' + palavraChave + '.com';
     var senha = 'admin_' + palavraChave;
     var idEmpresa = res[0].idEmpresa;
-    console.log(email)
+
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
@@ -104,10 +104,43 @@ function cadastrarUsuario(res, palavraChave) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
-        usuarioModel.cadastrarUsuario(nome, email, senha, idEmpresa)
+        usuarioModel.cadastrarUsuarioAdmin(nome, email, senha, idEmpresa)
             .then(
                 enviarEmail(email, senha),
                 console.log("Usuário cadastrado com sucesso!")
+            ).catch(    
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro do usuário! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function cadastrarUsuarioComum(req, res) {
+    var nome = req.body.nameServer;
+    var email = req.body.emailServer;
+    var senha = req.body.passwdServer;
+    var idEmpresa = req.body.idCompanyServer;
+    
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");
+    } else if (idEmpresa == undefined) {
+        res.status(400).send("O id da empresa está undefined!");
+    } else {
+        usuarioModel.cadastrarUsuarioComum(nome, email, senha, idEmpresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
             ).catch(    
                 function (erro) {
                     console.log(erro);
@@ -158,6 +191,7 @@ function enviarEmail(email, senha) {
 module.exports = {
     entrar,
     cadastrarEmpresa,
-    cadastrarUsuario,
+    cadastrarUsuarioAdmin,
+    cadastrarUsuarioComum,
     consultarEmpresa
 }

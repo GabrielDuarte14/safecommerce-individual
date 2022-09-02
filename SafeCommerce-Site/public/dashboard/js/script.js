@@ -115,23 +115,6 @@ function closeDropdown() {
 
 // Fim do dropdown
 
-// Recebe dados do banco e exibe na sidebar
-
-// function createPages() {
-//     fetch("/python/createPages", {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json"
-//         }
-//     }).then(() => {
-//         console.log("Páginas criadas com sucesso");
-//     }).catch(() => {
-//         console.log("ERRO")
-//     })
-// }
-
-
-
 function getData(index) {
     var idCompanyVar = sessionStorage.ID_EMPRESA;
     

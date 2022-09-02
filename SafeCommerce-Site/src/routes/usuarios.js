@@ -8,8 +8,12 @@ router.post("/cadastrarEmpresa", function (req, res) {
     usuarioController.cadastrarEmpresa(req, res);
 })
 
-router.post("/cadastrarUsuario", function (req, res) {
-    usuarioController.cadastrarUsuario(req, res);
+router.post("/cadastrarUsuarioAdmin", function (req, res) {
+    usuarioController.cadastrarUsuarioAdmin(req, res);
+})
+
+router.post("/cadastrarUsuarioComum", function (req, res) {
+    usuarioController.cadastrarUsuarioComum(req, res);
 })
 
 router.post("/enviarEmail", function (req, res) {

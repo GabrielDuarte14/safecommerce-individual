@@ -8,7 +8,7 @@ class mySidebar extends HTMLElement {
                         <img class="logo-icon" src="./assets/images/logo-icon2.png">
                         <span class="align-middle"><strong>SafeCommerce</strong></span>
                     </a>
-                    <i class="bi bi-x-lg" id="btn-close" role="button"></i>
+                    <i class="bi bi-x-lg" id="btn-close" onclick="closeSideBar()" role="button"></i>
                 </div>
                 <ul class="navbar-nav align-self-stretch">
                     <li class="sidebar-header">Menu</li>
@@ -67,7 +67,7 @@ class myNavbar extends HTMLElement {
                             <div class="dropdown-content" id="dropdown-content">
                                 <a href="#" id="company_name">Company user</a>
                                 <div class="divisor"></div>
-                                <a href="#">Configurações</a>
+                                <a href="./cadastroUsuario.html">Cadastrar Usuário</a>
                                 <a href="#">
                                     <div id="btn_exit">
                                         Sair
