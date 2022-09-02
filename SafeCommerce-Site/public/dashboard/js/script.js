@@ -1,3 +1,6 @@
+var btnRegisterUser = document.getElementById('btn_registerUser')
+var btnRegisterServer = document.getElementById('btn_registerServer')
+
 //sessão
 function validateSession() {
     var companyName = sessionStorage.NOME_EMPRESA;
@@ -15,6 +18,13 @@ function validateSession() {
         if(spanCompany != undefined) {
             spanCompany.innerHTML = companyName;
         }
+    }
+    if(userName == 'admin') {
+        btnRegisterUser.style.display = 'block';
+        btnRegisterServer.style.display = 'block';
+    } else {
+        btnRegisterUser.style.display = 'none';
+        btnRegisterServer.style.display = 'none';
     }
 }
 
