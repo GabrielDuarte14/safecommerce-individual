@@ -40,12 +40,28 @@ body {
     font-size: 25px;
 }
 
+#erro{
+    width: 20%;
+    height: 10%;
+    margin-right: 20px;
+    margin-bottom: 300px;
+    border-radius: 20px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    padding: 15px;
+    padding-right: 10px;
+}
+
 #mensagem_erro {
-    height: 1vh;
-    width: 100%;
-    text-align: center;
-    font-size: var(--fonte-micro);
-    color: white;
+    color: #dc3e1d;
+    font-family: var(--fonte-principal);
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .ipt {
@@ -56,13 +72,14 @@ body {
     border: 0;
     border-bottom: 2px solid gray;
     border-radius: 5px;
+    outline: none;
 }
 
 input::placeholder{
     color: gray;
   }
 
-input:hover{
+input:hover, input:focus{
     border: 0;
     border-bottom: 2px solid #dc3e1d;
 }

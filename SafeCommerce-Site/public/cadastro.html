@@ -8,10 +8,15 @@
     <script src="js/main.js"></script>
     <link rel="stylesheet" href="css/Cadastro.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="assets/logo-icon.png">
 </head>
 <body>
     <my-header></my-header>
     <div class="banner">
+
+        <div id="erro">
+            <span id="mensagem_erro"></span>
+        </div>
 
             <div class="div1">
 
@@ -34,8 +39,6 @@
 
                 <a href="login.html"><div class="frase">Já tem cadastro? Clique aqui </div></a>
 
-                <span id="mensagem_erro"></span>
-
                 <button class="bt" onclick="cadastrar()">Cadastrar</button>
             </div>
         </div>
@@ -55,23 +58,30 @@
         
         if (nomeVar == "" ||cnpjVar == "" || emailVar == "" 
         || senhaVar == "" || confirmVar == "") {
-            alert('Erro');
-            mensagem_erro.innerHTML = "Preencha todos os campos";
+            erro.style.display = 'block'
+            setTimeout(()=>(
+                erro.style.display = 'none'
+            ), 5000);
+            mensagem_erro.innerHTML = "Preencha todos os campos!";
             return false;
         }
 
         else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
-            alert('Erro email');
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "Email errado. Utilize @ e '.com'!";
+            erro.style.display = "block"
+            setTimeout(()=>(
+                erro.style.display = 'none'
+            ), 5000);
+            mensagem_erro.innerHTML = "Email errado. Utilize '@'' e '.com'!";
             // finalizarAguardar();
             return false;
         }
 
         if (senhaVar != confirmVar) {
-            alert('Erro senhas');
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "As senhas inseridas devem ser iguais para prosseguir!";
+            erro.style.display = "block"
+            setTimeout(()=>(
+                erro.style.display = 'none'
+            ), 5000);
+            mensagem_erro.innerHTML = "As senhas digitadas devem ser iguais!";
             // finalizarAguardar();
             return false;
         }
@@ -97,7 +107,7 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                // cardErro.style.display = "block"
+                // erro.style.display = "block"
                 // mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
  
                 setTimeout(() => {

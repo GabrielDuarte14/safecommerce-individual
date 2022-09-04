@@ -8,10 +8,15 @@
     <script src="js/main.js"></script>
     <link rel="stylesheet" href="css/Login.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="assets/logo-icon.png">
 </head>
 <body>
     <my-header></my-header>
     <div class="banner">
+
+        <div id="erro">
+            <span id="mensagem_erro"></span>
+        </div>
 
             <div class="div1">
 
@@ -25,8 +30,6 @@
 
                 <a href="cadastro.html"><div class="frase">Ainda não tem cadastro? 
                     Clique aqui</div></a>
-
-                <span id="mensagem_erro"></span>
 
                 <button class="bt" onclick="entrar()">Login</button>
         </div>
@@ -43,7 +46,10 @@ function entrar() {
     var senhaVar = senha_ipt.value;
 
     if (emailVar == "" || senhaVar == "") {
-        alert("Erro: preencha todos os campos");
+        erro.style.display = "block";
+        setTimeout(()=>(
+                erro.style.display = 'none'
+            ), 5000);
         mensagem_erro.innerHTML = "Preencha todos os campos!";
         return false;
     }
