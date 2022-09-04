@@ -5,45 +5,39 @@ body {
 
 .banner {
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     background-color: white;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
-}
-
-.cadastro {
-    width: 70%;
-    height: 70%;
-    background-color: #dc3e1d;
-    border-radius: 20px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    box-shadow: 10px 5px 5px gray;
+    background: url(../assets/cadastro.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .div1 {
-    width: 40%;
-    height: 80%;
-    border: 2px white solid;
-    background-color: white;
+    width: 25%;
+    height: 45%;
+    border: 1px white solid;
+    background: white;
+    margin-right: 5%;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
 }
 
-.div2 {
-    width: 40%;
-    height: 80%;
-    border: 2px white solid;
-    border-radius: 20px;
+.logue {
+    color: #dc3e1d;
+    height: 5vh;
+    width: 60%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    border-radius: 10px;
+    font-size: 25px;
 }
 
 #mensagem_erro {
@@ -56,16 +50,47 @@ body {
 
 .ipt {
     border-radius: 7px;
-    height: 8%;
+    height: 5%;
     width: 70%;
+    padding: 5px;
+    border: 0;
+    border-bottom: 2px solid gray;
+    border-radius: 5px;
+}
+
+input::placeholder{
+    color: gray;
+  }
+
+input:hover{
+    border: 0;
+    border-bottom: 2px solid #dc3e1d;
 }
 
 .bt {
     border-radius: 5px;
+    background-color: #dc3e1d;
+    border: 0;
+    color: white;
     cursor: pointer;
+    padding: 5px;
+    font-family: var(--fonte-principal);
+    margin-bottom: 30px;
+}
+
+.bt:hover{
+    width: 15%;
+    height: 11%;
+    transition: 100ms;
 }
 
 .frase {
-    text-decoration: none;
     color: black;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.frase:hover{
+    color: #dc3e1d;
+    transition: 100ms;
 }
