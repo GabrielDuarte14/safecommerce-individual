@@ -13,7 +13,7 @@ function registerServer(req, res) {
     var model = req.body.modelServer;
     var os = req.body.osServer;
     var cpuAmount = req.body.cpuAmountServer;
-    var ramMemory = req.body.ramMemoryServer;
+    var ramAmount = req.body.ramAmountServer;
     var diskAmount = req.body.diskAmountServer;
     var idCompany = req.body.idCompanyServer;
 
@@ -23,7 +23,7 @@ function registerServer(req, res) {
         res.status(400).send("O sistema operacional está undefined!");
     } else if(cpuAmount === undefined) {
         res.status(400).send("A quantidade de CPU está undefined!");
-    } else if(ramMemory === undefined) {
+    } else if(ramAmount === undefined) {
         res.status(400).send("A memória RAM está undefined!");
     } else if(diskAmount === undefined) {
         res.status(400).send("A quantidade de disco está undefined!");
@@ -31,7 +31,7 @@ function registerServer(req, res) {
         res.status(400).send("O ID da empresa está undefined!");
     }
 
-    serverModel.registerServer(model, os, cpuAmount, ramMemory, diskAmount, idCompany)
+    serverModel.registerServer(model, os, cpuAmount, ramAmount, diskAmount, idCompany)
         .then(
             function (result) {
                 res.json(result);

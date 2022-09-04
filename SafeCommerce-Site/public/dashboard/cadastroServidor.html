@@ -96,24 +96,24 @@
                                               <div class="row align-items-center py-3">
                                                 <div class="col-md-3 ps-5">
                                     
-                                                  <h6 class="mb-0">Memória RAM</h6>
+                                                  <h6 class="mb-0">Quantidade de memória RAM</h6>
                                     
                                                 </div>
                                                 <div class="col-md-3 pe-5">
                                     
-                                                  <input id="ramMemory_input" class="form-control form-control-lg" id="" type="number" placeholder="Ex: 16GB">
+                                                  <input id="ramAmount_input" class="form-control form-control-lg" id="" type="number" placeholder="Ex: 1, 2, 3..">
                                     
                                                 </div>
                                               </div>
                                               <div class="row align-items-center py-3">
                                                 <div class="col-md-3 pe-5">
                                       
-                                                  <h6 class="mb-0">Quantidade de disco</h6>
+                                                  <h6 class="mb-0">Quantidade de discos</h6>
                                       
                                                 </div>
                                                 <div class="col-md-3 pe-5">
                                       
-                                                  <input id="diskAmount_input" class="form-control form-control-lg" id="" type="number" placeholder="Ex: 1, 2...">
+                                                  <input id="diskAmount_input" class="form-control form-control-lg" id="" type="number" placeholder="Ex: 1, 2, 3...">
                                       
                                                 </div>
                                               </div>
@@ -156,11 +156,11 @@
     var modelVar = model_input.value;
     var osVar = os_input.value;
     var cpuAmountVar = cpuAmount_input.value;
-    var ramMemoryVar = ramMemory_input.value;
+    var ramAmountVar = ramAmount_input.value;
     var diskAmountVar = diskAmount_input.value;
     var idCompanyVar = sessionStorage.ID_EMPRESA;
 
-    if(modelVar === '' || osVar === '' || cpuAmountVar === '' || ramMemoryVar === '' || diskAmountVar === '') {
+    if(modelVar === '' || osVar === '' || cpuAmountVar === '' || ramAmountVar === '' || diskAmountVar === '') {
       alert("ERRO: campos em branco! Tente novamente.");
       return false;
     }
@@ -174,7 +174,7 @@
         modelServer: modelVar,
         osServer: osVar,
         cpuAmountServer: cpuAmountVar,
-        ramMemoryServer: ramMemoryVar,
+        ramAmountServer: ramAmountVar,
         diskAmountServer: diskAmountVar,
         idCompanyServer: idCompanyVar,
       })
@@ -188,7 +188,7 @@
         model_input.value = '';
         os_input.value = '';
         cpuAmount_input.value = '';
-        ramMemory_input.value = '';
+        ramAmount_input.value = '';
         diskAmount_input.value = '';
       } else {
         alert("Houve um erro ao tentar realizar o cadastro! Tente novamente.");
