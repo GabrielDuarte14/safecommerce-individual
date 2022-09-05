@@ -122,5 +122,6 @@
     background-color: var(--cor-secundaria);
     border: 0;
     border-radius: 3px;
+    cursor: pointer;
 }
 
