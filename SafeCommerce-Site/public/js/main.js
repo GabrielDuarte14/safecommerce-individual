@@ -10,7 +10,7 @@ class myHeader extends HTMLElement {
             <div class="navBar">
                 <a id="nav_home" href="index.html" class="item-navBar">Home</a>
                 <a id="nav_servicos" href="servicos.html" class="item-navBar">Serviços</a>
-                <a id="nav_sobrenos" href="sobreNos.html" class="item-navBar">Sobre Nós</a>
+                <!--<a id="nav_sobrenos" href="sobreNos.html" class="item-navBar">Sobre Nós</a>-->
                 <a id="nav_download" href="download.html" class="item-navBar">Download</a>
             </div>
             <div class="registro">
