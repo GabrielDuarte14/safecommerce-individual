@@ -38,6 +38,8 @@ body {
     align-items: center;
     border-radius: 10px;
     font-size: 25px;
+    font-weight: bold;
+    margin: 7px;
 }
 
 #erro{
@@ -92,14 +94,16 @@ input:hover, input:focus{
     cursor: pointer;
     padding: 5px;
     font-family: var(--fonte-principal);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    width: 19%;
+    height: 34px;
 }
 
-.bt:hover{
+/* .bt:hover{
     width: 18%;
     height: 8%;
     transition: 100ms;
-}
+} */
 
 .frase {
     color: black;

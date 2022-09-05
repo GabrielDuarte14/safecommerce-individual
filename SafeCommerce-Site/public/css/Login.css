@@ -38,6 +38,7 @@ body {
     align-items: center;
     border-radius: 10px;
     font-size: 25px;
+    font-weight: bold;
 }
 
 #erro{
@@ -51,8 +52,7 @@ body {
     justify-content: center;
     align-items: center;
     display: none;
-    padding: 15px;
-    padding-right: 10px;
+    padding: 20px;
 }
 
 #mensagem_erro {
@@ -77,7 +77,7 @@ body {
 
 input::placeholder{
     color: gray;
-  }
+}
 
 input:hover, input:focus{
     border: 0;
@@ -92,14 +92,16 @@ input:hover, input:focus{
     cursor: pointer;
     padding: 5px;
     font-family: var(--fonte-principal);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    width: 19%;
+    height: 34px;
 }
 
-.bt:hover{
+/* .bt:hover{
     width: 15%;
     height: 11%;
     transition: 100ms;
-}
+} */
 
 .frase {
     color: black;
