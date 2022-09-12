@@ -7,7 +7,7 @@ A safecommerce é um projeto criado no intuito de monitorar os componentes de um
 
 - [@Guilherme Coimbra Carneiro de Brito](https://github.com/Coimbra1999)
 - [@Hugo Hanashiro Galdino](https://github.com/HugoHanashiro)
-- [@Kauan Cavazani Brianez](https://github.com/KauanCavazaniBrianez)
+- [@Kauan Cavazani Brianez](https://github.com/KauanCavazani)
 - [@Pedro Henrique Jesuino Varela](https://github.com/Pedro-Jsn)
 - [@Ryan Yuji Miyazato](https://github.com/ryan-miyazato)
 - [@Victor Hugo Marques Do Nascimento](https://github.com/ViHugo03)
