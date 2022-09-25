@@ -20,10 +20,10 @@ var sqlServerConfig = {
 
 // CONEXÃO DO MYSQL WORKBENCH (LOCAL) 
 const mySqlConfig = {
-    host: `${process.env.MYSQL_HOST}`,
-    user: `${process.env.MYSQL_USER}`,
-    database: `${process.env.MYSQL_DB}`,
-    password: `${process.env.MYSQL_PASSWORD}`
+    host: `localhost`,
+    user: `root`,
+    database: `safecommerce`,
+    password: `@Pedrinho1`
 };
 
 function execute(instrucao) {

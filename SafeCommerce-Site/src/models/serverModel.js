@@ -28,9 +28,14 @@ function getCurrentServer(id) {
     return database.execute(instruction);
 }
 
+function obterDadosCPU(id) {
+    var instruction = `SELECT porcentagemCpu, horario FROM processo where fkServidor = '${id}';`
+    return database.execute(instruction);
+}
 
 module.exports = {
     registerServer,
     getServers,
-    getCurrentServer
+    getCurrentServer,
+    obterDadosCPU,
 }

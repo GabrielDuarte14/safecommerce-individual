@@ -206,6 +206,58 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-7">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold">Temperatura CPU (%)</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-area">
+                                            <div class="chartjs-size-monitor">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div></div>
+                                                </div>
+                                                <canvas id="TempLineChart" class="chartjs-render-monitor"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-5">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold">Termomêtro</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-pie pt-4 pb-2">
+                                            <div class="chartjs-size-monitor chart-size">
+                                                <div class="chartjs-size-monitor-expand">
+                                                    <div></div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink">
+                                                    <div></div>
+                                                </div>
+                                                <canvas id="TempBarChart" class="chartjs-render-monitor"></canvas>
+                                            </div>
+                                            <div class="mt-4 text-center small">
+                                                <span class="mr-2">
+                                                    <i class="bi bi-circle-fill circle-size"></i>
+                                                    Disponível
+                                                </span>
+                                                <span class="mr-2">
+                                                    <i class="bi bi-circle-fill circle-size color-grey"></i>
+                                                    Usado
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Fim do conteudo da página -->
@@ -351,9 +403,147 @@
         );
     }
 
+    function TempLineGraph() {
+        const labels = [
+            '22:06',
+            '22:07',
+            '22:08',
+            '22:09',
+            '22:10',
+            '22:11',
+        ];
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'CPU',
+                backgroundColor: '#dc3e1d',
+                borderColor: '#dc3e1d',
+                data: [0, 10, 20, 40, 60, 80, 100],
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+
+        const TempLineChart = new Chart(
+            document.getElementById('TempLineChart'),
+            config
+        );
+    }
+
+    function TempBarGraph() {
+        const data = {
+            datasets: [{
+                label: 'My First Dataset',
+                data: [40, 60],
+                backgroundColor: [
+                    '#808080',
+                    '#dc3e1d',
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+        };
+
+        const TempBarChart = new Chart(
+            document.getElementById('TempBarChart'),
+            config
+        );
+    }
+
+    function obterDadosCPU(){
+        var varId = sessionStorage.ID_SERVER;
+        fetch(`/servers/obterDadosCPU/${varId}`, { cache: 'no-store'}).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    plotarGraficoCPU(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function plotarGraficoCPU(resposta) {
+        console.log('iniciando plotagem do gráfico...');
+
+        var dados = {
+            labels: [],
+            datasets: [
+                {
+                    label: 'dados CPU',
+                    borderColor: '#32B9CD',
+                    backgroundColor: '#32b9cd8f',
+                    fill: true,
+                    data: []
+                },
+            ]
+        };
+
+        for (i = 0; i < resposta.length; i++) {
+            console.log(`Dias: ${resposta[i].dias} + qtd: ${resposta[i].quantidade}`)
+            // dados.labels.push(registro.momento_grafico);
+            dados.labels.push(resposta[i].porcentagmeCPU);
+            dados.datasets[0].data.push(resposta[i].horario);
+        }
+
+        console.log( JSON.stringify( dados));
+        
+
+        
+        var ctx = document.getElementById('CPUBarChart').getContext('2d');
+        const CPUBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: dados,
+            //Configurações do gráfico
+            options: {
+                responsive: true,
+                animation: { duration: 500 },
+                hoverMode: 'index',
+                stacked: false,
+                title: {
+                    display: true,
+                    text: 'Porcentagem de CPU'
+                },
+                scales: {
+                    x:{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                            min: 0
+                        }
+                    },
+                }
+            }
+        });
+
+
+        //Atualiza os dados de 5 em 5 segundos
+    }
+
     CPULineGraph()
     CPUBarGraph()
     RAMLineGraph()
     RAMBarGraph()
+    TempLineGraph()
+    TempBarGraph()
+    setInterval(obterDadosCPU())
 
 </script>

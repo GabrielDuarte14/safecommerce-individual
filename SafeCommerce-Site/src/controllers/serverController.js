@@ -69,7 +69,7 @@ function getServers(req, res) {
 }
 
 function getCurrentServer(req, res) {
-    var id = req.body.idServer;
+    var id = req.body.varId;
     console.log(id);
 
     serverModel.getCurrentServer(id)
@@ -89,10 +89,30 @@ function getCurrentServer(req, res) {
         )
 }
 
+function obterDadosCPU(req,res) {
+    var id = req.params.idServer;
+    console.log(id);
+    serverModel.obterDadosCPU(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
 
 module.exports = {
     registerServer,
     getServers,
-    getCurrentServer
+    getCurrentServer,
+    obterDadosCPU
     // createPages
 }
