@@ -14,7 +14,8 @@ router.post("/getServers", (req, res) => {
 router.post("/getCurrentServer", (req, res) => {
     serverController.getCurrentServer(req, res);
 })
-router.get("/obterDadosCPU",(req, res)=>{
+router.post("/obterDadosCPU", (req,res)=>{
     serverController.obterDadosCPU(req, res);
+    console.log(req)
 })
 module.exports = router;

@@ -142,7 +142,8 @@ function getData(index) {
         answer.json().then(json => {   
             sessionStorage.SERVERS = JSON.stringify(json);
             var servers = JSON.parse(sessionStorage.SERVERS);
-            console.log(servers);  
+            
+            console.log(servers[0].idServidor);  
             if(index) {
                 setTable(servers); 
                 setCards(servers);

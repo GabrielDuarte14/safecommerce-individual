@@ -1,4 +1,5 @@
 CREATE DATABASE safecommerce;
+
 USE safecommerce;
 
 CREATE TABLE empresa (
@@ -13,7 +14,7 @@ CREATE TABLE usuario (
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nomeUser VARCHAR(45),
     emailUser VARCHAR(45),
-    senhaUser VARCHAR(45), 
+    senhaUser VARCHAR(65), 
     fkEmpresa INT,
     FOREIGN KEY(fkEmpresa) REFERENCES empresa(idEmpresa)
 );
@@ -59,10 +60,6 @@ CREATE TABLE swap(
 CREATE TABLE HistoricoCpu(
 	id INT PRIMARY KEY AUTO_INCREMENT
     ,porcentagemUso DECIMAL(5,2)
-    ,porcentagemUsoCore1 DECIMAL(5,2)
-    ,porcentagemUsoCore2 DECIMAL(5,2)
-    ,porcentagemUsoCore3 DECIMAL(5,2)
-    ,porcentagemUsoCore4 DECIMAL(5,2)
     ,qtdProcessos INT
     ,fkServidor INT
     ,FOREIGN KEY (fkServidor) REFERENCES servidor(idServidor)
@@ -83,14 +80,19 @@ select usuario.nome as nomeUser, usuario.email as emailUser, usuario.senha as se
 
 select porcentagemCpu, horario from processo where fkServidor = '1';
 select * from ram;
+select * from usuario;
 select * from disco;
 select * from historicoCpu;
 select * from processo;
 
-create view UsoAcimaDaMedia as select historicoCPU.id, historicoCpu.fkServidor as 'idServidor', historicoCPU.porcentagemUso, processo.nome,historicoCpu.qtdProcessos , totalMemoria, ram.porcentagemUso as "Porcentagem Ram", disco.lido, disco.escreveu, disco.porcentagemUso as 'porcentagemDisco', ram.horario, historicoCPU.Horario as 'Horario2'  from disco, processo, historicoCpu, ram where historicoCPU.porcentagemUso > 65.0 and historicoCpu.id = ram.id and historicoCpu.fkServidor = ram.fkServidor and HistoricoCpu.id = processo.id and HistoricoCpu.id = disco.id ORDER BY historicoCpu.porcentagemUso;
-drop view UsoAcimaDaMedia;
-select * from UsoAcimaDaMedia;
+create view usoAcimaDaMedia as select historicoCPU.id, historicoCpu.fkServidor as 'idServidor', historicoCPU.porcentagemUso, processo.nome,historicoCpu.qtdProcessos , totalMemoria, ram.porcentagemUso as "Porcentagem Ram", disco.lido, disco.escreveu, disco.porcentagemUso as 'porcentagemDisco', ram.horario, historicoCPU.Horario as 'Horario2'  from disco, processo, historicoCpu, ram where historicoCPU.porcentagemUso > 10.0 and historicoCpu.id = ram.id and historicoCpu.fkServidor = ram.fkServidor and HistoricoCpu.id = processo.id and HistoricoCpu.id = disco.id ORDER BY historicoCpu.porcentagemUso;
+drop view usoAcimaDaMedia;
+select * from usoAcimaDaMedia;
 
+create view historicoSemana as select  historicoCpu.id, historicoCpu.fkServidor ,historicoCpu.porcentagemUso, historicoCpu.qtdProcessos, processo.nome, ram.totalMemoria, ram.porcentagemUso as 'Porcentagem Ram',disco.porcentagemUso as 'usoDisco', historicoCpu.horario  from ram, disco, processo, historicoCpu where historicoCpu.horario between current_date()-7 and current_date() and historicoCpu.id = ram.id and historicoCpu.id = disco.id and historicoCpu.id = processo.id and historicoCpu.fkServidor = ram.fkServidor and historicoCpu.fkServidor = disco.fkServidor and historicoCpu.fkServidor = processo.fkServidor;
+select * from historicoSemana;
 
+create view historicoMensal as select historicoCpu.id, historicoCpu.fkServidor, historicoCpu.porcentagemUso, historicoCpu.qtdProcessos, processo.nome, ram.totalMemoria, ram.porcentagemUso as 'Porcentagem Ram',disco.porcentagemUso as 'usoDisco', historicoCpu.horario  from ram, disco, processo, historicoCpu where historicoCpu.horario between current_date()-30 and current_date() and historicoCpu.id = ram.id and historicoCpu.id = disco.id and historicoCpu.id = processo.id and historicoCpu.fkServidor = ram.fkServidor and historicoCpu.fkServidor = disco.fkServidor and historicoCpu.fkServidor = processo.fkServidor;
+select * from historicoMensal;
 
 drop database safecommerce;

@@ -69,8 +69,8 @@ function getServers(req, res) {
 }
 
 function getCurrentServer(req, res) {
-    var id = req.body.varId;
-    console.log(id);
+    var id = req.body.idServer;
+    console.log(id + 'dadsadasdasdasd');
 
     serverModel.getCurrentServer(id)
         .then(
@@ -90,8 +90,8 @@ function getCurrentServer(req, res) {
 }
 
 function obterDadosCPU(req,res) {
-    var id = req.params.idServer;
-    console.log(id);
+    var id = req.body.idServidor;
+    
     serverModel.obterDadosCPU(id)
             .then(
                 function (resultado) {

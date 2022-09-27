@@ -29,7 +29,8 @@ function getCurrentServer(id) {
 }
 
 function obterDadosCPU(id) {
-    var instruction = `SELECT porcentagemCpu, horario FROM processo where fkServidor = '${id}';`
+    var instruction = `SELECT porcentagemUso, horario FROM historicoCpu where fkServidor = ${id};`
+   
     return database.execute(instruction);
 }
 
