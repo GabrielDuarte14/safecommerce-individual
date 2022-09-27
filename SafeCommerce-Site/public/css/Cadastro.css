@@ -17,11 +17,8 @@ body {
 }
 
 .div1 {
-    width: 30%;
-    height: 65%;
     border: 1px white solid;
     background: white;
-    margin-right: 5%;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -32,7 +29,6 @@ body {
 .cadastre {
     color: #dc3e1d;
     height: 5vh;
-    width: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,7 +91,7 @@ input:hover, input:focus{
     padding: 5px;
     font-family: var(--fonte-principal);
     margin-bottom: 20px;
-    width: 19%;
+    width: 30%;
     height: 34px;
 }
 
