@@ -313,7 +313,7 @@
                     borderColor: '#dc3e1d',
                     backgroundColor: '#dc3e1d',
                     fill: true,
-                    data: []
+                    data: [1,3,4]
                 },
             ]
         };
@@ -324,7 +324,7 @@
             options: {}
         };
 
-        const CPULineChart = new Chart(
+        const CpuLineChart = new Chart(
             document.getElementById('CPULineChart'),
             config
         );
@@ -501,19 +501,20 @@
 
     }
 
-    function plotarGraficoCPU(resposta, CPULineChart) {
+    function plotarGraficoCPU(resposta, CpuLineChart) {
         console.log('iniciando plotagem do gráfico...');
 
         for (i = 0; i < resposta.length; i++) {
             console.log(`USO: ${resposta[i].porcentagemUso} + qtd: ${resposta[i].horario}`)
 
             console.log(`TESTANDO: ${resposta[i].horario}                                 `)
+            console.log(CpuLineChart.config.data.datasets[0].data)
             // dados.labels.push(registro.momento_grafico);
             var dataN = new Date(resposta[i].horario)
-            CPULineChart.config.data.datasets[0].data.push(resposta[i].porcentagemUso);
+            CpuLineChart.config.data.datasets[0].data[i].push(resposta[i].porcentagemUso);
             dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
             console.log(dataS)
-            CPULineChart.config.data.labels.push(dataS);
+            CPULineChart.config.data.labels[i].push(dataS);
         }
 
         console.log(JSON.stringify(dados));
