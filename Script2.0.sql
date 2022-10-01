@@ -25,7 +25,7 @@ create table Servidor(
 	idServidor int primary key,
     modelo varchar(45),
 	so varchar(45),
-    enderecoMac varchar(45),
+    enderecoMac varchar(17),
     fkEmpresa int,
     foreign key (fkEmpresa) references Empresa(idEmpresa)
 );
@@ -34,7 +34,8 @@ create table Metrica(
 	idMetrica int primary key,
     nome varchar(45),
 	comando varchar(45),
-    unidadeMedida varchar(45)
+    unidadeMedida varchar(45),
+    formato varchar(45)
 );
 
 create table Parametro(
