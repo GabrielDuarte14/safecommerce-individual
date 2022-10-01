@@ -170,7 +170,7 @@ function enviarEmail(email, senha) {
 
         var mailOptions = {
             from: 'safecommerce@outlook.com.br',
-            to: 'hugo.galdino@sptech.school',
+            to: 'vinicius.sousa@sptech.school',
             subject: 'Acesso a plataforma SafeCommerce!',
             html: '<h1>Bem vindo a SafeCommerce!!!</h1><br>' +
             "<p>Aqui está seu login para acessar a plataforma: </p><br>" +
