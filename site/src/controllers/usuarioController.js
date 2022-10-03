@@ -72,12 +72,12 @@ function cadastrarEmpresa(req, res) {
 }
 
 function consultarEmpresa(nome, email) {
-    var emailEmpresa = nome.replace(" ", "_");
+    var nomeAdaptado = nome.replace(" ", "_");
 
     usuarioModel.consultarEmpresa(nome, email)
     .then(
         function (resultado) {
-            cadastrarUsuarioAdmin(resultado, emailEmpresa);
+            cadastrarUsuarioAdmin(resultado, nomeAdaptado, email);
         }
     ).catch(
         function (erro) {
@@ -91,7 +91,7 @@ function consultarEmpresa(nome, email) {
     );
 }
 
-function cadastrarUsuarioAdmin(res, palavraChave) {
+function cadastrarUsuarioAdmin(res, palavraChave, destino) {
     var nome = 'admin';
     var email = 'admin@' + palavraChave + '.com';
     var senha = 'admin_' + palavraChave;
@@ -106,7 +106,7 @@ function cadastrarUsuarioAdmin(res, palavraChave) {
     } else {
         usuarioModel.cadastrarUsuarioAdmin(nome, email, senha, idEmpresa)
             .then(
-                enviarEmail(email, senha),
+                enviarEmail(email, senha, destino),
                 console.log("Usuário cadastrado com sucesso!")
             ).catch(    
                 function (erro) {
@@ -154,7 +154,7 @@ function cadastrarUsuarioComum(req, res) {
     }
 }
 
-function enviarEmail(email, senha) {
+function enviarEmail(email, senha, destino) {
     if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
@@ -170,7 +170,7 @@ function enviarEmail(email, senha) {
 
         var mailOptions = {
             from: 'safecommerce@outlook.com.br',
-            to: 'vinicius.sousa@sptech.school',
+            to: destino,
             subject: 'Acesso a plataforma SafeCommerce!',
             html: '<h1>Bem vindo a SafeCommerce!!!</h1><br>' +
             "<p>Aqui está seu login para acessar a plataforma: </p><br>" +

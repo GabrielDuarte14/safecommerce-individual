@@ -1,0 +1,111 @@
+body {
+    margin: 0%;
+    background-color: rgba(0, 0, 0, 0.904);
+}
+
+.banner {
+    margin-top: 10vh;
+    height: 90vh;
+    background-color: white;
+    background: url(../assets/cadastro.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.div1 {
+    width: 25%; 
+    height: 45%;
+    border: 1px white solid;
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logue {
+    color: #dc3e1d;
+    height: 5vh;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#erro{
+    width: 20%;
+    height: 10%;
+    margin-right: 20px;
+    margin-bottom: 300px;
+    border-radius: 20px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    padding: 20px;
+}
+
+#mensagem_erro {
+    color: #dc3e1d;
+    font-family: var(--fonte-principal);
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.ipt {
+    border-radius: 7px;
+    height: 5%;
+    width: 70%;
+    padding: 5px;
+    border: 0;
+    border-bottom: 2px solid gray;
+    border-radius: 5px;
+    outline: none;
+}
+
+input::placeholder{
+    color: gray;
+}
+
+input:hover, input:focus{
+    border: 0;
+    border-bottom: 2px solid #dc3e1d;
+}
+
+.bt {
+    border-radius: 5px;
+    background-color: #dc3e1d;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    font-family: var(--fonte-principal);
+    margin-bottom: 20px;
+    width: 19%;
+    height: 34px;
+}
+
+/* .bt:hover{
+    width: 15%;
+    height: 11%;
+    transition: 100ms;
+} */
+
+.frase {
+    color: black;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.frase:hover{
+    color: #dc3e1d;
+    transition: 100ms;
+}

@@ -31,6 +31,10 @@ create table Servidor(
 create table Metrica(
 	idMetrica int primary key auto_increment,
     nome varchar(45),
+<<<<<<< HEAD
+=======
+	comando varchar(45),
+>>>>>>> b1338897a5f4016c41a7bdc169e0c7025a83ad99
     unidadeMedida varchar(45),
     formato varchar(45)
 );

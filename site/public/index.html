@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/main.js"></script>
+    <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="assets/logo-icon.png">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>                                                                                                                                                                 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <title>SafeCommerce | Home</title>
+    <link rel="stylesheet" href="./css/style.css">  
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/home.css">    
+    <style>
+        .layered-image {
+            background: linear-gradient(to left, transparent, 50%,rgb(237, 237, 237)),
+            url("../public/assets/banner-home.webp");
+        }
+    </style>
+</head>
+<body>
+    <nav id="header" class="navbar fixed-top">
+        <div class="container">
+
+            <!-- Header -->
+            <div class="d-flex justify-content-center align-items-center">
+                <img style="height: 8vh;" src="./assets/logo-img.png">
+                <span class="logo-titulo">SafeCommerce</span>
+            </div>
+            <div class="h-100 d-flex justify-content-center align-items-center">
+                <ul class="d-none d-lg-block p-0">
+                    <a href="#main"><li><p class="me-4">Home</p></li></a>
+                    <a href="#sobre"><li><p class="ms-4 me-4">Sobre</p></li></a>
+                    <a href="#servico"><li><p class="ms-4 me-4">Serviços</p></li></a>
+                    <a href="#contato"><li><p class="ms-4">Contato</p></li></a>
+                </ul>
+            </div>
+            <div class="d-none d-lg-block">
+                <a href="login.html"><button class="but-cadastro">Login</button></a>
+                <a href="cadastro.html"><button class="but-login">Cadastro</button></a>
+            </div>
+            <button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Div lateral -->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <div>
+                        <img style="height: 8vh;" src="./assets/logo-img.png">
+                        <span class="logo-titulo">SafeCommerce</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+
+                    <!-- Menu lateral -->
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active text-center" aria-current="page" href="#main">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-center" aria-current="page" href="#sobre">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-center" aria-current="page" href="#servico">Serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-center" aria-current="page" href="#contato">Contato</a>
+                        </li>
+                    </ul>
+
+                    <!-- Botões login e cadastro -->
+                    <div class="d-flex justify-content-center align-items-center flex-column mt-5">
+                        <a href="login.html"><button class="but-cadastro">Login</button></a>
+                        <a href="cadastro.html"><button class="but-login mt-3">Cadastro</button></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <div id="main" class="container rounded-4 layered-image mb-5" style="height: 75vh; background-size: cover; margin-top: 17vh; background-position: center;">
+        <div class="row h-100">
+            <div class="col d-flex justify-content-center align-items-center">
+                <div class="w-75">
+                    <h1 class="fs-1">Monitore seu servidor e aumente sua produtividade</h1>
+                    <p class="fs-5 mt-3">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laudantium minima voluptates repellat ut facere sapiente eum ipsum hic reiciendis.
+                    </p>
+                    <a href="cadastro.html"><button class="but-cadastro mt-3">Assinar</button></a>
+                </div>
+            </div>
+            <div class="col d-none d-lg-block"></div>
+        </div>
+    </div>
+
+    <!-- Sobre -->
+    <div id="sobre" class="container mt-5">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center">
+                <div class="w-75">
+                    <h2 class="fs-1">Segurança na hora do pagamento</h2>
+                    <p class="fs-5 mt-3">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla necessitatibus explicabo repellat minima consectetur cupiditate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla necessitatibus explicabo repellat minima consectetur cupiditate.
+                    </p>
+                </div>
+            </div>
+            <div class="col d-none d-lg-flex justify-content-center align-items-center">
+                <div>
+                    <img style="height: 75vh; width: 120%;" class="rounded-4" src="./assets/social-img1.jpeg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Serviços -->
+    <div id="servico" class="container mt-5">
+        <div class="row">
+            <div class="col d-none d-lg-flex justify-content-center align-items-center">
+                <div>
+                    <img style="height: 65vh; width: 100%;" class="rounded-4" src="./assets/social-img2.jpeg">
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center align-items-center">
+                <div class="w-75">
+                    <h2 class="fs-1">Geração de gráficos e acompanhamento do seu servidor</h2>
+                    <p class="fs-5 mt-3">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla necessitatibus explicabo repellat minima consectetur cupiditate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla necessitatibus explicabo repellat minima consectetur cupiditate.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contato -->
+    <div id="contato" class="container border-top mt-5 d-flex justify-content-center align-items-center">
+        <div class="row mt-5 w-75">
+            <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                <i class="bi bi-envelope-fill iconContato"></i>
+                <p class="fs-5 ajusteInfoContato">safecommerce@gmail.com</p>
+            </div>
+            <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                <i class="bi bi-telephone-fill iconContato"></i>
+                <p class="fs-5 ajusteInfoContato">+55 (11) 99999-9999</p>
+            </div>
+            <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+                <i class="bi bi-pin-fill iconContato"></i>
+                <p class="fs-5 ajusteInfoContato">Avenida Paulista, 000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="container mt-5 mb-3">
+        <div class="row">
+            <div class="col-12 col-lg-5 d-flex justify-content-lg-end justify-content-center align-items-center mr-lg-3">
+                <div>
+                    <img style="height: 8vh;" src="./assets/logo-img.png">
+                    <span class="logo-titulo mt-1">SafeCommerce</span>
+                </div>
+            </div>
+            <div class="col-12 col-lg-7 d-flex justify-content-lg-start justify-content-center align-items-center mt-lg-0 mt-3 ml-lg-3 text-center">
+                <p class="mt-1">© 2022 SafeCommerce Inc. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
