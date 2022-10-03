@@ -1,0 +1,34 @@
+.card-size {
+    height: 115px !important;
+}
+
+.card-body i {
+    color: #dc3e1d;
+    font-size: 30px !important;
+}
+
+.card-body .text-xs {
+    font-size: 13px;
+}
+
+.chart-pie {
+    height: 407px;
+}
+
+.chart-pie .mr-2 i {
+    font-size: 13px !important;
+}
+
+.color-grey {
+    color: #808080 !important;
+}
+
+#CPUBarChart, #RAMBarChart {
+    height: 298px !important;
+    width: 300px !important;
+    margin: 0 auto;
+}
+
+.chart-size {
+    height: 320px;
+}
