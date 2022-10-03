@@ -10,9 +10,11 @@
   "author": "Grupo 08 || CCO || São Paulo Tech School",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
+    "generate-password": "^1.7.0",
     "mssql": "^7.1.3",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.7.8",
