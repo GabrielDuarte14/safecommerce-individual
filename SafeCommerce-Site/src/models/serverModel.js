@@ -34,9 +34,15 @@ function obterDadosCPU(id) {
     return database.execute(instruction);
 }
 
+function obterDadosRam(id) {
+    var instruction = `SELECT porcentagemUso, horario FROM ram where fkServidor = ${id};`
+   
+    return database.execute(instruction);
+}
 module.exports = {
     registerServer,
     getServers,
     getCurrentServer,
     obterDadosCPU,
+    obterDadosRam,
 }
