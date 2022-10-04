@@ -31,25 +31,23 @@ create table Servidor(
 create table Metrica(
 	idMetrica int primary key auto_increment,
     nome varchar(45),
-<<<<<<< HEAD
-=======
-	comando varchar(45),
->>>>>>> b1338897a5f4016c41a7bdc169e0c7025a83ad99
     unidadeMedida varchar(45),
     formato varchar(45)
 );
 
 INSERT INTO Metrica VALUES 
-(null, "Porcentagem de uso da CPU", "%", "Decimal(5,2)"),
-(null, "Quatidade de CPU logica","vCPU", "int"),
-(null, "Porcentagem de uso da CPU por core","%","Decimal(5,2)"),
-(null, "Frequência de uso da CPU", "Mhz", "Decimal(5,2)"),
-(null, "Total de Memoria Ram", "GB", "Decimal(4.2)"),
-(null, "Porcentagem de uso da Memoria Ram", "%", "Decimal(5,2)"),
-(null, "Total de Disco", "TB", "Decimal(5,2)"),
-(null, "Porcentagem de uso de Disco", "%", "Decimal(5,2)"),
-(null, "Lido pelo Disco", "ms", "Decimal(5,2)"),
-(null, "Escrito pelo Disco", "ms", "Decimal(5,2)");
+	(null, "Porcentagem de uso da CPU", "%", "Decimal(5,2)"),
+	(null, "Quatidade de CPU logica","vCPU", "int"),
+	(null, "Porcentagem de uso da CPU por core","%","Decimal(5,2)"),
+	(null, "Frequência de uso da CPU", "MHz", "Decimal(5,2)"),
+	(null, "Total de Memoria Ram", "GB", "Decimal(4.2)"),
+	(null, "Porcentagem de uso da Memoria Ram", "%", "Decimal(5,2)"),
+	(null, "Total de Disco", "TB", "Decimal(5,2)"),
+	(null, "Porcentagem de uso de Disco", "%", "Decimal(5,2)"),
+	(null, "Lido pelo Disco", "ms", "Decimal(5,2)"),
+	(null, "Escrito pelo Disco", "ms", "Decimal(5,2)");
+
+select * from Metrica;
 
 create table Parametro(
 	fkServidor int,
@@ -69,9 +67,15 @@ create table Leitura(
     
 );
 
-select * from Metrica;
-
-select Usuario.nome as nomeUser, Usuario.email as emailUser, Usuario.senha as senhaUser, Empresa.nome as nomeEmpresa from Usuario, Empresa where Usuario.email = "admin@Lojas_Americanas.com" and usuario.senha = "admin123" and fkEmpresa = idEmpresa;
+select 
+	Usuario.nome as nomeUser, 
+	Usuario.email as emailUser, 
+	Usuario.senha as senhaUser, 
+	Empresa.nome as nomeEmpresa 
+from Usuario, Empresa 
+where Usuario.email = "admin@Lojas_Americanas.com" 
+	and usuario.senha = "admin123" 
+	and fkEmpresa = idEmpresa;
 
 create view visualizacaoMensal as 
 select 
@@ -91,7 +95,6 @@ and Leitura.fkMetrica = Metrica.idMetrica
 ORDER BY Leitura.dataLeitura;
 
 select * from visualizacaoMensal;
-
 drop view visualizacaoMensal;
 
 create view visualizacaoSemanal as 
@@ -112,18 +115,19 @@ and Leitura.fkMetrica = Metrica.idMetrica
 ORDER BY Leitura.dataLeitura;
 
 select * from visualizacaoSemanal;
+drop view visualizacaoSemanal;
 
 
 create view leituraCPU as 
 select 
 	m.idMetrica,
-    hour(l.dataLeitura) as "Hora",
+    l.dataLeitura as "horario",
     l.valorLeitura as "valor",
 	s.idServidor
 from Leitura as l  
 inner join Metrica as m on l.fkMetrica = m.idMetrica
 inner join Servidor as s on l.fkServidor = s.idServidor 
-where m.idMetrica = "1";
+where m.idMetrica = 1;
 
 select * from leituraCPU;
 drop view leituraCPU;
@@ -157,7 +161,5 @@ where m.idMetrica = "7" and m.idMetrica = "8";
 
 select * from leituraDisco;
 drop view leituraDisco;
-
-drop view visualizacaoSemanal;
 
 drop database safecommerce

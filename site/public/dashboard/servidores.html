@@ -143,6 +143,7 @@
                                                 <div class="chartjs-size-monitor-shrink">
                                                     <div></div>
                                                 </div>
+                                                <center> <h4>Total de Memória em Disco: <span id="totalDisco"></span> </h4></center>
                                                 <canvas id="CPUBarChart" class="chartjs-render-monitor"></canvas>
                                             </div>
                                             <div class="mt-4 text-center small">
@@ -197,6 +198,7 @@
                                                 <div class="chartjs-size-monitor-shrink">
                                                     <div></div>
                                                 </div>
+                                                <center> <h4>Total de Memória Ram: <span id="totalRam"></span> </h4></center>
                                                 <canvas id="RAMBarChart" class="chartjs-render-monitor"></canvas>
                                             </div>
                                             <div class="mt-4 text-center small">
@@ -302,33 +304,43 @@
     setPage()
     getData(indexPage);
 
-    function CPULineGraph() {
-        const labels = [
-        ];
-        const dados = {
-            labels: [],
-            datasets: [
-                {
-                    label: 'dados CPU',
-                    borderColor: '#dc3e1d',
-                    backgroundColor: '#dc3e1d',
-                    fill: true,
-                    data: [1,3,4]
-                },
-            ]
-        };
+    // Criando gráfico CPU
+    var labels = [
+    ];
+    var dadosCPU = {
+        labels: [],
+        datasets: [
+            {
+                label: 'dados CPU',
+                borderColor: '#dc3e1d',
+                backgroundColor: '#dc3e1d',
+                fill: true,
+                data: []
+            },
+        ]
+    };
 
-        const config = {
-            type: 'line',
-            data: dados,
-            options: {}
-        };
+    var config1 = {
+        type: 'line',
+        data: dadosCPU,
+        options: {
+            animation: {
+                duration: 0
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                }
+            }
+        }
+    };
 
-        const CpuLineChart = new Chart(
-            document.getElementById('CPULineChart'),
-            config
-        );
-    }
+    const CpuLineChart = new Chart(
+        document.getElementById('CPULineChart'),
+        config1
+    );
+
 
     function CPUBarGraph() {
         const data = {
@@ -354,43 +366,45 @@
         );
     }
 
-    function RAMLineGraph() {
-        const labels = [
-            '22:06',
-            '22:07',
-            '22:08',
-            '22:09',
-            '22:10',
-            '22:11',
-        ];
-
-        const data = {
-            labels: labels,
+    // Criando gráfico de memória ram
+        var labels = [];
+        const dadosRam = {
+            labels:[],
             datasets: [{
                 label: 'RAM',
                 backgroundColor: '#dc3e1d',
                 borderColor: '#dc3e1d',
-                data: [0, 10, 20, 40, 60, 80, 100],
+                data: [],
             }]
         };
 
-        const config = {
+        const config2 = {
             type: 'line',
-            data: data,
-            options: {}
+            data: dadosRam,
+            options: {
+                animation: {
+                duration: 0
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                }
+            }
+            }
         };
 
         const RAMLineChart = new Chart(
             document.getElementById('RAMLineChart'),
-            config
+            config2
         );
-    }
+    
 
-    function RAMBarGraph() {
-        const data = {
+    // Criando gráfico de pizza do total de memoria ram
+        const dadosRamBar = {
             datasets: [{
-                label: 'My First Dataset',
-                data: [60, 40],
+                label: 'Total de ram',
+                data: [],
                 backgroundColor: [
                     '#808080',
                     '#dc3e1d',
@@ -399,16 +413,16 @@
             }]
         };
 
-        const config = {
+        const config3 = {
             type: 'pie',
-            data: data,
+            data: dadosRamBar,
         };
 
         const RAMBarChart = new Chart(
             document.getElementById('RAMBarChart'),
-            config
+            config3
         );
-    }
+    
 
     function TempLineGraph() {
         const labels = [
@@ -479,7 +493,7 @@
             body: JSON.stringify({
                 idServidor: varId,
             })
-           
+
         }).then(function (response) {
             console.log(response)
             if (response.ok) {
@@ -489,7 +503,7 @@
                     console.log("peguei")
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta;
-                    plotarGraficoCPU(resposta);
+                    plotarGraficoCPU(resposta, CpuLineChart);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -501,61 +515,94 @@
 
     }
 
-    function plotarGraficoCPU(resposta, CpuLineChart) {
+    function plotarGraficoCPU(resposta, grafico) {
         console.log('iniciando plotagem do gráfico...');
-
-        for (i = 0; i < resposta.length; i++) {
-            console.log(`USO: ${resposta[i].porcentagemUso} + qtd: ${resposta[i].horario}`)
-
-            console.log(`TESTANDO: ${resposta[i].horario}                                 `)
-            console.log(CpuLineChart.config.data.datasets[0].data)
-            // dados.labels.push(registro.momento_grafico);
-            var dataN = new Date(resposta[i].horario)
-            CpuLineChart.config.data.datasets[0].data[i].push(resposta[i].porcentagemUso);
-            dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
-            console.log(dataS)
-            CPULineChart.config.data.labels[i].push(dataS);
+        console.log("ANTES DO IF" + resposta.length)
+        if (grafico.data.datasets[0].data.length > 50 && grafico.data.labels.length > 50) {
+            resposta = resposta.slice(-80)
+            // grafico.data.datasets[0].data.slice(9);
+            // grafico.data.labels.slice(9);
         }
+        grafico.update()
+        console.log("Depois do IF" + resposta.length)
+        for (i = 0; i < resposta.length; i++) {
 
-        console.log(JSON.stringify(dados));
-
-
-        /*console.log("Vamos plotar os graficos")
-        const CPULineChart = new Chart(document.getElementById('CPULineChart'), {
-            type: 'line',
-            data: dados,
-            //Configurações do gráfico
-            options: {
-                responsive: true,
-                animation: { duration: 500 },
-                hoverMode: 'index',
-                stacked: true,
-                title: {
-                    display: true,
-                    text: 'Movimentação da agenda de massagens semanal'
-                },
-                scales: {
-                    x:{
-                        ticks: {
-                            beginAtZero: true,
-                            max: 100,
-                            min: 0
-                        }
-                    },
-                }
+            if (grafico.data.datasets[0].data.length > 50 && grafico.data.labels.length > 50) {
+                grafico.data.datasets[0].data.shift();
+                grafico.data.labels.shift();
             }
-        });*/
-
-
-        //Atualiza os dados de 5 em 5 segundos
+            var dataN = new Date(resposta[i].horario)
+            dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
+            grafico.data.datasets[0].data.push(resposta[i].porcentagemUso);
+            grafico.data.labels.push(dataS);
+        }
+        CpuLineChart.update()
     }
 
-    //CPULineGraph()
-    setInterval(obterDadosCPU, 5000)
-    CPUBarGraph()
-    RAMLineGraph()
-    RAMBarGraph()
-    TempLineGraph()
-    TempBarGraph()
+    function obterDadosRam() {
+        var servers = JSON.parse(sessionStorage.SERVERS);
+
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterDadosRam`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor: varId,
+            })
+
+        }).then(function (response) {
+            console.log(response)
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    plotarGraficoRam(resposta, RAMLineChart);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+    
+    function plotarGraficoRam(resposta, grafico) {
+        console.log('iniciando plotagem do gráfico...');
+        console.log("ANTES DO IF" + resposta.length)
+        if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+            resposta = resposta.slice(-30)
+            // grafico.data.datasets[0].data.slice(9);
+            // grafico.data.labels.slice(9);
+        }
+        grafico.update()
+        console.log("Depois do IF" + resposta.length)
+        for (i = 0; i < resposta.length; i++) {
+
+            if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+                grafico.data.datasets[0].data.shift();
+                grafico.data.labels.shift();
+            }
+            var dataN = new Date(resposta[i].horario)
+            dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
+            grafico.data.datasets[0].data.push(resposta[i].porcentagemUso);
+            grafico.data.labels.push(dataS);
+        }
+        RAMLineChart.update()
+    }
+
+    obterDadosCPU()
+    obterDadosRam()
+    setInterval(() => { 
+        obterDadosCPU()
+        obterDadosRam()
+    }, 5000)
 
 </script>

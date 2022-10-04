@@ -18,4 +18,8 @@ router.post("/obterDadosCPU", (req,res)=>{
     serverController.obterDadosCPU(req, res);
     console.log(req)
 })
+router.post("/obterDadosRam", (req,res)=>{
+    serverController.obterDadosRam(req, res);
+    console.log(req)
+})
 module.exports = router;
