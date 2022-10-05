@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+var bcrypt = require('bcrypt');
 
 function entrar(req, res) {
     var email = req.body.emailServer;
@@ -9,36 +10,47 @@ function entrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {        
-        usuarioModel.entrar(email, senha)
-            .then(
-                function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+        usuarioModel.procurarPorEmail(email)
+        .then(function (resultado) {
+            console.log(`\nResultados encontrados: ${resultado.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
-                    if (resultado.length == 1) {
-                        console.log(resultado);
-                        res.json(resultado[0]);
-                    } else if (resultado.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
+            if (resultado.length == 1) {
+                bcrypt.compare(senha, resultado[0].senha).then(function (isIgual) {
+                    if (isIgual) {
+                        delete resultado[0].senha
+                        console.log(resultado[0])
+                        res.json(resultado[0])
+
                     } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    }
-                }
-            ).catch(
-                function (erro) {
+                        res.status(403).send("Email e/ou senha inválido(s)");
+
+                    }                    
+
+                }).catch(function (erro) {
                     console.log(erro);
                     console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
-                }
-            );
+                });
+
+            } else {
+                res.status(403).send("Email e/ou senha inválido(s)");
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
     }
 
 }
 
-function cadastrarUsuarioComum(req, res) {
+function cadastrar(req, res) {
     var nome = req.body.nameServer;
     var email = req.body.emailServer;
     var senha = req.body.passwdServer;
+    var idAdmin = req.body.idAdminServer;
     var idEmpresa = req.body.idCompanyServer;
     
     if (nome == undefined) {
@@ -47,28 +59,40 @@ function cadastrarUsuarioComum(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
+    } else if (idAdmin == undefined) {
+        res.status(400).send("O id do admin está undefined!");
     } else if (idEmpresa == undefined) {
         res.status(400).send("O id da empresa está undefined!");
     } else {
-        usuarioModel.cadastrarUsuarioComum(nome, email, senha, idEmpresa)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(    
-                function (erro) {
+        usuarioModel.procurarPorEmail(email)
+        .then(function (isEmailEmUso) {
+            if (isEmailEmUso.length == 0) {
+                bcrypt.hash(senha, 8)
+                .then(function (hash) {
+                    usuarioModel.cadastrar(nome, email, hash, idEmpresa, idAdmin)
+                    .then(function (resultado) {
+                        console.log(resultado)
+                        res.json(resultado);    
+                    }).catch(function (erro) {
+                        console.log(erro);
+                        console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                        res.status(500).json(erro.sqlMessage);
+                    });
+                    
+                }).catch(function (erro) {
                     console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro do usuário! Erro: ",
-                        erro.sqlMessage
-                    );
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
-                }
-            );
+                });
+
+            } else {
+                res.status(403).send("Email já está em uso");
+            }
+        })
     }
 }
 
 module.exports = {
     entrar,
-    cadastrarUsuarioComum,
+    cadastrar,
 }

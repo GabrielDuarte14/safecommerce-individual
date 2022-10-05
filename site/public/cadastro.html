@@ -100,13 +100,7 @@
         
                     <input type="Text" class="ipt" id="email_ipt" 
                     placeholder="Email">
-        
-                    <input type="password" class="ipt" id="senha_ipt" 
-                    placeholder="Senha">
-        
-                    <input type="password" class="ipt" id="confirm_ipt" 
-                    placeholder="Confirmação de senha">
-        
+                    
                     <a href="login.html"><div class="frase">Já tem cadastro? Logue-se </div></a>
         
                     <button class="bt" onclick="cadastrar()">Cadastrar</button>
@@ -125,45 +119,32 @@
         var nomeVar = nome_ipt.value;
         var cnpjVar = cnpj_ipt.value;
         var emailVar = email_ipt.value;
-        var senhaVar = senha_ipt.value;
-        var confirmVar = confirm_ipt.value;
         
-        if (nomeVar == "" ||cnpjVar == "" || emailVar == "" 
-        || senhaVar == "" || confirmVar == "") {
-            erro.style.display = 'block'
-            setTimeout(()=>(
-                erro.style.display = 'none'
-            ), 5000);
-            mensagem_erro.innerHTML = "Preencha todos os campos!";
+        if (nomeVar == "" ||cnpjVar == "" || emailVar == "" ) {
+            // erro.style.display = 'block'
+            // setTimeout(()=>(
+            //     erro.style.display = 'none'
+            // ), 5000);
+            alert("Formato de email inválido")
+            // mensagem_erro.innerHTML = "Preencha todos os campos!";
             return false;
         }
 
-        else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
-            erro.style.display = "block"
-            setTimeout(()=>(
-                erro.style.display = 'none'
-            ), 5000);
-            mensagem_erro.innerHTML = "Email errado. Utilize '@'' e '.com'!";
+        else if (emailVar.indexOf("@") == -1) {
+            // erro.style.display = "block"
+            // setTimeout(()=>(
+            //     erro.style.display = 'none'
+            // ), 5000);
+            // mensagem_erro.innerHTML = "Email errado. Utilize '@'' e '.com'!";
+            alert("Formato de email inválido")
             // finalizarAguardar();
             return false;
         }
 
-        if (senhaVar != confirmVar) {
-            erro.style.display = "block"
-            setTimeout(()=>(
-                erro.style.display = 'none'
-            ), 5000);
-            mensagem_erro.innerHTML = "As senhas digitadas devem ser iguais!";
-            // finalizarAguardar();
-            return false;
-        }
-        else {
-            console.log("foi")
-        }
         console.log("depois de cadastrar")
 
         // Enviando o valor da nova input
-        fetch("/usuarios/cadastrarEmpresa", {  
+        fetch("/empresas/cadastrar", {  
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -171,8 +152,7 @@
             body: JSON.stringify({
                 nomeServer: nomeVar,
                 cnpjServer: cnpjVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar
+                emailServer: emailVar
             })
         }).then(function (resposta) {
             console.log("Recuperando valores")

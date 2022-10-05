@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-const serverController = require('../controllers/serverController');
+var serverController = require('../controllers/serverController');
 
 router.post("/registerServer", (req, res) => {
     serverController.registerServer(req, res);
@@ -22,4 +22,5 @@ router.post("/obterDadosRam", (req,res)=>{
     serverController.obterDadosRam(req, res);
     console.log(req)
 })
+
 module.exports = router;

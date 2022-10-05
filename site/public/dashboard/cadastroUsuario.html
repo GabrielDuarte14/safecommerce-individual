@@ -142,6 +142,7 @@
         var emailVar = email_input.value;
         var passwdVar = passwd_input.value;
         var confirmPasswdVar = confirm_passwd_input.value;
+        var idAdminVar = sessionStorage.ID_USUARIO;
         var idCompanyVar = sessionStorage.ID_EMPRESA;
 
         if (nameVar == "" || emailVar == "" 
@@ -160,7 +161,7 @@
             return false;
         }
         
-        fetch("/usuarios/cadastrarUsuarioComum", {  
+        fetch("/usuarios/cadastrar", {  
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -169,6 +170,7 @@
                 nameServer: nameVar,
                 emailServer: emailVar,
                 passwdServer: passwdVar,
+                idAdminServer: idAdminVar,
                 idCompanyServer: idCompanyVar,
             })
         }).then(function (resposta) {

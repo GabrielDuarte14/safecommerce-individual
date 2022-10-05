@@ -3,6 +3,7 @@ var generator = require('generate-password');
 var bcrypt = require('bcrypt');
 
 var empresaModel = require('../models/empresaModel');
+var usuarioModel = require('../models/usuarioModel');
 
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
@@ -16,12 +17,12 @@ function cadastrar(req, res) {
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else {
-        empresaModel.cadastrar(nome, cnpj, email)
+        empresaModel.cadastrar(nome, cnpj)
             .then(function (_) {
                 empresaModel.procurarPorCNPJ(cnpj)
                 .then(function (resultado) {
                     var nomeAdmin = `Admin ${nome}`;
-                    var emailAdmin = `admin@${nome.toLowercase()}`
+                    var emailAdmin = `admin@${nome.toLowerCase()}.safecommerce`
                     var senhaAdmin = generator.generate({
                         length: 10,
                         numbers: true,
@@ -33,7 +34,21 @@ function cadastrar(req, res) {
                     });
 
                     bcrypt.hash(senhaAdmin, 8).then(function (hash) {
-                        senhaAdmin = hash;
+                        usuarioModel.cadastrar(nomeAdmin, emailAdmin, hash, resultado[0].idEmpresa, null)
+                        .then( function (_) {
+                            enviarEmail(emailAdmin, senhaAdmin, email)
+                            console.log("Usuário cadastrado com sucesso!")
+                            res.json(resultado)
+
+                        }).catch(function (erro) {
+                            console.log(erro);
+                            console.log(
+                                "\nHouve um erro ao realizar o cadastro do usuário! Erro: ",
+                                erro.sqlMessage
+                            );
+                            res.status(500).json(erro.sqlMessage);
+                        });
+
                     }).catch(function (erro) {
                         console.log(erro);
                         console.log(
@@ -41,22 +56,7 @@ function cadastrar(req, res) {
                             erro.sqlMessage
                         );
                         res.status(500).json(erro.sqlMessage);
-                    })
-
-                    usuarioModel.cadastrar(nomeAdmin, emailAdmin, senhaAdmin, resultado[0].idEmpresa, null)
-                    .then( function (_) {
-                        enviarEmail(email, senha, destino)
-                        console.log("Usuário cadastrado com sucesso!")
-                        res.json(resultado)
-
-                    }).catch(function (erro) {
-                        console.log(erro);
-                        console.log(
-                            "\nHouve um erro ao realizar o cadastro do usuário! Erro: ",
-                            erro.sqlMessage
-                        );
-                        res.status(500).json(erro.sqlMessage);
-                    });
+                    });                    
 
                 }).catch(function (erro) {
                     console.log(erro);
