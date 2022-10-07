@@ -68,12 +68,12 @@ create table Leitura(
 
 create view visualizacaoMensal as 
 select 
-	month(Leitura.dataLeitura) as "Mês",
-	day(Leitura.dataLeitura) as "Dia" ,
-	hour(Leitura.dataLeitura) as "Hora",
+	month(Leitura.dataLeitura) as "mes",
+	day(Leitura.dataLeitura) as "dia" ,
+	hour(Leitura.dataLeitura) as "hora",
 	Leitura.componente,
 	Leitura.valorLeitura,
-	Metrica.nome as "Nome métrica",
+	Metrica.nome as "nome",
 	Metrica.unidadeMedida,
 	Servidor.idServidor 
 from Leitura, Metrica, Servidor 
@@ -85,11 +85,11 @@ select * from visualizacaoMensal;
 
 create view visualizacaoSemanal as 
 select
-	month(Leitura.dataLeitura) as "Mês" ,
-	day(Leitura.dataLeitura) as "Dia" ,
-	hour(Leitura.dataLeitura) as "Hora",
+	month(Leitura.dataLeitura) as "mes" ,
+	day(Leitura.dataLeitura) as "dia" ,
+	hour(Leitura.dataLeitura) as "hora",
 	Leitura.componente,
-	Metrica.nome as "Nome métrica",
+	Metrica.nome as "nome",
 	Leitura.valorLeitura,
 	Metrica.unidadeMedida,
 	Servidor.idServidor 
@@ -122,7 +122,7 @@ select
 from Leitura as l  
 inner join Metrica as m on l.fkMetrica = m.idMetrica
 inner join Servidor as s on l.fkServidor = s.idServidor 
-where m.idMetrica = "5" and m.idMetrica = "6";
+where m.idMetrica = 5 and m.idMetrica = 6;
 select * from leituraRAM;
 
 
@@ -135,5 +135,5 @@ select
 from Leitura as l  
 inner join Metrica as m on l.fkMetrica = m.idMetrica
 inner join Servidor as s on l.fkServidor = s.idServidor 
-where m.idMetrica = "7" and m.idMetrica = "8";
+where m.idMetrica = 7 and m.idMetrica = 8;
 select * from leituraDisco;

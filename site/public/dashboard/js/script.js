@@ -5,6 +5,7 @@ var btnRegisterServer = document.getElementById('btn_registerServer')
 function validateSession() {
     var companyName = sessionStorage.NOME_EMPRESA;
     var userName = sessionStorage.NOME_USUARIO;
+    var fkAdmin = sessionStorage.FK_ADMIN
 
     var spanCompany = document.getElementById('company_name');
     var spanName = document.getElementById('user_name');
@@ -19,7 +20,7 @@ function validateSession() {
             spanCompany.innerHTML = companyName;
         }
     }
-    if(userName == 'admin') {
+    if(fkAdmin == null) {
         btnRegisterUser.style.display = 'block';
         btnRegisterServer.style.display = 'block';
     } else {
