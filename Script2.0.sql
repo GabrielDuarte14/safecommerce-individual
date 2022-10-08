@@ -20,7 +20,7 @@ create table Usuario(
 );
 
 create table Servidor(
-	idServidor int primary key,
+	idServidor int primary key auto_increment,
     modelo varchar(45),
 	so varchar(45),
     enderecoMac varchar(17),
@@ -39,9 +39,9 @@ INSERT INTO Metrica VALUES
 	(null, "Quatidade de CPU logica","vCPU"),
 	(null, "Porcentagem de uso da CPU por core","%"),
 	(null, "Frequência de uso da CPU", "MHz"),
-	(null, "Total de Memoria Ram", "GB"),
-	(null, "Porcentagem de uso da Memoria Ram", "%"),
-	(null, "Total de Disco", "TB"),
+	(null, "Total de Memoria RAM", "GB"),
+	(null, "Porcentagem de uso da Memoria RAM", "%"),
+	(null, "Total de Disco", "GB"),
 	(null, "Porcentagem de uso de Disco", "%"),
 	(null, "Lido pelo Disco", "ms"),
 	(null, "Escrito pelo Disco", "ms");
@@ -60,10 +60,10 @@ create table Leitura(
     foreign key (fkServidor) references Servidor(idServidor),
     fkMetrica int,
     foreign key (fkMetrica) references Metrica(idMetrica),
-	dataLeitura datetime primary key,
+	dataLeitura datetime,
     valorLeitura varchar(45),
-    componente varchar(45)
-    
+    componente varchar(45),
+    primary key (fkServidor, fkMetrica, dataLeitura, componente)
 );
 
 create view visualizacaoMensal as 
