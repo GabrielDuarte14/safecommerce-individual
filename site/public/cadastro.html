@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SafeCommerce | Cadastrar</title>
     <script src="js/main.js"></script>
+    <script src="js/validate.js"></script>
     <link rel="icon" href="assets/logo-icon.png">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -13,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/Cadastro.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <nav id="header" class="navbar fixed-top">
@@ -80,10 +82,6 @@
     <div class="container-fluid divCadastro">
 
         <div class="row h-100">
-            <div id="erro">
-                <span id="mensagem_erro"></span>
-            </div>
-
             <div class="col-12 col-xl-6 d-none d-xl-block">
 
             </div>
@@ -113,37 +111,53 @@
 </body>
 </html>
 <script>
-    console.log("Antes de cadastrar")
     function cadastrar() {
-
         var nomeVar = nome_ipt.value;
         var cnpjVar = cnpj_ipt.value;
         var emailVar = email_ipt.value;
         
-        if (nomeVar == "" ||cnpjVar == "" || emailVar == "" ) {
-            // erro.style.display = 'block'
-            // setTimeout(()=>(
-            //     erro.style.display = 'none'
-            // ), 5000);
-            alert("Formato de email inválido")
-            // mensagem_erro.innerHTML = "Preencha todos os campos!";
-            return false;
+        if (nomeVar == "" || nomeVar == null) {
+            Swal.fire({
+                title: 'Erro',
+                text: 'Nome é um campo obrigatório',
+                icon: 'error',
+                showConfirmButton: false,
+                showDenyButton: true,
+                denyButtonText: 'OK'
+            });
+            return;
         }
 
-        else if (emailVar.indexOf("@") == -1) {
-            // erro.style.display = "block"
-            // setTimeout(()=>(
-            //     erro.style.display = 'none'
-            // ), 5000);
-            // mensagem_erro.innerHTML = "Email errado. Utilize '@'' e '.com'!";
-            alert("Formato de email inválido")
-            // finalizarAguardar();
-            return false;
+        var validacaoCNPJ = validarCNPJ(cnpjVar);
+
+        if (validacaoCNPJ != 'OK') {
+            Swal.fire({
+                title: 'Erro',
+                text: validacaoCNPJ,
+                icon: 'error',
+                showConfirmButton: false,
+                showDenyButton: true,
+                denyButtonText: 'OK'
+            });
+            return;
+        } else {
+            cnpjVar = cnpjVar.replaceAll('.','').replace('/', '').replace('-', '')
         }
 
-        console.log("depois de cadastrar")
+        var validacaoEmail = validarEmail(emailVar);
 
-        // Enviando o valor da nova input
+        if (validacaoEmail != 'OK') {
+            Swal.fire({
+                title: 'Erro',
+                text: validacaoEmail,
+                icon: 'error',
+                showConfirmButton: false,
+                showDenyButton: true,
+                denyButtonText: 'OK'
+            });
+            return;
+        }
+
         fetch("/empresas/cadastrar", {  
             method: "POST",
             headers: {
@@ -159,20 +173,22 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                // erro.style.display = "block"
-                // mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
- 
-                setTimeout(() => {
-                    window.location = "./login.html";
-                }, "2000")
+                Swal.fire({
+                    title: 'Suceso',
+                    text: 'Cadastro realizado com sucesso',
+                    icon: 'success',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    confirmButtonColor: '#34e269',
+                    willClose: () => {
+                        window.location = "./login.html";
+                    }
+                });
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            // finalizarAguardar();
         });
-
-        return false;
     }
-    </script>
+</script>

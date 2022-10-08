@@ -13,7 +13,6 @@ const indexRouter = require("./src/routes/index");
 const usuarioRouter = require("./src/routes/usuarios");
 const serverRouter = require('./src/routes/servers');
 const empresaRouter = require('./src/routes/empresas');
-// const { createPages } = require('./src/controllers/serverController');
 
 dotenv.config();
 
@@ -27,7 +26,6 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/servers", serverRouter);
 app.use("/empresas", empresaRouter);
-// app.use("/python", createPages);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando!\n 

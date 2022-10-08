@@ -1,14 +1,5 @@
 const serverModel = require("../models/serverModel");
 
-// const spawn = require('child_process').spawn;
-
-// function createPages(req, res) {
-//     var process = spawn('python', ['./public/python/createPage.py']);
-//     process.stdout.on('data', (data) => {
-//         console.log(data)
-//     })
-// }  
-
 function registerServer(req, res) {
     var model = req.body.modelServer;
     var os = req.body.osServer;
@@ -132,6 +123,5 @@ module.exports = {
     getServers,
     getCurrentServer,
     obterDadosCPU,
-    obterDadosRam,
-    // createPages
+    obterDadosRam
 }
