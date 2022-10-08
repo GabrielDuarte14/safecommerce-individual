@@ -10,17 +10,17 @@ function validateSession() {
     var spanCompany = document.getElementById('company_name');
     var spanName = document.getElementById('user_name');
 
-    if(userName != null) {
+    if (userName != null) {
         if (spanName != undefined) {
             spanName.innerHTML = userName;
         }
     }
-    if(companyName != null) {
+    if (companyName != null) {
         if(spanCompany != undefined) {
             spanCompany.innerHTML = companyName;
         }
     }
-    if(fkAdmin == null) {
+    if (fkAdmin == 'null') {
         btnRegisterUser.style.display = 'block';
         btnRegisterServer.style.display = 'block';
     } else {
@@ -140,22 +140,22 @@ function getData(index) {
     }).then((answer) => {
         console.log(answer);
 
-        answer.json().then(json => {   
-            sessionStorage.SERVERS = JSON.stringify(json);
-            var servers = JSON.parse(sessionStorage.SERVERS);
-            
-            console.log(servers[0].idServidor);  
-            if(index) {
-                setTable(servers); 
-                setCards(servers);
-                setLinks(servers);    
-            } else {
-                setLinks(servers); 
-            }
-        });
-
         if(answer.ok) {
             console.log("A requisição foi um sucesso!");
+
+            answer.json().then(json => {   
+                sessionStorage.SERVERS = JSON.stringify(json);
+                var servers = JSON.parse(sessionStorage.SERVERS);
+                
+                console.log(servers[0].idServidor);  
+                if(index) {
+                    setTable(servers); 
+                    setCards(servers);
+                    setLinks(servers);    
+                } else {
+                    setLinks(servers); 
+                }
+            });
         } else {
             console.log("ERROR: answer is not ok");
         }
@@ -186,19 +186,19 @@ function setCurrentServerPage(id) {
         })
     }).then((answer) => {
         console.log(answer);
-
-        answer.json().then(json => {   
-            sessionStorage.CURRENT_SERVER = ''
-            sessionStorage.CURRENT_SERVER = JSON.stringify(json);
-            sessionStorage.ID_SERVER = json[0].idServidor;
-            sessionStorage.MODEL_SERVER = json[0].modelo;
-            var currentServer = JSON.parse(sessionStorage.CURRENT_SERVER);
-            console.log(json);  
-
-            window.location = "./servidores.html";
-        });
+        
         if(answer.ok) {
             console.log("A requisição foi um sucesso!");
+            answer.json().then(json => {   
+                sessionStorage.CURRENT_SERVER = ''
+                sessionStorage.CURRENT_SERVER = JSON.stringify(json);
+                sessionStorage.ID_SERVER = json[0].idServidor;
+                sessionStorage.MODEL_SERVER = json[0].modelo;
+                var currentServer = JSON.parse(sessionStorage.CURRENT_SERVER);
+                console.log(json);  
+    
+                window.location = "./servidores.html";
+            });
         } else {
             console.log("ERROR: answer is not ok");
         }

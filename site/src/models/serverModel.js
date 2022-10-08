@@ -14,7 +14,7 @@ function getServers(idCompany) {
     console.log("ACESSEI O SERVER MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function getServer(): ", idCompany);
     var instruction = 
     `
-    SELECT * FROM servidor WHERE fkEmpresa = ${idCompany};
+    SELECT * FROM Servidor WHERE fkEmpresa = ${idCompany};
     `
     return database.execute(instruction);
 }
