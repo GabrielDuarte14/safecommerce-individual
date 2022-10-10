@@ -30,55 +30,55 @@ class myNavbar extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
         <nav class="navbar navbar-expand navbar-light my-navbar shadow container-fluid">
-                        <div class="box-hamburguer-menu">
-                            <div type="button" id="bar" class="nav-icon1 hamburguer" data-toggle="offcanvas">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
+            <div class="box-hamburguer-menu">
+                <div type="button" id="bar" class="nav-icon1 hamburguer" data-toggle="offcanvas">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
 
-                            <form class="d-none d-sm-inline-block form-inline navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light" placeholder="Procure por...">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
+                <form class="d-none d-sm-inline-block form-inline navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light" placeholder="Procure por...">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
                         </div>
+                    </div>
+                </form>
+            </div>
 
-                        <ul class="navbar-nav navbar-menu">
-                            <li class="nav-item dropdown d-sm-none">
-                                <div class="dropdown-menu dropdown-menu-right p-3">
-                                    <form class="form-inline mr-auto w-100 navbar-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Procure por...">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
+            <ul class="navbar-nav navbar-menu">
+                <li class="nav-item dropdown d-sm-none">
+                    <div class="dropdown-menu dropdown-menu-right p-3">
+                        <form class="form-inline mr-auto w-100 navbar-search">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Procure por...">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
                                 </div>
-                            </li>
-                            <li class="nav-item icon"><a href="#" class="nav-link"><i class="bi bi-bell-fill"></i></a></li>
-                            <li class="nav-item icon"><a href="#" class="nav-link"><i class="bi bi-envelope-fill"></i></a></li>
-                            <li class="nav-item icon" id="dropdown"><a href="#" class="nav-link dropdown-toggle" role="button">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="user_name">Empresa</span>
-                                <span class="bi bi-person-circle img-profile"></span>
-                            </a></li>
-                            <div class="dropdown-content" id="dropdown-content">
-                                <a href="#" id="company_name">Company user</a>
-                                <div class="divisor"></div>
-                                <a id="btn_registerUser" href="./cadastroUsuario.html">Cadastrar Usuário</a>
-                                <a href="#">
-                                    <div id="btn_exit">
-                                        Sair
-                                        <i class="bi bi-box-arrow-left"></i>
-                                    </div>
-                                </a>
                             </div>
-                        </ul>
-                    </nav>
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item icon"><a href="#" class="nav-link"><i class="bi bi-bell-fill"></i></a></li>
+                <li class="nav-item icon"><a href="#" class="nav-link"><i class="bi bi-envelope-fill"></i></a></li>
+                <li class="nav-item icon" id="dropdown"><a href="#" class="nav-link dropdown-toggle" role="button">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="user_name">Empresa</span>
+                    <span class="bi bi-person-circle img-profile"></span>
+                </a></li>
+                <div class="dropdown-content" id="dropdown-content">
+                    <a href="#" id="company_name">Company user</a>
+                    <div class="divisor"></div>
+                    <a id="btn_registerUser" href="./cadastroUsuario.html">Cadastrar Usuário</a>
+                    <a href="#">
+                        <div id="btn_exit">
+                            Sair
+                            <i class="bi bi-box-arrow-left"></i>
+                        </div>
+                    </a>
+                </div>
+            </ul>
+        </nav>
         `
     }
 }

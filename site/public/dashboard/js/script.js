@@ -190,11 +190,9 @@ function setCurrentServerPage(id) {
         if(answer.ok) {
             console.log("A requisição foi um sucesso!");
             answer.json().then(json => {   
-                sessionStorage.CURRENT_SERVER = ''
                 sessionStorage.CURRENT_SERVER = JSON.stringify(json);
                 sessionStorage.ID_SERVER = json[0].idServidor;
                 sessionStorage.MODEL_SERVER = json[0].modelo;
-                var currentServer = JSON.parse(sessionStorage.CURRENT_SERVER);
                 console.log(json);  
     
                 window.location = "./servidores.html";

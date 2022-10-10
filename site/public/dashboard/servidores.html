@@ -481,9 +481,7 @@
     }
 
     function obterDadosCPU() {
-        var servers = JSON.parse(sessionStorage.SERVERS);
-
-        var varId = servers[0].idServidor;
+        var varId = sessionStorage.ID_SERVER
 
         fetch(`/servers/obterDadosCPU`, {
             method: "POST",
