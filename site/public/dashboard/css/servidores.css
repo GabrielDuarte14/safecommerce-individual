@@ -23,7 +23,13 @@
     color: #808080 !important;
 }
 
-#CPUBarChart, #RAMBarChart {
+#cpuPercent{
+    height: 298px !important;
+    width: 300px !important;
+    margin: 0 auto;
+}
+
+.lineChart {
     height: 298px !important;
     width: 300px !important;
     margin: 0 auto;
