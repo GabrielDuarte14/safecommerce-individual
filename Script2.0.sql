@@ -72,7 +72,7 @@ select
 	day(Leitura.dataLeitura) as "dia" ,
 	hour(Leitura.dataLeitura) as "hora",
 	Leitura.componente,
-	Leitura.valorLeitura,
+	Leitura.valor_leitura,
 	Metrica.nome as "nome",
 	Metrica.unidadeMedida,
 	Servidor.idServidor 
@@ -90,7 +90,7 @@ select
 	hour(Leitura.dataLeitura) as "hora",
 	Leitura.componente,
 	Metrica.nome as "nome",
-	Leitura.valorLeitura,
+	Leitura.valor_leitura,
 	Metrica.unidadeMedida,
 	Servidor.idServidor 
 from Leitura, Metrica, Servidor 
@@ -105,7 +105,7 @@ create view leituraCPU as
 select 
 	m.idMetrica,
     l.dataLeitura as "horario",
-    l.valorLeitura as "valor",
+    l.valor_leitura as "valor",
 	s.idServidor
 from Leitura as l  
 inner join Metrica as m on l.fkMetrica = m.idMetrica
@@ -117,7 +117,7 @@ create view leituraRAM as
 select
 	m.idMetrica, 
     l.dataLeitura as "horario",
-    l.valorLeitura as "valor",
+    l.valor_leitura as "valor",
 	s.idServidor
 from Leitura as l  
 inner join Metrica as m on l.fkMetrica = m.idMetrica
@@ -130,10 +130,20 @@ create view leituraDisco as
 select
 	m.idMetrica,
     l.dataLeitura as "horario",
-    l.valorLeitura as "valor",
+    l.valor_leitura as "valor",
 	s.idServidor
 from Leitura as l  
 inner join Metrica as m on l.fkMetrica = m.idMetrica
 inner join Servidor as s on l.fkServidor = s.idServidor 
 where m.idMetrica = 7 and m.idMetrica = 8;
-select * from leituraDisco;
+select valor from leituraDisco;
+
+SELECT idServidor FROM Servidor WHERE enderecoMac = '98:83:89:ec:db:2c';
+select * from Parametro;
+select * from Servidor;
+select * from leitura;
+select * from Metrica;
+insert into Parametro values (1, 1);
+insert into Parametro values (1, 3);
+delete from parametro where fkMetrica = 1;
+ALTER TABLE Leitura CHANGE valor_leitura valor_leitura varchar(45);
