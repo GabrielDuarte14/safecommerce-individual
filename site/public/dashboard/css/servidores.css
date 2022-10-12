@@ -23,18 +23,19 @@
     color: #808080 !important;
 }
 
-#cpuPercent{
-    height: 298px !important;
-    width: 300px !important;
-    margin: 0 auto;
+.lineChart {
+    width: 50vw;
 }
 
-.lineChart {
-    height: 298px !important;
-    width: 300px !important;
+.bodyCanvas{
     margin: 0 auto;
+    width: 75%;
 }
 
 .chart-size {
-    height: 320px;
+    margin-left: 300px;
+}
+
+canvas{
+    margin: 0;
 }
