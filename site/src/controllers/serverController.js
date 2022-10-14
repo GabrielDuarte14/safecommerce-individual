@@ -60,6 +60,44 @@ function obterDadosCPU(req,res) {
                 }
             );
 }
+function obterDadosCPUCore(req,res) {
+    var id = req.body.idServidor;
+    
+    serverModel.obterDadosCPUCore(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
+function obterDadosFreq(req,res) {
+    var id = req.body.idServidor;
+    
+    serverModel.obterDadosFreq(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
 function obterDadosRam(req,res) {
     var id = req.body.idServidor;
     
@@ -79,9 +117,71 @@ function obterDadosRam(req,res) {
                 }
             );
 }
+function obterDadosDisk(req,res) {
+    var id = req.body.idServidor;
+    
+    serverModel.obterDadosDisk(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
+function obterDadosRDisk(req,res) {
+    var id = req.body.idServidor;
+    
+    serverModel.obterDadosRDisk(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
+function obterDadosWDisk(req,res) {
+    var id = req.body.idServidor;
+    
+    serverModel.obterDadosWDisk(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
 module.exports = {
     getServers,
     getCurrentServer,
     obterDadosCPU,
-    obterDadosRam
+    obterDadosCPUCore,
+    obterDadosFreq,
+    obterDadosRam,
+    obterDadosDisk,
+    obterDadosRDisk,
+    obterDadosWDisk,
 }

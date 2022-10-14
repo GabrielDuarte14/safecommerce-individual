@@ -127,7 +127,7 @@
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <canvas id="cpuPercent" class="chartjs-render-monitor lineChart"></canvas>
+                                        <canvas id="cpuPercent" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +155,7 @@
                                 </h2>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <canvas id="qtdCpuCore" class="chartjs-render-monitor lineChart"></canvas>
+                                        <canvas id="qtdCpuCore" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                 </h2>
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <canvas id="frequencyCpu" class="chartjs-render-monitor lineChart"></canvas>
+                                        <canvas id="frequencyCpu" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -259,178 +259,6 @@
                             </div>
 
                         </div>
-
-
-
-
-
-
-
-
-                        <div class="row">
-                            <div class="col-xl-8 col-lg-7">
-                                <div class="card shadow mb-4">
-                                    <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold">Uso da CPU (%)</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-area">
-                                            <div class="chartjs-size-monitor">
-                                                <div class="chartjs-size-monitor-expand">
-                                                    <div></div>
-                                                </div>
-                                                <div class="chartjs-size-monitor-shrink">
-                                                    <div></div>
-                                                </div>
-                                                <canvas id="CPULineChart" class="chartjs-render-monitor"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-5">
-                                <div class="card shadow mb-4">
-                                    <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold">Memória em disco</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-pie pt-4 pb-2">
-                                            <div class="chartjs-size-monitor chart-size">
-                                                <div class="chartjs-size-monitor-expand">
-                                                    <div></div>
-                                                </div>
-                                                <div class="chartjs-size-monitor-shrink">
-                                                    <div></div>
-                                                </div>
-                                                <center> <h4>Total de Memória em Disco: <span id="totalDisco"></span> </h4></center>
-                                                <canvas id="CPUBarChart" class="chartjs-render-monitor"></canvas>
-                                            </div>
-                                            <div class="mt-4 text-center small">
-                                                <span class="mr-2">
-                                                    <i class="bi bi-circle-fill circle-size"></i>
-                                                    Disponível
-                                                </span>
-                                                <span class="mr-2">
-                                                    <i class="bi bi-circle-fill circle-size color-grey"></i>
-                                                    Usado
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-8 col-lg-7">
-                                <div class="card shadow mb-4">
-                                    <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold">Uso da RAM (%)</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-area">
-                                            <div class="chartjs-size-monitor">
-                                                <div class="chartjs-size-monitor-expand">
-                                                    <div></div>
-                                                </div>
-                                                <div class="chartjs-size-monitor-shrink">
-                                                    <div></div>
-                                                </div>
-                                                <canvas id="RAMLineChart" class="chartjs-render-monitor"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-5">
-                                <div class="card shadow mb-4">
-                                    <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold">Memória RAM</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-pie pt-4 pb-2">
-                                            <div class="chartjs-size-monitor">
-                                                <div class="chartjs-size-monitor-expand">
-                                                    <div></div>
-                                                </div>
-                                                <div class="chartjs-size-monitor-shrink">
-                                                    <div></div>
-                                                </div>
-                                                <center> <h4>Total de Memória Ram: <span id="totalRam"></span> </h4></center>
-                                                <canvas id="RAMBarChart" class="chartjs-render-monitor"></canvas>
-                                            </div>
-                                            <div class="mt-4 text-center small">
-                                                <span class="mr-2">
-                                                    <i class="bi bi-circle-fill circle-size"></i>
-                                                    Disponível
-                                                </span>
-                                                <span class="mr-2">
-                                                    <i class="bi bi-circle-fill circle-size color-grey"></i>
-                                                    Usado
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-8 col-lg-7">
-                                <div class="card shadow mb-4">
-                                    <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold">Temperatura CPU (%)</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-area">
-                                            <div class="chartjs-size-monitor">
-                                                <div class="chartjs-size-monitor-expand">
-                                                    <div></div>
-                                                </div>
-                                                <div class="chartjs-size-monitor-shrink">
-                                                    <div></div>
-                                                </div>
-                                                <canvas id="TempLineChart" class="chartjs-render-monitor"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-5">
-                                <div class="card shadow mb-4">
-                                    <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold">Termomêtro</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-pie pt-4 pb-2">
-                                            <div class="chartjs-size-monitor chart-size">
-                                                <div class="chartjs-size-monitor-expand">
-                                                    <div></div>
-                                                </div>
-                                                <div class="chartjs-size-monitor-shrink">
-                                                    <div></div>
-                                                </div>
-                                                <canvas id="TempBarChart" class="chartjs-render-monitor"></canvas>
-                                            </div>
-                                            <div class="mt-4 text-center small">
-                                                <span class="mr-2">
-                                                    <i class="bi bi-circle-fill circle-size"></i>
-                                                    Disponível
-                                                </span>
-                                                <span class="mr-2">
-                                                    <i class="bi bi-circle-fill circle-size color-grey"></i>
-                                                    Usado
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- Fim do conteudo da página -->
@@ -466,26 +294,22 @@
     getData(indexPage);
 
     // Criando gráfico CPU
-    var labels = [
-    ];
-    var dadosCPU = {
-        labels: [],
-        datasets: [
-            {
-                label: 'dados CPU',
-                borderColor: '#dc3e1d',
+    var labels = [];
+        const dadosCpu = {
+            labels:[],
+            datasets: [{
+                label: 'CPU',
                 backgroundColor: '#dc3e1d',
-                fill: true,
-                data: []
-            },
-        ]
-    };
+                borderColor: '#dc3e1d',
+                data: [],
+            }]
+        };
 
-    var config1 = {
-        type: 'line',
-        data: dadosCPU,
-        options: {
-            animation: {
+        const configCpu = {
+            type: 'line',
+            data: dadosCpu,
+            options: {
+                animation: {
                 duration: 0
             },
             scales: {
@@ -494,38 +318,123 @@
                     max: 100,
                 }
             }
-        }
-    };
+            }
+        };
 
-    const CpuLineChart = new Chart(
-        document.getElementById('CPULineChart'),
-        config1
-    );
+        const CpuLineChart = new Chart(
+            document.getElementById('cpuPercent'),
+            configCpu
+        );
 
-
-    function CPUBarGraph() {
-        const data = {
+        // Criando gráfico CPUCore
+    var labels = [];
+        const dadosCpuCore = {
+            labels:[],
             datasets: [{
-                label: 'My First Dataset',
-                data: [40, 60],
-                backgroundColor: [
-                    '#808080',
-                    '#dc3e1d',
-                ],
-                hoverOffset: 4
+                label: 'Core de CPU: 1',
+                backgroundColor: '#dc3e1d',
+                borderColor: '#dc3e1d',
+                data: [],
+            },
+            {
+                label: 'Core de CPU: 2',
+                backgroundColor: '#68b2f8',
+                borderColor: '#68b2f8',
+                data: [],
+            },
+            {
+                label: 'Core de CPU: 3',
+                backgroundColor: '#fce07f',
+                borderColor: '#fce07f',
+                data: [],
+            },
+            {
+                label: 'Core de CPU: 4',
+                backgroundColor: '#7fda89',
+                borderColor: '#7fda89',
+                data: [],
+            },
+            {
+                label: 'Core de CPU: 5',
+                backgroundColor: '#ffb145',
+                borderColor: '#ffb145',
+                data: [],
+            },
+            {
+                label: 'Core de CPU: 6',
+                backgroundColor: '#adeada',
+                borderColor: '#adeada',
+                data: [],
+            },
+            {
+                label: 'Core de CPU: 7',
+                backgroundColor: '#a45785',
+                borderColor: '#a45785',
+                data: [],
+            },
+            {
+                label: 'Core de CPU: 8',
+                backgroundColor: '#626970',
+                borderColor: '#626970',
+                data: [],
+            },
+            ]
+        };
+
+        const configCpuCore = {
+            type: 'line',
+            data: dadosCpuCore,
+            options: {
+                animation: {
+                duration: 0
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                }
+            }
+            }
+        };
+
+        const CpuCoreLineChart = new Chart(
+            document.getElementById('qtdCpuCore'),
+            configCpuCore
+        );
+
+    // Criando gráfico de frequência
+
+    var labels = [];
+        const dadosFreq = {
+            labels:[],
+            datasets: [{
+                label: 'Frequência de uso CPU',
+                backgroundColor: '#dc3e1d',
+                borderColor: '#dc3e1d',
+                data: [],
             }]
         };
 
-        const config = {
-            type: 'pie',
-            data: data,
+        const configFreq = {
+            type: 'line',
+            data: dadosFreq,
+            options: {
+                animation: {
+                duration: 0
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                }
+            }
+            }
         };
 
-        const CPUBarChart = new Chart(
-            document.getElementById('CPUBarChart'),
-            config
+        const FreqLineChart = new Chart(
+            document.getElementById('frequencyCpu'),
+            configFreq
         );
-    }
 
     // Criando gráfico de memória ram
         var labels = [];
@@ -539,7 +448,7 @@
             }]
         };
 
-        const config2 = {
+        const configRam = {
             type: 'line',
             data: dadosRam,
             options: {
@@ -556,90 +465,109 @@
         };
 
         const RAMLineChart = new Chart(
-            document.getElementById('RAMLineChart'),
-            config2
+            document.getElementById('ramPercent'),
+            configRam
         );
     
 
-    // Criando gráfico de pizza do total de memoria ram
-        const dadosRamBar = {
+    // Criando gráfico de uso de Disco
+
+    var labels = [];
+        const dadosDisk = {
+            labels:[],
             datasets: [{
-                label: 'Total de ram',
-                data: [],
-                backgroundColor: [
-                    '#808080',
-                    '#dc3e1d',
-                ],
-                hoverOffset: 4
-            }]
-        };
-
-        const config3 = {
-            type: 'pie',
-            data: dadosRamBar,
-        };
-
-        const RAMBarChart = new Chart(
-            document.getElementById('RAMBarChart'),
-            config3
-        );
-    
-
-    function TempLineGraph() {
-        const labels = [
-            '22:06',
-            '22:07',
-            '22:08',
-            '22:09',
-            '22:10',
-            '22:11',
-        ];
-
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: 'CPU',
+                label: 'Disco',
                 backgroundColor: '#dc3e1d',
                 borderColor: '#dc3e1d',
-                data: [0, 10, 20, 40, 60, 80, 100],
+                data: [],
             }]
         };
 
-        const config = {
+        const configDisk = {
             type: 'line',
-            data: data,
-            options: {}
+            data: dadosDisk,
+            options: {
+                animation: {
+                duration: 0
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                }
+            }
+            }
         };
 
-        const TempLineChart = new Chart(
-            document.getElementById('TempLineChart'),
-            config
+        const DiskLineChart = new Chart(
+            document.getElementById('diskPercent'),
+            configDisk
         );
-    }
-
-    function TempBarGraph() {
-        const data = {
+        // Criando gráfico de Lido por Disco
+        var labels = [];
+        const dadosRDisk = {
+            labels:[],
             datasets: [{
-                label: 'My First Dataset',
-                data: [40, 60],
-                backgroundColor: [
-                    '#808080',
-                    '#dc3e1d',
-                ],
-                hoverOffset: 4
+                label: 'Lido por Disco',
+                backgroundColor: '#dc3e1d',
+                borderColor: '#dc3e1d',
+                data: [],
             }]
         };
 
-        const config = {
-            type: 'bar',
-            data: data,
+        const configRDisk = {
+            type: 'line',
+            data: dadosRDisk,
+            options: {
+                animation: {
+                duration: 0
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                }
+            }
+            }
         };
 
-        const TempBarChart = new Chart(
-            document.getElementById('TempBarChart'),
-            config
+        const rDiskLineChart = new Chart(
+            document.getElementById('diskRead'),
+            configRDisk
         );
-    }
+
+        // Criando gráfico de Escrito por Disco
+        var labels = [];
+        const dadosWDisk = {
+            labels:[],
+            datasets: [{
+                label: 'Escrito por Disco',
+                backgroundColor: '#dc3e1d',
+                borderColor: '#dc3e1d',
+                data: [],
+            }]
+        };
+
+        const configWDisk = {
+            type: 'line',
+            data: dadosWDisk,
+            options: {
+                animation: {
+                duration: 0
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                }
+            }
+            }
+        };
+
+        const wDiskLineChart = new Chart(
+            document.getElementById('diskWrite'),
+            configWDisk
+        );
 
     function obterDadosCPU() {
         var varId = sessionStorage.ID_SERVER
@@ -676,26 +604,141 @@
 
     function plotarGraficoCPU(resposta, grafico) {
         console.log('iniciando plotagem do gráfico...');
-        console.log("ANTES DO IF" + resposta.length)
-        if (grafico.data.datasets[0].data.length > 50 && grafico.data.labels.length > 50) {
-            resposta = resposta.slice(-80)
-            // grafico.data.datasets[0].data.slice(9);
-            // grafico.data.labels.slice(9);
+        console.log("ANTES DO IF CPU" + resposta.length)
+        if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+            resposta = resposta.slice(-50)
         }
         grafico.update()
-        console.log("Depois do IF" + resposta.length)
+        console.log("Depois do IF CPU" + resposta.length)
         for (i = 0; i < resposta.length; i++) {
 
-            if (grafico.data.datasets[0].data.length > 50 && grafico.data.labels.length > 50) {
+            if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
                 grafico.data.datasets[0].data.shift();
                 grafico.data.labels.shift();
             }
             var dataN = new Date(resposta[i].horario)
             dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
-            grafico.data.datasets[0].data.push(resposta[i].porcentagemUso);
+            grafico.data.datasets[0].data.push(resposta[i].valor);
             grafico.data.labels.push(dataS);
         }
-        CpuLineChart.update()
+        grafico.update()
+    }
+
+    function obterDadosCPUCore() {
+        var varId = sessionStorage.ID_SERVER
+
+        fetch(`/servers/obterDadosCPUCore`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor: varId,
+            })
+
+        }).then(function (response) {
+            console.log(response)
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    plotarGraficoCPUCore(resposta, CpuCoreLineChart);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function plotarGraficoCPUCore(resposta, grafico) {
+        console.log('iniciando plotagem do gráfico...');
+        console.log("ANTES DO IF CPUCore" + resposta.length)
+        if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+            resposta = resposta.slice(-100)
+        }
+        grafico.update()
+        console.log("Depois do IF CPUCore" + resposta.length)
+        for (i = 0; i < resposta.length; i+=8) {
+
+            if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+                grafico.data.datasets[0].data.shift();
+                grafico.data.labels.shift();
+            }
+            var dataN = new Date(resposta[i].horario)
+            dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
+            grafico.data.datasets[0].data.push(resposta[i].valor);
+            grafico.data.datasets[1].data.push(resposta[i+1].valor);
+            grafico.data.datasets[2].data.push(resposta[i+2].valor);
+            grafico.data.datasets[3].data.push(resposta[i+3].valor);
+            grafico.data.datasets[4].data.push(resposta[i+4].valor);
+            grafico.data.datasets[5].data.push(resposta[i+5].valor);
+            grafico.data.datasets[6].data.push(resposta[i+6].valor);
+            grafico.data.datasets[7].data.push(resposta[i+7].valor);
+            grafico.data.labels.push(dataS);
+        }
+        grafico.update()
+    }
+
+    function obterDadosFreq() {
+        var varId = sessionStorage.ID_SERVER
+
+        fetch(`/servers/obterDadosFreq`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor: varId,
+            })
+
+        }).then(function (response) {
+            console.log(response)
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    plotarGraficoFreq(resposta, FreqLineChart);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function plotarGraficoFreq(resposta, grafico) {
+        console.log('iniciando plotagem do gráfico...');
+        console.log("ANTES DO IF Freq" + resposta.length)
+        if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+            resposta = resposta.slice(-50)
+        }
+        grafico.update()
+        console.log("Depois do IF Freq" + resposta.length)
+        for (i = 0; i < resposta.length; i++) {
+
+            if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+                grafico.data.datasets[0].data.shift();
+                grafico.data.labels.shift();
+            }
+            var dataN = new Date(resposta[i].horario)
+            dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
+            grafico.data.datasets[0].data.push(resposta[i].valor);
+            grafico.data.labels.push(dataS);
+        }
+        grafico.update()
     }
 
     function obterDadosRam() {
@@ -735,14 +778,12 @@
     
     function plotarGraficoRam(resposta, grafico) {
         console.log('iniciando plotagem do gráfico...');
-        console.log("ANTES DO IF" + resposta.length)
+        console.log("ANTES DO IF RAM" + resposta.length)
         if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
-            resposta = resposta.slice(-30)
-            // grafico.data.datasets[0].data.slice(9);
-            // grafico.data.labels.slice(9);
+            resposta = resposta.slice(-50)
         }
         grafico.update()
-        console.log("Depois do IF" + resposta.length)
+        console.log("Depois do IF RAM" + resposta.length)
         for (i = 0; i < resposta.length; i++) {
 
             if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
@@ -751,17 +792,198 @@
             }
             var dataN = new Date(resposta[i].horario)
             dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
-            grafico.data.datasets[0].data.push(resposta[i].porcentagemUso);
+            grafico.data.datasets[0].data.push(resposta[i].valor);
             grafico.data.labels.push(dataS);
         }
-        RAMLineChart.update()
+        grafico.update()
+    }
+
+    function obterDadosDisk() {
+        var servers = JSON.parse(sessionStorage.SERVERS);
+
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterDadosDisk`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor: varId,
+            })
+
+        }).then(function (response) {
+            console.log(response)
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    plotarGraficoDisk(resposta, DiskLineChart);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+    
+    function plotarGraficoDisk(resposta, grafico) {
+        console.log('iniciando plotagem do gráfico...');
+        console.log("ANTES DO IF Disk" + resposta.length)
+        if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+            resposta = resposta.slice(-50)
+        }
+        grafico.update()
+        console.log("Depois do IF Disk" + resposta.length)
+        for (i = 0; i < resposta.length; i++) {
+
+            if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+                grafico.data.datasets[0].data.shift();
+                grafico.data.labels.shift();
+            }
+            var dataN = new Date(resposta[i].horario)
+            dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
+            grafico.data.datasets[0].data.push(resposta[i].valor);
+            grafico.data.labels.push(dataS);
+        }
+        grafico.update()
+    }
+
+    function obterDadosRDisk() {
+        var servers = JSON.parse(sessionStorage.SERVERS);
+
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterDadosRDisk`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor: varId,
+            })
+
+        }).then(function (response) {
+            console.log(response)
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    plotarGraficoRDisk(resposta, rDiskLineChart);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+    
+    function plotarGraficoRDisk(resposta, grafico) {
+        console.log('iniciando plotagem do gráfico...');
+        console.log("ANTES DO IF RDisk" + resposta.length)
+        if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+            resposta = resposta.slice(-50)
+        }
+        grafico.update()
+        console.log("Depois do IF RDisk" + resposta.length)
+        for (i = 0; i < resposta.length; i++) {
+
+            if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+                grafico.data.datasets[0].data.shift();
+                grafico.data.labels.shift();
+            }
+            var dataN = new Date(resposta[i].horario)
+            dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
+            grafico.data.datasets[0].data.push(resposta[i].valor);
+            grafico.data.labels.push(dataS);
+        }
+        grafico.update()
+    }
+
+    function obterDadosWDisk() {
+        var servers = JSON.parse(sessionStorage.SERVERS);
+
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterDadosWDisk`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor: varId,
+            })
+
+        }).then(function (response) {
+            console.log(response)
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    plotarGraficoWDisk(resposta, wDiskLineChart);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+    
+    function plotarGraficoWDisk(resposta, grafico) {
+        console.log('iniciando plotagem do gráfico...');
+        console.log("ANTES DO IF WDisk" + resposta.length)
+        if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+            resposta = resposta.slice(-50)
+        }
+        grafico.update()
+        console.log("Depois do IF WDisk" + resposta.length)
+        for (i = 0; i < resposta.length; i++) {
+
+            if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
+                grafico.data.datasets[0].data.shift();
+                grafico.data.labels.shift();
+            }
+            var dataN = new Date(resposta[i].horario)
+            dataS = `${dataN.getHours()}:${dataN.getMinutes()}`
+            grafico.data.datasets[0].data.push(resposta[i].valor);
+            grafico.data.labels.push(dataS);
+        }
+        grafico.update()
     }
 
     obterDadosCPU()
+    obterDadosCPUCore()
     obterDadosRam()
+    obterDadosFreq()
+    obterDadosDisk()
+    obterDadosRDisk()
+    obterDadosWDisk()
     setInterval(() => { 
         obterDadosCPU()
+        obterDadosCPUCore()
         obterDadosRam()
+        obterDadosFreq()
+        obterDadosDisk()
+        obterDadosRDisk()
+        obterDadosWDisk()
     }, 5000)
 
 </script>

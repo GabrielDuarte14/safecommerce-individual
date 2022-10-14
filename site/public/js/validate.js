@@ -6,6 +6,7 @@ function validarCNPJ(cnpj) {
     } else if (cnpj == '') {
         resultado = 'CNPJ é obrigatório';
     } else if (cnpj.length != 18) {
+        //CNPJ da erro ao colocar apenas o valor sem pontos e barras
         resultado = 'CNPJ deve ter 14 caracteres';
     } else if ((cnpj[2] != '.') || (cnpj[6] != '.') || (cnpj[10] != '/') || (cnpj[15] != '-')) { 
         // 87.608.614/0001-39 
