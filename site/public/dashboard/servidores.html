@@ -127,7 +127,7 @@
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <canvas id="cpuPercent" class="chartjs-render-monitorlineChart"></canvas>
+                                        <canvas id="cpuPercent" class="chartjs-render-monitor lineChart"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body bodyCanvas">
                                         <canvas id="qtdCpuLogic" class="chartjs-render-monitor lineChart"></canvas>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body bodyCanvas">
                                         <canvas id="qtdCpuCore" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
@@ -168,7 +168,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body bodyCanvas">
                                         <canvas id="frequencyCpu" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
@@ -182,7 +182,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body bodyCanvas">
                                         <canvas id="ramMemory" class="chartjs-render-monitor lineChart"></canvas>
                                     </div>
                                 </div>
@@ -196,7 +196,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body bodyCanvas">
                                         <canvas id="ramPercent" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body bodyCanvas">
                                         <canvas id="disk" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
@@ -224,7 +224,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body bodyCanvas">
                                         <canvas id="diskPercent" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
@@ -238,7 +238,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    <div class="accordion-body bodyCanvas">
                                         <canvas id="diskRead" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
@@ -252,7 +252,7 @@
                                     </button>
                                 </h2>
                                 <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">    
+                                    <div class="accordion-body bodyCanvas">    
                                         <canvas id="diskWrite" class="chartjs-render-monitorlineChart"></canvas>
                                     </div>
                                 </div>
@@ -590,7 +590,7 @@
                     console.log("peguei")
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta;
-                    plotarGraficoCPU(resposta, CpuLineChart);
+                    plotarGraficoCPU(resposta, cpuPercent);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
