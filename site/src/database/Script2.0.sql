@@ -114,6 +114,33 @@ where m.idMetrica = 1 and m.idMetrica = 1;
 select * from leituraCPU;
 
 
+create view leituraCoreCPU as 
+select 
+	m.idMetrica,
+    l.dataLeitura as "horario",
+    l.valor_leitura as "valor",
+	s.idServidor
+from Leitura as l  
+inner join Metrica as m on l.fkMetrica = m.idMetrica
+inner join Servidor as s on l.fkServidor = s.idServidor 
+where m.idMetrica = 3 and m.idMetrica = 3;
+select * from leituraCoreCPU;
+
+drop view leituraCoreCPU;
+
+create view leituraFreq as 
+select
+	m.idMetrica,
+    l.dataLeitura as "horario",
+    l.valor_leitura as "valor",
+	s.idServidor
+from Leitura as l  
+inner join Metrica as m on l.fkMetrica = m.idMetrica
+inner join Servidor as s on l.fkServidor = s.idServidor 
+where m.idMetrica = 4 and m.idMetrica = 4;
+select * from leituraFreq;
+
+
 create view leituraRAM as 
 select
 	m.idMetrica, 
@@ -137,23 +164,10 @@ from Leitura as l
 inner join Metrica as m on l.fkMetrica = m.idMetrica
 inner join Servidor as s on l.fkServidor = s.idServidor 
 where m.idMetrica = 8 and m.idMetrica = 8;
-select valor from leituraDisco;
+select * from leituraDisco;
 
 
-create view leituraFreq as 
-select
-	m.idMetrica,
-    l.dataLeitura as "horario",
-    l.valor_leitura as "valor",
-	s.idServidor
-from Leitura as l  
-inner join Metrica as m on l.fkMetrica = m.idMetrica
-inner join Servidor as s on l.fkServidor = s.idServidor 
-where m.idMetrica = 4 and m.idMetrica = 4;
-select * from leituraFreq;
-
-
-create view leituraLDisk as 
+create view leituraLDisco as 
 select
 	m.idMetrica,
     l.dataLeitura as "horario",
@@ -163,10 +177,20 @@ from Leitura as l
 inner join Metrica as m on l.fkMetrica = m.idMetrica
 inner join Servidor as s on l.fkServidor = s.idServidor 
 where m.idMetrica = 9 and m.idMetrica = 9;
-select * from leituraLDisk;
+select * from leituraLDisco;
 
 
-
+create view leituraEDisco as 
+select
+	m.idMetrica,
+    l.dataLeitura as "horario",
+    l.valor_leitura as "valor",
+	s.idServidor
+from Leitura as l  
+inner join Metrica as m on l.fkMetrica = m.idMetrica
+inner join Servidor as s on l.fkServidor = s.idServidor 
+where m.idMetrica = 10 and m.idMetrica = 10;
+select * from leituraEDisco;
 
 
 SELECT idServidor FROM Servidor WHERE enderecoMac = '98:83:89:ec:db:2c';
@@ -186,6 +210,6 @@ delete from parametro where fkMetrica = 1;
 ALTER TABLE Leitura CHANGE valor_leitura valor_leitura varchar(45);
 
 drop view leituraCpu;
-
+INSERT INTO Usuario VALUES (null, "Gabriel","gabriel@duarte.com","gabriel123",null,1);
 SELECT valor, horario FROM leituraCpu where idServidor = 1;
 SELECT valor, horario FROM leituraRam where idServidor = 1;
