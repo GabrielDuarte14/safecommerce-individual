@@ -194,6 +194,7 @@ select * from leituraEDisco;
 
 
 SELECT idServidor FROM Servidor WHERE enderecoMac = '98:83:89:ec:db:2c';
+UPDATE Servidor SET enderecoMac =  '98:83:89:EC:DB:2C' WHERE idServidor = 1;
 select * from Parametro;
 select * from Servidor;
 select * from leitura;

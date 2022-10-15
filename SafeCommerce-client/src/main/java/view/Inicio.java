@@ -11,6 +11,7 @@ import dao.Leitura;
 import dao.Parametro;
 import dao.ParametroDao;
 import dao.Servidor;
+import getmac.GetMac;
 import io.nayuki.qrcodegen.*;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartFactory;
@@ -81,8 +82,12 @@ public class Inicio extends javax.swing.JFrame {
 
     }
 
-    private void Monitorando(Double cpu, Double ram, Double disco) {
-      
+    private void Monitorando(Double cpu, Double ram, Double disco) throws Exception {
+        GetMac gm=new GetMac();
+        String mac=gm.getMac();
+        mac = mac.replace("-", ":");
+        System.out.println("Mac address: "+" "+""+mac);
+        System.out.println(mac);
         Conexao connection = new Conexao();
         JdbcTemplate con = connection.getConnection();
         ParametroDao parametroDao = new ParametroDao();
@@ -91,8 +96,7 @@ public class Inicio extends javax.swing.JFrame {
         Processador proc = looca.getProcessador();
         Conversor conversor = new Conversor();
 
-        String enderecoMac = "98:83:89:ec:db:2c";
-        Integer fkServidor = servidor.getIdServidor(enderecoMac);
+        Integer fkServidor = servidor.getIdServidor(mac);
 
         List<Parametro> parametros = parametroDao.getParametros(fkServidor);
         System.out.println(parametros.get(0).getFkMetrica());
@@ -105,7 +109,6 @@ public class Inicio extends javax.swing.JFrame {
 
             if (atual == 1) {
                 con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getUso()));
-
             } else if (atual == 2) {
                 con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getNumeroCpusLogicas()));
             } else if (atual == 3) {
@@ -118,6 +121,10 @@ public class Inicio extends javax.swing.JFrame {
                 con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Ram')", fkServidor, parametros.get(i).getFkMetrica(), ram);
             } else if (parametros.get(i).getFkMetrica() == 7) {
                 con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal()));
+            } else if (parametros.get(i).getFkMetrica() == 8 ){
+                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), disco);
+            } else if (parametros.get(i).getFkMetrica() == 9 ){
+                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), looca.getGrupoDeDiscos());
             }
 
             System.out.println("GRAVADO NO BANCO");
@@ -194,10 +201,14 @@ public class Inicio extends javax.swing.JFrame {
                 Long ramUso = ram.getEmUso();
                 Long ramTotal = ram.getTotal();
                 Double porcentagemRam = (Double.valueOf(ramUso) / Double.valueOf(ramTotal)) * 100;
+                try{
                 Monitorando(cpu.getUso(), porcentagemRam, porcentagemVolume);
                 cpuSeries.add(cpuSeries.getItemCount(), cpu.getUso());
                 ramSeries.add(ramSeries.getItemCount(), porcentagemRam);
                 discoSeries.add(discoSeries.getItemCount(), porcentagemVolume);
+                }catch(Exception ed){
+                    System.out.println(ed);
+                }
             }
         }).start();
         dataset.addSeries(cpuSeries);
