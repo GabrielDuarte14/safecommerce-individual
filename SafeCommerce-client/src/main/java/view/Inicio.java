@@ -6,6 +6,7 @@ import com.github.britooo.looca.api.group.discos.Volume;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.util.Conversor;
+import com.opencsv.CSVWriter;
 import dao.Conexao;
 import dao.Leitura;
 import dao.Parametro;
@@ -50,12 +51,17 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 import java.net.NetworkInterface;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.StopWatch;
 import oshi.hardware.NetworkIF;
 
 /**
@@ -71,14 +77,29 @@ public class Inicio extends javax.swing.JFrame {
     static DefaultCategoryDataset dataset = new DefaultCategoryDataset();
     static JFreeChart lineChart;
     static ChartPanel chartPanel;
-
+  GetMac gm;
+    String mac;
+    Conexao connection = new Conexao();
+    JdbcTemplate con = connection.getConnection();
+    ParametroDao parametroDao = new ParametroDao();
+    Looca looca = new Looca();
+    Processador proc;
+    Servidor servidor;
+    Conversor conversor;
+    List<Parametro> parametros;
+    Integer fkServidor;
     public Inicio(Usuario user) {
+        try {
+            inicializarValores();
+        } catch (Exception ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         getContentPane().setBackground(new Color(255, 255, 255));
         initComponents(user);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-     	
+
         setTitle("SafeCommerce - Monitoramento");
         ImageIcon img = new ImageIcon(getClass().getResource("/img/logo.png"));
         setIconImage(img.getImage());
@@ -86,45 +107,79 @@ public class Inicio extends javax.swing.JFrame {
 
     }
 
-    private void Monitorando(Double cpu, Double ram, Double disco) throws Exception {
-        GetMac gm=new GetMac();
-        String mac=gm.getMac();
+    public void criarCSV(Integer fkServidor, Integer fkMetrica, String valor, String componente) throws IOException {
+        String[] header = {"fkServidor", "fkMetrica", "dataLeitura", "valor_leitura", "componente"};
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String[] record1 = {String.valueOf(fkServidor), String.valueOf(fkMetrica), dtf.format(now), valor, componente};
+
+        List<String[]> list = new ArrayList<>();
+        list.add(header);
+        list.add(record1);
+        String caminhoTemp = System.getProperty("java.io.tmpdir") + "/insert.csv";
+        try (CSVWriter writer = new CSVWriter(new FileWriter(System.getProperty("java.io.tmpdir") + "/insert.csv"))) {
+            writer.writeAll(list);
+        }
+        String esquel = " LOAD DATA LOCAL INFILE '" + "C:/Users/I/AppData/Local/Temp/insert.csv"
+                + "' INTO TABLE Leitura "
+                + " FIELDS TERMINATED BY \',\' ENCLOSED BY \'\"'"
+                + " LINES TERMINATED BY \'\\n\'";
+        StopWatch timer = new StopWatch();
+        timer.start();
+        con.update(esquel);
+        timer.stop();
+        System.out.println(timer.getTotalTimeSeconds());
+        
+    }
+  
+
+    public void inicializarValores() throws Exception {
+        gm = new GetMac();
+        mac = gm.getMac();
         mac = mac.replace("-", ":");
-        Conexao connection = new Conexao();
-        JdbcTemplate con = connection.getConnection();
-        ParametroDao parametroDao = new ParametroDao();
-        Servidor servidor = new Servidor();
-        Looca looca = new Looca();
-        Processador proc = looca.getProcessador();
-        Conversor conversor = new Conversor();
+        servidor = new Servidor();
+        proc = looca.getProcessador();
+        conversor = new Conversor();
 
-        Integer fkServidor = servidor.getIdServidor(mac);
+        fkServidor = servidor.getIdServidor(mac);
+        parametros = parametroDao.getParametros(fkServidor);
+    }
 
-        List<Parametro> parametros = parametroDao.getParametros(fkServidor);
-       
+    private void Monitorando(Double cpu, Double ram, Double disco) throws Exception {
+
         for (int i = 0; i < parametros.size(); i++) {
             Integer atual = parametros.get(i).getFkMetrica();
-       
-            String cpuFormat = String.format("%.1f", cpu);
 
+            String cpuFormat = String.format("%.1f", cpu);
+           
             if (atual == 1) {
-                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getUso()));
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(proc.getUso()), "CPU");
+                // con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getUso()));
             } else if (atual == 2) {
-                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getNumeroCpusLogicas()));
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(proc.getNumeroCpusLogicas()), "CPU");
+                // con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getNumeroCpusLogicas()));
             } else if (atual == 3) {
-                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (cpuFormat));
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(cpuFormat).replace(",", "."), "CPU");
+                //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (cpuFormat));
             } else if (atual == 4) {
-                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getFrequencia()));
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(proc.getFrequencia()), "CPU");
+
+                //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getFrequencia()));
             } else if (parametros.get(i).getFkMetrica() == 5) {
-                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (looca.getMemoria().getTotal()));
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(looca.getMemoria().getTotal()), "RAM");
+                //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (looca.getMemoria().getTotal()));
             } else if (parametros.get(i).getFkMetrica() == 6) {
-                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Ram')", fkServidor, parametros.get(i).getFkMetrica(), ram);
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(ram), "RAM");
+                //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Ram')", fkServidor, parametros.get(i).getFkMetrica(), ram);
             } else if (parametros.get(i).getFkMetrica() == 7) {
-                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal()));
-            } else if (parametros.get(i).getFkMetrica() == 8 ){
-                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), disco);
-            } else if (parametros.get(i).getFkMetrica() == 9 ){
-                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), looca.getGrupoDeDiscos());
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal()), "Disco");
+                //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal()));
+            } else if (parametros.get(i).getFkMetrica() == 8) {
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(disco), "Disco");
+                //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), disco);
+            } else if (parametros.get(i).getFkMetrica() == 9) {
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal()), "Disco");
+                //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), looca.getGrupoDeDiscos());
             }
 
             System.out.println("GRAVADO NO BANCO");
@@ -169,12 +224,12 @@ public class Inicio extends javax.swing.JFrame {
         Double porcentagemRam = (Double.valueOf(ramUso) / Double.valueOf(ramTotal)) * 100;
 
         for (int i = 0; i < 2; i++) {
-           cpuSeries.add(i, cpu.getUso());
+            cpuSeries.add(i, cpu.getUso());
             ramSeries.add(i, porcentagemRam);
             discoSeries.add(i, porcentagemVolume);
 
         }
-        new Timer(100, new ActionListener() {
+        new Timer(1, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -201,17 +256,17 @@ public class Inicio extends javax.swing.JFrame {
                 Long ramUso = ram.getEmUso();
                 Long ramTotal = ram.getTotal();
                 Double porcentagemRam = (Double.valueOf(ramUso) / Double.valueOf(ramTotal)) * 100;
-                try{
-                Monitorando(cpu.getUso(), porcentagemRam, porcentagemVolume);
-                cpuSeries.add(cpuSeries.getItemCount(), cpu.getUso());
-                ramSeries.add(ramSeries.getItemCount(), porcentagemRam);
-                discoSeries.add(discoSeries.getItemCount(), porcentagemVolume);
-                }catch(Exception ed){
+                try {
+                    Monitorando(cpu.getUso(), porcentagemRam, porcentagemVolume);
+                    cpuSeries.add(cpuSeries.getItemCount(), cpu.getUso());
+                    ramSeries.add(ramSeries.getItemCount(), porcentagemRam);
+                    discoSeries.add(discoSeries.getItemCount(), porcentagemVolume);
+                } catch (Exception ed) {
                     System.out.println(ed);
                 }
             }
         }).start();
-       dataset.addSeries(cpuSeries);
+        dataset.addSeries(cpuSeries);
         dataset.addSeries(ramSeries);
         dataset.addSeries(discoSeries);
         return dataset;
@@ -235,7 +290,7 @@ public class Inicio extends javax.swing.JFrame {
 
         return new ChartPanel(chart);
     }
-  
+
     private void initComponents(Usuario usuario) {
 
         jPanel1 = new javax.swing.JPanel();
@@ -252,19 +307,19 @@ public class Inicio extends javax.swing.JFrame {
         verProcessos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ProcTable processos = new ProcTable();
-               processos.criaJanela();
+                processos.criaJanela();
             }
         });
-       Integer hora =  LocalTime.now().getHour();
-       if(hora<6) {
-        labelSaudacao.setText("Boa madrugada, "+usuario.getNome()+"!");
-       }else if(hora<12) {
-    	   labelSaudacao.setText("Bom dia, "+usuario.getNome()+"!");
-       }else if(hora<18) {
-    	   labelSaudacao.setText("Boa tarde, "+usuario.getNome()+"!");
-       }else {
-    	   labelSaudacao.setText("Boa noite, "+usuario.getNome()+"!");
-       }
+        Integer hora = LocalTime.now().getHour();
+        if (hora < 6) {
+            labelSaudacao.setText("Boa madrugada, " + usuario.getNome() + "!");
+        } else if (hora < 12) {
+            labelSaudacao.setText("Bom dia, " + usuario.getNome() + "!");
+        } else if (hora < 18) {
+            labelSaudacao.setText("Boa tarde, " + usuario.getNome() + "!");
+        } else {
+            labelSaudacao.setText("Boa noite, " + usuario.getNome() + "!");
+        }
         labelSaudacao_1 = new JLabel();
         labelSaudacao_1.setText("Monitore também pelo celular!");
 
@@ -303,7 +358,6 @@ public class Inicio extends javax.swing.JFrame {
                                 .addComponent(labelSaudacao_1))
         );
         jPanel1.setLayout(jPanel1Layout);
-
 
         QrCode qr0 = QrCode.encodeText("http://www.facebook.com", QrCode.Ecc.MEDIUM);
         BufferedImage img = toImage(qr0, 4, 10); // See QrCodeGeneratorDemo
@@ -361,7 +415,6 @@ public class Inicio extends javax.swing.JFrame {
         // </editor-fold>
 
         /* Create and display the form */
-        
     }
 
     /*---- Utilities ----*/

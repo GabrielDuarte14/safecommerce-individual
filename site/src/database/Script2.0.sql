@@ -166,7 +166,6 @@ inner join Servidor as s on l.fkServidor = s.idServidor
 where m.idMetrica = 8 and m.idMetrica = 8;
 select * from leituraDisco;
 
-
 create view leituraLDisco as 
 select
 	m.idMetrica,
@@ -197,7 +196,7 @@ SELECT idServidor FROM Servidor WHERE enderecoMac = '98:83:89:ec:db:2c';
 UPDATE Servidor SET enderecoMac =  '98:83:89:EC:DB:2C' WHERE idServidor = 1;
 select * from Parametro;
 select * from Servidor;
-select * from leitura;
+select * from Leitura;
 select * from Metrica;
 select * from usuario;
 insert into Parametro values (1, 1);
@@ -214,3 +213,7 @@ drop view leituraCpu;
 INSERT INTO Usuario VALUES (null, "Gabriel","gabriel@duarte.com","gabriel123",null,1);
 SELECT valor, horario FROM leituraCpu where idServidor = 1;
 SELECT valor, horario FROM leituraRam where idServidor = 1;
+
+-- Configurar para o java carregar o csv
+SET GLOBAL local_infile=1;
+SHOW GLOBAL VARIABLES LIKE 'local_infile';

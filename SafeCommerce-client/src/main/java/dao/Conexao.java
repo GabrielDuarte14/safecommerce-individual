@@ -12,7 +12,7 @@ public class Conexao {
 
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-        dataSource.setUrl("jdbc:mysql://localhost:3306/safecommerce?useTimezone=true&serverTimezone=America/Sao_Paulo");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/safecommerce?useTimezone=true&serverTimezone=America/Sao_Paulo&&allowLoadLocalInfile=true&useServerPrepStmts=false&&rewriteBatchedStatements=true");
 
         dataSource.setUsername("aluno");
 
