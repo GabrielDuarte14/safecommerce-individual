@@ -5,7 +5,6 @@
  */
 package view;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import dao.Usuario;
 import dao.UsuarioDAO;
 import javax.swing.ImageIcon;

@@ -47,9 +47,12 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.NetworkInterface;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import javax.swing.JButton;
 import org.springframework.jdbc.core.JdbcTemplate;
+import oshi.hardware.NetworkIF;
 
 /**
  *
@@ -79,7 +82,7 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     private void Monitorando(Double cpu, Double ram, Double disco) {
-
+      
         Conexao connection = new Conexao();
         JdbcTemplate con = connection.getConnection();
         ParametroDao parametroDao = new ParametroDao();
@@ -87,39 +90,37 @@ public class Inicio extends javax.swing.JFrame {
         Looca looca = new Looca();
         Processador proc = looca.getProcessador();
         Conversor conversor = new Conversor();
-        
+
         String enderecoMac = "98:83:89:ec:db:2c";
         Integer fkServidor = servidor.getIdServidor(enderecoMac);
-        
 
-            List<Parametro> parametros = parametroDao.getParametros(fkServidor);
-            System.out.println(parametros.get(0).getFkMetrica());
-            System.out.println(parametros.get(1).getFkMetrica());
-            
-            for (int i = 0; i < parametros.size(); i++) {
-                    Integer atual = parametros.get(i).getFkMetrica();
-                    System.out.println(atual);
-                    String cpuFormat = String.format("%.1f", cpu);
+        List<Parametro> parametros = parametroDao.getParametros(fkServidor);
+        System.out.println(parametros.get(0).getFkMetrica());
+        System.out.println(parametros.get(1).getFkMetrica());
 
-                if (atual == 1) {
-                    con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(),(cpuFormat));
-                    
-                } else if (atual == 2) {
-                    con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getNumeroCpusLogicas()));
-                } else if (atual == 3) {
-                    System.out.printf("INSERT INTO Leitura VALUES (?, ?, NOW(),?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (cpuFormat));
-                    con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (cpuFormat));
-                } else if (atual == 4) {
-                    con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getFrequencia()));
-                } else if (parametros.get(i).getFkMetrica() == 5) {
-                    con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (looca.getMemoria().getTotal()));
-                } else if (parametros.get(i).getFkMetrica() == 6) {
-                    con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Ram')", fkServidor, parametros.get(i).getFkMetrica(), ram);
-                } else if (parametros.get(i).getFkMetrica() == 7) {
-                    con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal()));
-                }
-                
-                System.out.println("GRAVADO NO BANCO");
+        for (int i = 0; i < parametros.size(); i++) {
+            Integer atual = parametros.get(i).getFkMetrica();
+            System.out.println(atual);
+            String cpuFormat = String.format("%.1f", cpu);
+
+            if (atual == 1) {
+                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getUso()));
+
+            } else if (atual == 2) {
+                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getNumeroCpusLogicas()));
+            } else if (atual == 3) {
+                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (cpuFormat));
+            } else if (atual == 4) {
+                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getFrequencia()));
+            } else if (parametros.get(i).getFkMetrica() == 5) {
+                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (looca.getMemoria().getTotal()));
+            } else if (parametros.get(i).getFkMetrica() == 6) {
+                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Ram')", fkServidor, parametros.get(i).getFkMetrica(), ram);
+            } else if (parametros.get(i).getFkMetrica() == 7) {
+                con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal()));
+            }
+
+            System.out.println("GRAVADO NO BANCO");
 
             // parametrosG = parametros;
         }
@@ -130,7 +131,6 @@ public class Inicio extends javax.swing.JFrame {
     /*List<Leitura> leituraCpu = leitura.getCpu();
     List<Leitura> leituraRam = leitura.getRam();
     List<Leitura> leituraDisco = leitura.getDisco();*/
-    
     private static final int N = 100;
     private static final Random random = new Random();
 
@@ -173,7 +173,7 @@ public class Inicio extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 // colocar os dados sobre uso de hardware dentro da cpuSeries, ram Series e discoSeries, sempre usando .getItemCount()
                 // trocar o random pelo uso do Looca
-              
+
                 Memoria ram = looca.getMemoria();
                 Processador cpu = looca.getProcessador();
                 DiscosGroup rom = looca.getGrupoDeDiscos();
@@ -195,9 +195,9 @@ public class Inicio extends javax.swing.JFrame {
                 Long ramTotal = ram.getTotal();
                 Double porcentagemRam = (Double.valueOf(ramUso) / Double.valueOf(ramTotal)) * 100;
                 Monitorando(cpu.getUso(), porcentagemRam, porcentagemVolume);
-                cpuSeries.add(cpuSeries.getItemCount(),cpu.getUso());
-                ramSeries.add(ramSeries.getItemCount(),porcentagemRam);
-                discoSeries.add(discoSeries.getItemCount(),porcentagemVolume);
+                cpuSeries.add(cpuSeries.getItemCount(), cpu.getUso());
+                ramSeries.add(ramSeries.getItemCount(), porcentagemRam);
+                discoSeries.add(discoSeries.getItemCount(), porcentagemVolume);
             }
         }).start();
         dataset.addSeries(cpuSeries);
@@ -235,6 +235,15 @@ public class Inicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        JButton verProcessos = new JButton("Processos");
+        verProcessos.setForeground(new Color(255, 255, 255));
+        verProcessos.setBackground(new Color(246, 0, 0));
+        verProcessos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ProcTable processos = new ProcTable();
+                processos.criaJanela();
+            }
+        });
 
         labelSaudacao.setText("Bom dia, Gabriel!");
 
@@ -246,32 +255,37 @@ public class Inicio extends javax.swing.JFrame {
                 jPanel1Layout.createParallelGroup(Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
+                                .addComponent(qrCodeLabel, GroupLayout.PREFERRED_SIZE, 226, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(10)
-                                                .addComponent(labelSaudacao_1, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap())
-                                        .addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addComponent(qrCodeLabel, GroupLayout.PREFERRED_SIZE, 226, Short.MAX_VALUE)
                                                 .addGap(71)
-                                                .addComponent(labelSaudacao)
-                                                .addGap(284))))
+                                                .addComponent(labelSaudacao))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(95)
+                                                .addComponent(verProcessos)))
+                                .addGap(284))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(32)
+                                .addComponent(labelSaudacao_1, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(523, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+                jPanel1Layout.createParallelGroup(Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(20)
-                                                .addComponent(labelSaudacao))
+                                                .addComponent(labelSaudacao)
+                                                .addGap(28)
+                                                .addComponent(verProcessos))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addContainerGap()
                                                 .addComponent(qrCodeLabel, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(labelSaudacao_1)
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                                .addComponent(labelSaudacao_1))
         );
         jPanel1.setLayout(jPanel1Layout);
+
 
         QrCode qr0 = QrCode.encodeText("http://www.facebook.com", QrCode.Ecc.MEDIUM);
         BufferedImage img = toImage(qr0, 4, 10); // See QrCodeGeneratorDemo
