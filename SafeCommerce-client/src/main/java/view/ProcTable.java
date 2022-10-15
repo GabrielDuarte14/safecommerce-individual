@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -25,10 +26,7 @@ public class ProcTable extends JFrame {
     JScrollPane barraRolagem;
     private DefaultTableModel modelo = new DefaultTableModel();
 
-    public ProcTable() {
-        super("Processos");
-    }
-
+  
     public void criaJanela() {
         Looca looca = new Looca();
         ProcessosGroup pg = looca.getGrupoDeProcessos();
@@ -45,10 +43,6 @@ public class ProcTable extends JFrame {
         painelFundo = new JPanel();
         painelFundo.setLayout(new GridLayout(1, 1));
         tabela = new JTable(modelo);
-     
-        modelo.addColumn("Processo");
-        modelo.addColumn("CPU");
-        modelo.addColumn("RAM");
         Color background = new Color(245,245,245);
         tabela.setBackground(background);
         tabela.getTableHeader().setBackground(new Color(246,0,0));
@@ -56,12 +50,25 @@ public class ProcTable extends JFrame {
         tabela.getTableHeader().setFont(tabela.getFont().deriveFont(Font.BOLD));
         tabela.getTableHeader().setBorder(BorderFactory.createLineBorder(Color.black, 2));
     
-        for (int i = lista.size() - 1; i >= lista.size() - 27; i--) {
-
-
+        modelo.addColumn("Processo");
+        modelo.addColumn("CPU");
+        modelo.addColumn("RAM");
+        
+  
+        List<String> nomesProcessos = new ArrayList();
+        
+        for (int i = lista.size()-1, tamanho = 0; i >= 0; i--) {
+        	if(tamanho == 27) {
+        		break;
+        	}
+        	if(!lista.get(i).getNome().equals("Idle") && !nomesProcessos.contains(lista.get(i).getNome())){
             modelo.addRow(new Object[]{lista.get(i).getNome(),
                     String.format("%.2f%%", lista.get(i).getUsoCpu()/10),
                     String.format("%.2f%%", lista.get(i).getUsoMemoria())});
+            tamanho++;
+        	nomesProcessos.add(lista.get(i).getNome());
+        	}
+        	
 
         }
 

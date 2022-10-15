@@ -11,7 +11,8 @@ import dao.Leitura;
 import dao.Parametro;
 import dao.ParametroDao;
 import dao.Servidor;
-import getmac.GetMac;
+import dao.Usuario;
+import util.GetMac;
 import io.nayuki.qrcodegen.*;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartFactory;
@@ -28,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -50,6 +52,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.NetworkInterface;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import javax.swing.JButton;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -69,12 +72,13 @@ public class Inicio extends javax.swing.JFrame {
     static JFreeChart lineChart;
     static ChartPanel chartPanel;
 
-    public Inicio() {
+    public Inicio(Usuario user) {
         getContentPane().setBackground(new Color(255, 255, 255));
-        initComponents();
+        initComponents(user);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+     	
         setTitle("SafeCommerce - Monitoramento");
         ImageIcon img = new ImageIcon(getClass().getResource("/img/logo.png"));
         setIconImage(img.getImage());
@@ -86,8 +90,6 @@ public class Inicio extends javax.swing.JFrame {
         GetMac gm=new GetMac();
         String mac=gm.getMac();
         mac = mac.replace("-", ":");
-        System.out.println("Mac address: "+" "+""+mac);
-        System.out.println(mac);
         Conexao connection = new Conexao();
         JdbcTemplate con = connection.getConnection();
         ParametroDao parametroDao = new ParametroDao();
@@ -99,12 +101,10 @@ public class Inicio extends javax.swing.JFrame {
         Integer fkServidor = servidor.getIdServidor(mac);
 
         List<Parametro> parametros = parametroDao.getParametros(fkServidor);
-        System.out.println(parametros.get(0).getFkMetrica());
-        System.out.println(parametros.get(1).getFkMetrica());
-
+       
         for (int i = 0; i < parametros.size(); i++) {
             Integer atual = parametros.get(i).getFkMetrica();
-            System.out.println(atual);
+       
             String cpuFormat = String.format("%.1f", cpu);
 
             if (atual == 1) {
@@ -169,7 +169,7 @@ public class Inicio extends javax.swing.JFrame {
         Double porcentagemRam = (Double.valueOf(ramUso) / Double.valueOf(ramTotal)) * 100;
 
         for (int i = 0; i < 2; i++) {
-            cpuSeries.add(i, cpu.getUso());
+           cpuSeries.add(i, cpu.getUso());
             ramSeries.add(i, porcentagemRam);
             discoSeries.add(i, porcentagemVolume);
 
@@ -211,7 +211,7 @@ public class Inicio extends javax.swing.JFrame {
                 }
             }
         }).start();
-        dataset.addSeries(cpuSeries);
+       dataset.addSeries(cpuSeries);
         dataset.addSeries(ramSeries);
         dataset.addSeries(discoSeries);
         return dataset;
@@ -235,8 +235,8 @@ public class Inicio extends javax.swing.JFrame {
 
         return new ChartPanel(chart);
     }
-
-    private void initComponents() {
+  
+    private void initComponents(Usuario usuario) {
 
         jPanel1 = new javax.swing.JPanel();
         labelSaudacao = new javax.swing.JLabel();
@@ -252,12 +252,19 @@ public class Inicio extends javax.swing.JFrame {
         verProcessos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ProcTable processos = new ProcTable();
-                processos.criaJanela();
+               processos.criaJanela();
             }
         });
-
-        labelSaudacao.setText("Bom dia, Gabriel!");
-
+       Integer hora =  LocalTime.now().getHour();
+       if(hora<6) {
+        labelSaudacao.setText("Boa madrugada, "+usuario.getNome()+"!");
+       }else if(hora<12) {
+    	   labelSaudacao.setText("Bom dia, "+usuario.getNome()+"!");
+       }else if(hora<18) {
+    	   labelSaudacao.setText("Boa tarde, "+usuario.getNome()+"!");
+       }else {
+    	   labelSaudacao.setText("Boa noite, "+usuario.getNome()+"!");
+       }
         labelSaudacao_1 = new JLabel();
         labelSaudacao_1.setText("Monitore também pelo celular!");
 
@@ -354,12 +361,7 @@ public class Inicio extends javax.swing.JFrame {
         // </editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Inicio().setVisible(true);
-
-            }
-        });
+        
     }
 
     /*---- Utilities ----*/

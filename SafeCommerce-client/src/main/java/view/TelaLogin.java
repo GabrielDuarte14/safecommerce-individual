@@ -180,12 +180,16 @@ public class TelaLogin extends javax.swing.JFrame {
         System.out.println(senha);
         UsuarioDAO dao = new UsuarioDAO();
         Usuario user = dao.login(email, senha);
+        //System.out.println(user.getEmail());
         
         if (user != null) {
+        	//   System.out.println(user.getNome() + " aaaaaaa");
             this.setVisible(false);
-            Inicio init = new Inicio();
+            Inicio init = new Inicio(user);
+
             init.setVisible(true);
             init.setResizable(false);
+           
             
 
         } else {
