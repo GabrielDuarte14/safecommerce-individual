@@ -5,6 +5,9 @@
  */
 package view;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import dao.Usuario;
+import dao.UsuarioDAO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -173,18 +176,25 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         String email = campoEmail.getText();
         String senha = new String(campoSenha.getPassword());
+        
         System.out.println(email);
         System.out.println(senha);
-
-        if (email.equals("gabriel@duarte.com") && senha.equals("gabriel")) {
+        UsuarioDAO dao = new UsuarioDAO();
+        Usuario user = dao.login(email, senha);
+        
+        if (user != null) {
             this.setVisible(false);
             Inicio init = new Inicio();
             init.setVisible(true);
             init.setResizable(false);
+            
 
         } else {
             JOptionPane.showMessageDialog(null,
                     "Email e/ou senha inválido(s)!", "Erro", JOptionPane.ERROR_MESSAGE);
+            campoEmail.setText("");
+            campoSenha.setText("");
+            campoEmail.requestFocus();
         }
 
 

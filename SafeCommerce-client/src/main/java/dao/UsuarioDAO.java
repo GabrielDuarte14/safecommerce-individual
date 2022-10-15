@@ -4,24 +4,26 @@
  */
 package dao;
 
-import com.github.britooo.looca.api.group.discos.DiscosGroup;
-import com.github.britooo.looca.api.group.memoria.Memoria;
-import com.github.britooo.looca.api.group.processador.Processador;
-import com.github.britooo.looca.api.util.Conversor;
-import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class UsuarioDAO {
+	Conexao conexao = new Conexao();
+	JdbcTemplate jdbcTemplate = conexao.getConnection();
 
-    public static void main(String[] args) {
-        Processador cpu = new Processador();
-        Memoria ram = new Memoria();
-        DiscosGroup rom = new DiscosGroup();
-        Conversor conversor = new Conversor();
-        Conexao connection = new Conexao();
-        JdbcTemplate con = connection.getConnection();
+	public Usuario login(String email, String senha) {
+		try {
+			Usuario registro = jdbcTemplate.queryForObject("select * from Usuario where email = ? AND senha = ?",
+					new BeanPropertyRowMapper<Usuario>(Usuario.class), email, senha);
+			return registro;
+		} catch (Exception e) {
+			System.out.println("Tivemos um Problema ao realizar login");
+			return null;
+		}
 
-    }
+	}
+
 }
