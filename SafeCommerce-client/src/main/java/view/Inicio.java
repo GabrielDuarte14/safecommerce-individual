@@ -110,6 +110,7 @@ public class Inicio extends javax.swing.JFrame {
 
     public void criarCSV(Integer fkServidor, Integer fkMetrica, String valor, String componente) throws IOException {
         String[] header = {"fkServidor", "fkMetrica", "dataLeitura", "valor_leitura", "componente"};
+        System.out.println(componente);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         String[] record1 = {String.valueOf(fkServidor), String.valueOf(fkMetrica), dtf.format(now), valor, componente};
@@ -149,9 +150,10 @@ public class Inicio extends javax.swing.JFrame {
     private void Monitorando(Double cpu, Double ram, Double disco) throws Exception {
         Long lDisco = looca.getGrupoDeDiscos().getDiscos().get(0).getBytesDeLeitura();
         Long eDisco = looca.getGrupoDeDiscos().getDiscos().get(0).getBytesDeEscritas();
+        System.out.println(parametros);
         for (int i = 0; i < parametros.size(); i++) {
             Integer atual = parametros.get(i).getFkMetrica();
-
+            System.out.println(atual +" metrica tal");
             String cpuFormat = String.format("%.1f", cpu);
 
             if (atual == 1) {
@@ -245,9 +247,10 @@ public class Inicio extends javax.swing.JFrame {
                     timer.start();
                 Memoria ram = looca.getMemoria();
                 Processador cpu = looca.getProcessador();
+               
                 DiscosGroup rom = looca.getGrupoDeDiscos();
                 Conversor conversor = new Conversor();
-
+               
                 List<Volume> volumes = rom.getVolumes();
                 Double usoVolume = 0d;
                 Long totalVolume = 0l;

@@ -9,7 +9,6 @@ view\TelaLogin$2.class
 dao\UsuarioDAO.class
 view\ProcTable$1.class
 dao\Parametro.class
-.netbeans_automatic_build
 view\TabChart.class
 view\TabChart$2.class
 util\GetMac.class

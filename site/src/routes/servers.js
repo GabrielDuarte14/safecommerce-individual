@@ -42,4 +42,16 @@ router.post("/obterDadosTotalRam", (req,res)=>{
 router.post("/obterDadosTotalCpus", (req,res)=>{
     serverController.obterDadosTotalCpus(req, res);
 })
+
+router.post("/obterUltimaMedidaDisco", (req,res)=>{
+    serverController.obterUltimaMedidaDisco(req, res);
+})
+
+router.post("/obterUltimaMedidaRam", (req,res)=>{
+    serverController.obterUltimaMedidaRam(req, res);
+})
+
+router.post("/obterSO"  , (req,res)=>{
+    serverController.obterSO(req, res);
+})
 module.exports = router;

@@ -1,5 +1,24 @@
 const serverModel = require("../models/serverModel");
 
+function obterUltimaMedidaDisco(req,res) {
+    var id = req.body.idServidor;
+   
+    serverModel.obterUltimaMedidaDisco(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
 function getServers(req, res) {
     var idCompany = req.body.idCompanyServer;
 
@@ -231,6 +250,42 @@ function obterDadosTotalCpus(req,res) {
                 }
             );
 }
+function obterUltimaMedidaRam(req,res) {
+    var id = req.body.idServidor;
+    serverModel.obterUltimaMedidaRam(id)
+    .then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao realizar o cadastro! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+function obterSO(req,res) {
+    var id = req.body.idServidor;
+    serverModel.obterSO(id)
+    .then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao realizar o cadastro! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 module.exports = {
     getServers,
     getCurrentServer,
@@ -244,4 +299,7 @@ module.exports = {
     obterDadosTotalDisk,
     obterDadosTotalRam,
     obterDadosTotalCpus,
+    obterUltimaMedidaDisco,
+    obterUltimaMedidaRam,
+    obterSO
 }

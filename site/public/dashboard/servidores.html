@@ -30,7 +30,7 @@
     <script src="./js/dadosJava.js"></script>
 </head>
 
-<body onresize="responsive()" onload="responsive(), validateSession(), isJava()">
+<body onresize="responsive()" onload="responsive(), validateSession()">
 
     <div id="wrapper">
         <div id="overlay">
@@ -61,10 +61,26 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs text-color font-weight-bold text-uppercase mb-1">
                                                     Sistema Operacional</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">valor</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valor_SO">valor</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="bi bi-pc-display-horizontal"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6 mb-4 card-size">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-uppercase mb-1">CPU'S</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorCpus">valor
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="bi bi-cpu"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -102,22 +118,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6 mb-4 card-size">
-                                <div class="card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-uppercase mb-1">CPU'S</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorCpus">valor
-                                                </div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="bi bi-cpu"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </div>
 
 
@@ -600,13 +601,13 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log(resposta[0]);
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
                         plotarGraficoCPU(resposta, CpuLineChart);
                     });
@@ -621,13 +622,13 @@
     }
 
     function plotarGraficoCPU(resposta, grafico) {
-        console.log('iniciando plotagem do gráfico...');
-        console.log("ANTES DO IF CPU" + resposta.length)
+       // //console.log('iniciando plotagem do gráfico...');
+        //console.log("ANTES DO IF CPU" + resposta.length)
         if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
             //resposta = resposta.slice(-100)
         }
         grafico.update()
-        console.log("Depois do IF CPU" + resposta.length)
+        //console.log("Depois do IF CPU" + resposta.length)
         for (i = 0; i < resposta.length; i++) {
 
             if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
@@ -655,13 +656,13 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log(resposta[0]);
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
                         plotarGraficoCPUCore(resposta, CpuCoreLineChart);
                     });
@@ -676,13 +677,13 @@
     }
 
     function plotarGraficoCPUCore(resposta, grafico) {
-        console.log('iniciando plotagem do gráfico...');
-        console.log("ANTES DO IF CPUCore" + resposta.length)
+       // //console.log('iniciando plotagem do gráfico...');
+        //console.log("ANTES DO IF CPUCore" + resposta.length)
         if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
             resposta = resposta.slice(-100)
         }
         grafico.update()
-        console.log("Depois do IF CPUCore" + resposta.length)
+        //console.log("Depois do IF CPUCore" + resposta.length)
         for (i = 0; i < resposta.length; i += 8) {
 
             if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
@@ -724,13 +725,13 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log(resposta[0]);
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
                         plotarGraficoFreq(resposta, FreqLineChart);
                     });
@@ -745,13 +746,13 @@
     }
 
     function plotarGraficoFreq(resposta, grafico) {
-        console.log('iniciando plotagem do gráfico...');
-        console.log("ANTES DO IF Freq" + resposta.length)
+       // //console.log('iniciando plotagem do gráfico...');
+        //console.log("ANTES DO IF Freq" + resposta.length)
         if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
             resposta = resposta.slice(-50)
         }
         grafico.update()
-        console.log("Depois do IF Freq" + resposta.length)
+        //console.log("Depois do IF Freq" + resposta.length)
         for (i = 0; i < resposta.length; i++) {
 
             if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
@@ -781,13 +782,13 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log(resposta[0]);
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
                         plotarGraficoRam(resposta, RAMLineChart);
                     });
@@ -803,7 +804,7 @@
 
     function isJava() {
         var query = location.search.slice(1);
-        console.log(query)
+        //console.log(query)
         var partes = query.split('&');
         var data = {};
         partes.forEach(function (parte) {
@@ -813,20 +814,20 @@
             data[chave] = valor;
         });
         if(data != undefined){
-            console.log(data)
+            //console.log(data)
             getDadosUsuarios(data.idUsuario);
             setCurrentServerPage(data.idServidor)
         }           
     }
 
     function plotarGraficoRam(resposta, grafico) {
-        console.log('iniciando plotagem do gráfico...');
-        console.log("ANTES DO IF RAM" + resposta.length)
+       // //console.log('iniciando plotagem do gráfico...');
+        //console.log("ANTES DO IF RAM" + resposta.length)
         if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
             resposta = resposta.slice(-50)
         }
         grafico.update()
-        console.log("Depois do IF RAM" + resposta.length)
+        //console.log("Depois do IF RAM" + resposta.length)
         for (i = 0; i < resposta.length; i++) {
 
             if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
@@ -856,13 +857,13 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log(resposta[0]);
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
                         plotarGraficoDisk(resposta, DiskLineChart);
                     });
@@ -877,13 +878,13 @@
     }
 
     function plotarGraficoDisk(resposta, grafico) {
-        console.log('iniciando plotagem do gráfico...');
-        console.log("ANTES DO IF Disk" + resposta.length)
+       // //console.log('iniciando plotagem do gráfico...');
+        //console.log("ANTES DO IF Disk" + resposta.length)
         if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
             resposta = resposta.slice(-50)
         }
         grafico.update()
-        console.log("Depois do IF Disk" + resposta.length)
+        //console.log("Depois do IF Disk" + resposta.length)
         for (i = 0; i < resposta.length; i++) {
 
             if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
@@ -913,13 +914,13 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log(resposta[0]);
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
                         plotarGraficoRDisk(resposta, rDiskLineChart);
                     });
@@ -934,13 +935,13 @@
     }
 
     function plotarGraficoRDisk(resposta, grafico) {
-        console.log('iniciando plotagem do gráfico...');
-        console.log("ANTES DO IF RDisk" + resposta.length)
+       // //console.log('iniciando plotagem do gráfico...');
+       // //console.log("ANTES DO IF RDisk" + resposta.length)
         if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
             resposta = resposta.slice(-50)
         }
         grafico.update()
-        console.log("Depois do IF RDisk" + resposta.length)
+        ////console.log("Depois do IF RDisk" + resposta.length)
         for (i = 0; i < resposta.length; i++) {
 
             if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
@@ -970,12 +971,12 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
                         plotarGraficoWDisk(resposta, wDiskLineChart);
                     });
@@ -990,13 +991,13 @@
     }
 
     function plotarGraficoWDisk(resposta, grafico) {
-        console.log('iniciando plotagem do gráfico...');
-        console.log("ANTES DO IF WDisk" + resposta.length)
+       // //console.log('iniciando plotagem do gráfico...');
+        //console.log("ANTES DO IF WDisk" + resposta.length)
         if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
             resposta = resposta.slice(-50)
         }
         grafico.update()
-        console.log("Depois do IF WDisk" + resposta.length)
+        //console.log("Depois do IF WDisk" + resposta.length)
         for (i = 0; i < resposta.length; i++) {
 
             if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
@@ -1027,13 +1028,13 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log(resposta[0]);
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
                         valorDisco.innerHTML = resposta[resposta.length - 1].valor;
                     });
@@ -1061,15 +1062,82 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log(resposta[0]);
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
                         valorRam.innerHTML = resposta[resposta.length - 1].valor;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+    function obterUltimaMedidaDisco(){
+        var servers = JSON.parse(sessionStorage.SERVERS);
+        //console.log(servers[0].idServidor)
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterUltimaMedidaDisco`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idServidor: varId,
+                })
+
+            }).then(function (response) {
+                ////console.log(response)
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                      // console.log(resposta[resposta.length - 1].valor_leitura);
+                        valorDisco.innerHTML = resposta[resposta.length - 1].valor_leitura;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterUltimaMedidaRam(){
+        var servers = JSON.parse(sessionStorage.SERVERS);
+        //console.log(servers[0].idServidor)
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterUltimaMedidaRam`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idServidor: varId,
+                })
+
+            }).then(function (response) {
+                ////console.log(response)
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                      // console.log(resposta[resposta.length - 1].valor_leitura);
+                        valorRam.innerHTML = resposta[resposta.length - 1].valor_leitura;
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
@@ -1095,15 +1163,49 @@
                 })
 
             }).then(function (response) {
-                console.log(response)
+                ////console.log(response)
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(JSON.stringify(resposta));
-                        console.log(resposta[0]);
-                        console.log("peguei")
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
-                        valorCpus.innerHTML = resposta[resposta.length - 1].valor;
+                        valorCpus.innerHTML = resposta[resposta.length - 1].valor_leitura;
+                      
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+    function obterSO() {
+        var servers = JSON.parse(sessionStorage.SERVERS);
+
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterSO`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idServidor: varId,
+                })
+
+            }).then(function (response) {
+                ////console.log(response)
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                       // //console.log(JSON.stringify(resposta));
+                        ////console.log(resposta[0]);
+                       // //console.log("peguei")
+                       // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        console.log(resposta);
+                        valor_SO.innerHTML = resposta[resposta.length - 1].so;
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
@@ -1125,7 +1227,10 @@
     obterDadosWDisk()
     obterDadosTotalDisk()
     obterDadosTotalRam()
+    obterUltimaMedidaDisco()
     obterDadosTotalCpus()
+    obterUltimaMedidaRam()
+    obterSO()
     setInterval(() => {
         obterDadosCPU()
         obterDadosCPUCore()

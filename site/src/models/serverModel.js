@@ -1,14 +1,27 @@
 const database = require('../database/config');
-
+function obterUltimaMedidaRam(id) {
+    var instruction = `SELECT valor_leitura FROM Leitura WHERE fkServidor = ${id} AND fkMetrica = 5 ORDER BY dataLeitura desc LIMIT 1;`
+    return database.execute(instruction);
+}
 function getServers(idCompany) {
     console.log("ACESSEI O SERVER MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function getServer(): ", idCompany);
     var instruction = 
     `
-    SELECT * FROM Servidor WHERE fkEmpresa = ${idCompany};
+    SELECT DISTINCT(idServidor), modelo, so, (SELECT valor_leitura FROM Leitura WHERE fkServidor = idServidor AND fkMetrica = 7 ORDER BY dataLeitura desc LIMIT 1) as 'qtd_disco',
+(SELECT valor_leitura FROM Leitura WHERE fkServidor = idServidor AND fkMetrica = 2 ORDER BY dataLeitura desc LIMIT 1) as 'qtd_cpus',
+(SELECT valor_leitura FROM Leitura WHERE fkServidor = idServidor AND fkMetrica = 5 ORDER BY dataLeitura desc LIMIT 1) as 'qtd_memoria_ram',
+(SELECT dataLeitura FROM Leitura WHERE fkServidor = idServidor ORDER BY dataLeitura desc LIMIT 1) as 'dataLeitura' FROM Servidor 
+INNER JOIN Leitura
+	ON Leitura.fkServidor = idServidor
+            WHERE fkEmpresa = ${idCompany}
     `
     return database.execute(instruction);
 }
-
+function obterUltimaMedidaDisco(idServidor){
+    console.log(idServidor + 'bbbbbbbbbbbbbbbbbbbb')
+    var instruction = `SELECT valor_leitura FROM Leitura WHERE fkServidor = ${idServidor} AND fkMetrica = 7 ORDER BY dataLeitura desc LIMIT 1;`
+    return database.execute(instruction);
+}
 function getCurrentServer(id) {
     console.log("ACESSEI O SERVER MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function getServer(): ", id);
     var instruction =
@@ -73,13 +86,18 @@ function obterDadosTotalRam(id) {
 }
 
 function obterDadosTotalCpus(id) {
-    var instruction = `SELECT valor FROM leituraQtdCores where idServidor = ${id};`
+    var instruction = `SELECT valor_leitura, dataLeitura FROM Leitura WHERE fkServidor = ${id} AND fkMetrica = 2 ORDER BY dataLeitura desc LIMIT 1;`
    
     return database.execute(instruction);
 }
-
+function obterSO(id) {
+    //SELECT so FROM Servidor where idServidor = 1;
+    var instruction = `SELECT so FROM Servidor where idServidor = ${id};`
+    return database.execute(instruction);
+}
 module.exports = {
     getServers,
+    obterSO,
     getCurrentServer,
     obterDadosCPU,
     obterDadosCPUCore,
@@ -91,4 +109,6 @@ module.exports = {
     obterDadosTotalDisk,
     obterDadosTotalRam,
     obterDadosTotalCpus,
+    obterUltimaMedidaDisco,
+    obterUltimaMedidaRam
 }
