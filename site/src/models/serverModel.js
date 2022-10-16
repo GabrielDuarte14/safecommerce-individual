@@ -59,6 +59,25 @@ function obterDadosWDisk(id) {
    
     return database.execute(instruction);
 }
+
+function obterDadosTotalDisk(id) {
+    var instruction = `SELECT valor FROM leituraTotalDisco where idServidor = ${id};`
+   
+    return database.execute(instruction);
+}
+
+function obterDadosTotalRam(id) {
+    var instruction = `SELECT valor FROM leituraTotalRAM where idServidor = ${id};`
+   
+    return database.execute(instruction);
+}
+
+function obterDadosTotalCpus(id) {
+    var instruction = `SELECT valor FROM leituraQtdCores where idServidor = ${id};`
+   
+    return database.execute(instruction);
+}
+
 module.exports = {
     getServers,
     getCurrentServer,
@@ -69,4 +88,7 @@ module.exports = {
     obterDadosDisk,
     obterDadosRDisk,
     obterDadosWDisk,
+    obterDadosTotalDisk,
+    obterDadosTotalRam,
+    obterDadosTotalCpus,
 }

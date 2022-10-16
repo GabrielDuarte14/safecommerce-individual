@@ -174,6 +174,63 @@ function obterDadosWDisk(req,res) {
                 }
             );
 }
+function obterDadosTotalDisk(req,res) {
+    var id = req.body.idServidor;
+    
+    serverModel.obterDadosTotalDisk(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
+function obterDadosTotalRam(req,res) {
+    var id = req.body.idServidor;
+    
+    serverModel.obterDadosTotalRam(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
+function obterDadosTotalCpus(req,res) {
+    var id = req.body.idServidor;
+    
+    serverModel.obterDadosTotalCpus(id)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
 module.exports = {
     getServers,
     getCurrentServer,
@@ -184,4 +241,7 @@ module.exports = {
     obterDadosDisk,
     obterDadosRDisk,
     obterDadosWDisk,
+    obterDadosTotalDisk,
+    obterDadosTotalRam,
+    obterDadosTotalCpus,
 }

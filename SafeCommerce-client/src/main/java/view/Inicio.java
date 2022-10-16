@@ -140,13 +140,13 @@ public class Inicio extends javax.swing.JFrame {
         servidor = new Servidor();
         proc = looca.getProcessador();
         conversor = new Conversor();
-
         fkServidor = servidor.getIdServidor(mac);
         parametros = parametroDao.getParametros(fkServidor);
     }
 
     private void Monitorando(Double cpu, Double ram, Double disco) throws Exception {
-
+        Long lDisco = looca.getGrupoDeDiscos().getDiscos().get(0).getBytesDeLeitura();
+        Long eDisco = looca.getGrupoDeDiscos().getDiscos().get(0).getBytesDeEscritas();
         for (int i = 0; i < parametros.size(); i++) {
             Integer atual = parametros.get(i).getFkMetrica();
 
@@ -162,11 +162,10 @@ public class Inicio extends javax.swing.JFrame {
                 criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(cpuFormat).replace(",", "."), "CPU");
                 //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (cpuFormat));
             } else if (atual == 4) {
-                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(proc.getFrequencia()), "CPU");
-
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(proc.getFrequencia()).replace(",","."), "CPU");
                 //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getFrequencia()));
             } else if (parametros.get(i).getFkMetrica() == 5) {
-                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(looca.getMemoria().getTotal()), "RAM");
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(conversor.formatarBytes(looca.getMemoria().getTotal())), "RAM");
                 //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (looca.getMemoria().getTotal()));
             } else if (parametros.get(i).getFkMetrica() == 6) {
                 criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(ram), "RAM");
@@ -178,7 +177,10 @@ public class Inicio extends javax.swing.JFrame {
                 criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(disco), "Disco");
                 //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), disco);
             } else if (parametros.get(i).getFkMetrica() == 9) {
-                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), conversor.formatarBytes(looca.getGrupoDeDiscos().getTamanhoTotal()), "Disco");
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(lDisco), "Disco");
+                //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), looca.getGrupoDeDiscos());
+            } else if (parametros.get(i).getFkMetrica() == 10) {
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(eDisco), "Disco");
                 //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'Disco')", fkServidor, parametros.get(i).getFkMetrica(), looca.getGrupoDeDiscos());
             }
 

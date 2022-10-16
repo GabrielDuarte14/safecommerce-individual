@@ -26,10 +26,20 @@ router.post("/obterDadosDisk", (req,res)=>{
     serverController.obterDadosDisk(req, res);
 })
 router.post("/obterDadosRDisk", (req,res)=>{
-    serverController.obterRDadosDisk(req, res);
+    serverController.obterDadosRDisk(req, res);
 })
 router.post("/obterDadosWDisk", (req,res)=>{
-    serverController.obterWDadosDisk(req, res);
+    serverController.obterDadosWDisk(req, res);
+})
+router.post("/obterDadosTotalDisk", (req,res)=>{
+    serverController.obterDadosTotalDisk(req, res);
 })
 
+router.post("/obterDadosTotalRam", (req,res)=>{
+    serverController.obterDadosTotalRam(req, res);
+})
+
+router.post("/obterDadosTotalCpus", (req,res)=>{
+    serverController.obterDadosTotalCpus(req, res);
+})
 module.exports = router;

@@ -72,7 +72,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-uppercase mb-1">RAM</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">valor</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorRam">valor</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="bi bi-memory"></i>
@@ -87,7 +87,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Disco</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">valor</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorDisco">DISCO</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="bi bi-disc"></i>
@@ -102,7 +102,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-uppercase mb-1">CPU'S</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">valor</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorCpus">valor</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="bi bi-cpu"></i>
@@ -388,12 +388,6 @@
                 animation: {
                 duration: 0
             },
-            scales: {
-                y: {
-                    min: 0,
-                    max: 100,
-                }
-            }
             }
         };
 
@@ -590,7 +584,7 @@
                     console.log("peguei")
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta;
-                    plotarGraficoCPU(resposta, cpuPercent);
+                    plotarGraficoCPU(resposta, CpuLineChart);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -606,7 +600,7 @@
         console.log('iniciando plotagem do gráfico...');
         console.log("ANTES DO IF CPU" + resposta.length)
         if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
-            resposta = resposta.slice(-50)
+            //resposta = resposta.slice(-100)
         }
         grafico.update()
         console.log("Depois do IF CPU" + resposta.length)
@@ -669,6 +663,13 @@
 
             if (grafico.data.datasets[0].data.length > 30 && grafico.data.labels.length > 30) {
                 grafico.data.datasets[0].data.shift();
+                grafico.data.datasets[1].data.shift();
+                grafico.data.datasets[2].data.shift();
+                grafico.data.datasets[3].data.shift();
+                grafico.data.datasets[4].data.shift();
+                grafico.data.datasets[5].data.shift();
+                grafico.data.datasets[6].data.shift();
+                grafico.data.datasets[7].data.shift();
                 grafico.data.labels.shift();
             }
             var dataN = new Date(resposta[i].horario)
@@ -969,14 +970,120 @@
         grafico.update()
     }
 
-    obterDadosCPU()
+
+    function obterDadosTotalDisk() {
+        var servers = JSON.parse(sessionStorage.SERVERS);
+
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterDadosTotalDisk`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor: varId,
+            })
+
+        }).then(function (response) {
+            console.log(response)
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    valorDisco.innerHTML = resposta[resposta.length - 1].valor;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterDadosTotalRam() {
+        var servers = JSON.parse(sessionStorage.SERVERS);
+
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterDadosTotalRam`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor: varId,
+            })
+
+        }).then(function (response) {
+            console.log(response)
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    valorRam.innerHTML = resposta[resposta.length - 1].valor;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+    
+    function obterDadosTotalCpus() {
+        var servers = JSON.parse(sessionStorage.SERVERS);
+
+        var varId = servers[0].idServidor;
+
+        fetch(`/servers/obterDadosTotalCpus`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor: varId,
+            })
+
+        }).then(function (response) {
+            console.log(response)
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(JSON.stringify(resposta));
+                    console.log(resposta[0]);
+                    console.log("peguei")
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta;
+                    valorCpus.innerHTML = resposta[resposta.length - 1].valor;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    /*obterDadosCPU()
     obterDadosCPUCore()
-    obterDadosRam()
+    obterDadosRam()*/
     obterDadosFreq()
-    obterDadosDisk()
+    //obterDadosDisk()
     obterDadosRDisk()
-    obterDadosWDisk()
-    setInterval(() => { 
+    obterDadosWDisk()*
+    obterDadosTotalDisk()
+    obterDadosTotalRam()
+    obterDadosTotalCpus() 
+    /*setInterval(() => { 
         obterDadosCPU()
         obterDadosCPUCore()
         obterDadosRam()
@@ -984,6 +1091,6 @@
         obterDadosDisk()
         obterDadosRDisk()
         obterDadosWDisk()
-    }, 5000)
+    }, 5000)*/
 
 </script>
