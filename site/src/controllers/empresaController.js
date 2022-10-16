@@ -80,15 +80,15 @@ function cadastrar(req, res) {
 
 function enviarEmail(email, senha, destino) {
     var transporter = nodemailer.createTransport({
-        service: 'outlook',
+        service: 'gmail',
         auth: {
-            user: 'safecommerce@outlook.com.br',
-            pass: 'Grupo8-CCO',
+            user: 'safecommerce.sptech@gmail.com',
+            pass: 'tzgy xrth btar uvyx',
         }
     });
 
     var mailOptions = {
-        from: 'safecommerce@outlook.com.br',
+        from: 'Safecommerce',
         to: destino,
         subject: 'Acesso a plataforma SafeCommerce!',
         html: '<h1>Bem vindo a SafeCommerce!!!</h1><br>' +

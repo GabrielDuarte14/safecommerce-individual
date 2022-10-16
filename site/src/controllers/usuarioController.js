@@ -1,6 +1,34 @@
 var usuarioModel = require("../models/usuarioModel");
 var bcrypt = require('bcrypt');
 
+
+function dadosUsuarioJava(req, res) {
+    var idUsuario = req.body.idUsuarioServer;
+    console.log(idUsuario + 'não sei') ;
+    usuarioModel.procurarPorId(idUsuario)
+    .then(function (resultado) {
+        console.log(`\nResultados encontrados: ${resultado.length}`);
+        console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+        if (resultado.length == 1) {
+      
+                    delete resultado[0].senha
+                    console.log(resultado[0])
+                    res.json(resultado[0])
+
+
+        } else {
+            res.status(403).send("Email e/ou senha inválido(s)");
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
 function entrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
@@ -95,4 +123,5 @@ function cadastrar(req, res) {
 module.exports = {
     entrar,
     cadastrar,
+    dadosUsuarioJava
 }

@@ -374,7 +374,7 @@ public class Inicio extends javax.swing.JFrame {
         );
         jPanel1.setLayout(jPanel1Layout);
 
-        QrCode qr0 = QrCode.encodeText("http://localhost:3333/dashboard?idUsuario="+usuario.getIdUsuario()+"&idServidor="+fkServidor, QrCode.Ecc.LOW);
+        QrCode qr0 = QrCode.encodeText("http://localhost:3333/dashboard/servidores-java.html?idUsuario="+usuario.getIdUsuario()+"&idServidor="+fkServidor, QrCode.Ecc.LOW);
         BufferedImage img = toImage(qr0, 4, 10); // See QrCodeGeneratorDemo
         String caminho = System.getProperty("java.io.tmpdir") + "/qr-code.png";
 

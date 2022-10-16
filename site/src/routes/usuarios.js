@@ -11,4 +11,8 @@ router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
 
+router.post("/dadosUsuarioJava", function (req, res) {
+    usuarioController.dadosUsuarioJava(req, res);
+});
+
 module.exports = router;

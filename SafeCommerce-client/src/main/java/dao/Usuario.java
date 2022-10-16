@@ -6,9 +6,15 @@ public class Usuario {
 	private String email;
 	private Integer fkUsuario;
 	private Integer fkEmpresa;
+	private String senha;
 	
 	UsuarioDAO dao = new UsuarioDAO();
-	
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 	public Integer getIdUsuario() {
 		return idUsuario;
 	}

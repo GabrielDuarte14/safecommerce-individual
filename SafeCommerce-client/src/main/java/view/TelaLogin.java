@@ -7,8 +7,13 @@ package view;
 
 import dao.Usuario;
 import dao.UsuarioDAO;
+
+import java.nio.charset.StandardCharsets;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 /**
  *
@@ -181,7 +186,9 @@ public class TelaLogin extends javax.swing.JFrame {
         UsuarioDAO dao = new UsuarioDAO();
         Usuario user = dao.login(email, senha);
         //System.out.println(user.getEmail());
-        
+       
+        // resultStrict.verified == false
+
         if (user != null) {
         	//   System.out.println(user.getNome() + " aaaaaaa");
             this.setVisible(false);
