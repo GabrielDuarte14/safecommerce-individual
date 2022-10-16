@@ -77,7 +77,7 @@ public class Inicio extends javax.swing.JFrame {
     static DefaultCategoryDataset dataset = new DefaultCategoryDataset();
     static JFreeChart lineChart;
     static ChartPanel chartPanel;
-  GetMac gm;
+    GetMac gm;
     String mac;
     Conexao connection = new Conexao();
     JdbcTemplate con = connection.getConnection();
@@ -88,6 +88,7 @@ public class Inicio extends javax.swing.JFrame {
     Conversor conversor;
     List<Parametro> parametros;
     Integer fkServidor;
+
     public Inicio(Usuario user) {
         try {
             inicializarValores();
@@ -116,11 +117,13 @@ public class Inicio extends javax.swing.JFrame {
         List<String[]> list = new ArrayList<>();
         list.add(header);
         list.add(record1);
-        String caminhoTemp = System.getProperty("java.io.tmpdir") + "/insert.csv";
-        try (CSVWriter writer = new CSVWriter(new FileWriter(System.getProperty("java.io.tmpdir") + "/insert.csv"))) {
+        String caminhoTemp = System.getProperty("java.io.tmpdir") + "insert.csv";
+        caminhoTemp = caminhoTemp.replace("\\", "/");
+        System.out.println(caminhoTemp);
+        try ( CSVWriter writer = new CSVWriter(new FileWriter(System.getProperty("java.io.tmpdir") + "/insert.csv"))) {
             writer.writeAll(list);
         }
-        String esquel = " LOAD DATA LOCAL INFILE '" + "C:/Users/I/AppData/Local/Temp/insert.csv"
+        String esquel = " LOAD DATA LOCAL INFILE '" + caminhoTemp
                 + "' INTO TABLE Leitura "
                 + " FIELDS TERMINATED BY \',\' ENCLOSED BY \'\"'"
                 + " LINES TERMINATED BY \'\\n\'";
@@ -129,9 +132,8 @@ public class Inicio extends javax.swing.JFrame {
         con.update(esquel);
         timer.stop();
         System.out.println(timer.getTotalTimeSeconds());
-        
+
     }
-  
 
     public void inicializarValores() throws Exception {
         gm = new GetMac();
@@ -151,7 +153,7 @@ public class Inicio extends javax.swing.JFrame {
             Integer atual = parametros.get(i).getFkMetrica();
 
             String cpuFormat = String.format("%.1f", cpu);
-           
+
             if (atual == 1) {
                 criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(proc.getUso()), "CPU");
                 // con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getUso()));
@@ -162,7 +164,7 @@ public class Inicio extends javax.swing.JFrame {
                 criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(cpuFormat).replace(",", "."), "CPU");
                 //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (cpuFormat));
             } else if (atual == 4) {
-                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(proc.getFrequencia()).replace(",","."), "CPU");
+                criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(proc.getFrequencia()).replace(",", "."), "CPU");
                 //con.update("INSERT INTO Leitura VALUES (?, ?, NOW(), ?, 'CPU')", fkServidor, parametros.get(i).getFkMetrica(), (proc.getFrequencia()));
             } else if (parametros.get(i).getFkMetrica() == 5) {
                 criarCSV(fkServidor, parametros.get(i).getFkMetrica(), String.valueOf(conversor.formatarBytes(looca.getMemoria().getTotal())), "RAM");
@@ -205,7 +207,9 @@ public class Inicio extends javax.swing.JFrame {
         final XYSeries discoSeries = new XYSeries("Disco");
         Looca looca = new Looca();
         Memoria ram = looca.getMemoria();
+
         Processador cpu = looca.getProcessador();
+
         DiscosGroup rom = looca.getGrupoDeDiscos();
         Conversor conversor = new Conversor();
 
@@ -237,7 +241,8 @@ public class Inicio extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 // colocar os dados sobre uso de hardware dentro da cpuSeries, ram Series e discoSeries, sempre usando .getItemCount()
                 // trocar o random pelo uso do Looca
-
+  StopWatch timer = new StopWatch();
+                    timer.start();
                 Memoria ram = looca.getMemoria();
                 Processador cpu = looca.getProcessador();
                 DiscosGroup rom = looca.getGrupoDeDiscos();
@@ -259,13 +264,20 @@ public class Inicio extends javax.swing.JFrame {
                 Long ramTotal = ram.getTotal();
                 Double porcentagemRam = (Double.valueOf(ramUso) / Double.valueOf(ramTotal)) * 100;
                 try {
-                    Monitorando(cpu.getUso(), porcentagemRam, porcentagemVolume);
-                    cpuSeries.add(cpuSeries.getItemCount(), cpu.getUso());
+                    
+                  
+                    Double usoCPU = cpu.getUso();
+                    
+                    
+                    Monitorando(usoCPU, porcentagemRam, porcentagemVolume);
+                    cpuSeries.add(cpuSeries.getItemCount(), usoCPU);
                     ramSeries.add(ramSeries.getItemCount(), porcentagemRam);
                     discoSeries.add(discoSeries.getItemCount(), porcentagemVolume);
                 } catch (Exception ed) {
                     System.out.println(ed);
                 }
+                timer.stop();
+                    System.out.println(timer.getTotalTimeSeconds() + " tempo no metodo");
             }
         }).start();
         dataset.addSeries(cpuSeries);
@@ -327,41 +339,42 @@ public class Inicio extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(qrCodeLabel, GroupLayout.PREFERRED_SIZE, 226, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(71)
-                                                .addComponent(labelSaudacao))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(95)
-                                                .addComponent(verProcessos)))
-                                .addGap(284))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(32)
-                                .addComponent(labelSaudacao_1, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(523, Short.MAX_VALUE))
+        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addGap(6)
+        					.addComponent(qrCodeLabel, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.UNRELATED)
+        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addGap(71)
+        							.addComponent(labelSaudacao))
+        						.addGroup(jPanel1Layout.createSequentialGroup()
+        							.addGap(95)
+        							.addComponent(verProcessos))))
+        				.addGroup(jPanel1Layout.createSequentialGroup()
+        					.addGap(38)
+        					.addComponent(labelSaudacao_1, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap(265, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(20)
-                                                .addComponent(labelSaudacao)
-                                                .addGap(28)
-                                                .addComponent(verProcessos))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(qrCodeLabel, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                                .addComponent(labelSaudacao_1))
+        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jPanel1Layout.createSequentialGroup()
+        			.addGap(20)
+        			.addComponent(labelSaudacao)
+        			.addGap(28)
+        			.addComponent(verProcessos)
+        			.addContainerGap(86, Short.MAX_VALUE))
+        		.addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addComponent(qrCodeLabel, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(labelSaudacao_1))
         );
         jPanel1.setLayout(jPanel1Layout);
 
-        QrCode qr0 = QrCode.encodeText("http://www.facebook.com", QrCode.Ecc.MEDIUM);
+        QrCode qr0 = QrCode.encodeText("http://localhost:3333/dashboard?idUsuario="+usuario.getIdUsuario()+"&idServidor="+fkServidor, QrCode.Ecc.LOW);
         BufferedImage img = toImage(qr0, 4, 10); // See QrCodeGeneratorDemo
         String caminho = System.getProperty("java.io.tmpdir") + "/qr-code.png";
 
@@ -381,13 +394,19 @@ public class Inicio extends javax.swing.JFrame {
         panel.setBackground(new Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.TRAILING)
-                .addComponent(jPanel1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
-                .addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panel, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE).addContainerGap()));
+        layout.setHorizontalGroup(
+        	layout.createParallelGroup(Alignment.TRAILING)
+        		.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+        		.addComponent(jPanel1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 696, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap())
+        );
         getContentPane().setLayout(layout);
 
         pack();
