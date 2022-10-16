@@ -87,7 +87,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Disco</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorDisco">DISCO</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorDisco">valor</div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="bi bi-disc"></i>
@@ -932,7 +932,6 @@
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(JSON.stringify(resposta));
-                    console.log(resposta[0]);
                     console.log("peguei")
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta;
@@ -1073,17 +1072,19 @@
             });
     }
 
-    /*obterDadosCPU()
+
+
+    obterDadosCPU()
     obterDadosCPUCore()
-    obterDadosRam()*/
+    obterDadosRam()
     obterDadosFreq()
-    //obterDadosDisk()
+    obterDadosDisk()
     obterDadosRDisk()
-    obterDadosWDisk()*
+    obterDadosWDisk()
     obterDadosTotalDisk()
     obterDadosTotalRam()
     obterDadosTotalCpus() 
-    /*setInterval(() => { 
+    setInterval(() => { 
         obterDadosCPU()
         obterDadosCPUCore()
         obterDadosRam()
@@ -1091,6 +1092,6 @@
         obterDadosDisk()
         obterDadosRDisk()
         obterDadosWDisk()
-    }, 5000)*/
+    }, 5000)
 
 </script>
