@@ -15,10 +15,6 @@ class mySidebar extends HTMLElement {
                     <li><a href="./painel.html" class="nav-link text-left options-menu" id="menu-painel" role="button"><i class="bi bi-bar-chart"></i>Visão Geral</a></li>
                     <li class="sidebar-header">Servidores</li>
                     <span id="server_links"></span>
-                    <div id="btn_registerServer">
-                    <li class="sidebar-header">Cadastro de servidores</li>
-                    <li><a href="./cadastroServidor.html" class="nav-link text-left options-menu" id="menu-cadastrar" role="button"><i class="bi bi-box-arrow-in-right"></i>Cadastrar</a></li>
-                    </div>
                 </ul>
             </div>
         </nav>

@@ -7,7 +7,7 @@ function obterParametros(req,res) {
         res.status(400).send("Id do Servidor está undefined!");
     } else {
         parametroModel.obterParametros(id).then(function (resultado) {
-            res.json(resultado.map(linha => linha.fkMetrica))
+            res.json(resultado.map(linha => linha.fk_Metrica))
         }).catch(function (erro) {
             console.log(erro);
             console.log(

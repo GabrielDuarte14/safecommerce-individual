@@ -71,9 +71,9 @@
                                                     <th class="border-top-0">ID</th>
                                                     <th class="border-top-0">Modelo</th>
                                                     <th class="border-top-0">Sistema Operacional</th>
-                                                    <th class="border-top-0">Quantidade de CPU's</th>
+                                                    <th class="border-top-0">vCPU</th>
                                                     <th class="border-top-0">Memória RAM</th>
-                                                    <th class="border-top-0">Quantidade de disco</th>
+                                                    <th class="border-top-0">Disco</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="server_table">
@@ -132,11 +132,11 @@
             </td>
 
             <td>
-            ${data[i].qtd_memoria_ram}
+            ${Number(data[i].qtd_memoria_ram).toFixed()} GB
             </td>
 
             <td>
-            ${data[i].qtd_disco}
+            ${Number(data[i].qtd_disco).toFixed()} GB
             </td>
         </tr>
         `

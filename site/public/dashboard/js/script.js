@@ -1,5 +1,4 @@
 var btnRegisterUser = document.getElementById('btn_registerUser')
-var btnRegisterServer = document.getElementById('btn_registerServer')
 
 //sessão
 function validateSession() {
@@ -22,10 +21,8 @@ function validateSession() {
     }
     if (fkAdmin == 'null') {
         btnRegisterUser.style.display = 'block';
-        btnRegisterServer.style.display = 'block';
     } else {
         btnRegisterUser.style.display = 'none';
-        btnRegisterServer.style.display = 'none';
     }
 }
 
@@ -145,8 +142,9 @@ function getData(index) {
 
             answer.json().then(json => {   
                 sessionStorage.SERVERS = JSON.stringify(json);
+                console.log(json)
                 var servers = JSON.parse(sessionStorage.SERVERS);
-                
+                console.log(servers)
                 console.log(servers[0].idServidor);  
                 if(index) {
                     setTable(servers); 

@@ -63,7 +63,7 @@
                             <div class="row align-items-center py-3 form-check form-switch">
                               <div class="row ps-5">
                                 <label class="form-check-label" for="switchMetrica#2">Quatidade de CPU lógica</label>                                   
-                                <input class="form-check-input switchMetrica" type="checkbox" role="switch" id="switchMetrica#2">
+                                <input class="form-check-input switchMetrica" disabled type="checkbox" role="switch" id="switchMetrica#2">
                               </div>
                             </div>
 
@@ -92,7 +92,7 @@
                             <div class="row align-items-center pt-4 pb-3 form-check form-switch">
                               <div class="row ps-5">
                                 <label class="form-check-label" for="switchMetrica#5">Total de Memória RAM</label>                                   
-                                <input class="form-check-input switchMetrica" type="checkbox" role="switch" id="switchMetrica#5">
+                                <input class="form-check-input switchMetrica" disabled type="checkbox" role="switch" id="switchMetrica#5">
                               </div>
                             </div>
                                                                         
@@ -114,7 +114,7 @@
                             <div class="row align-items-center pt-4 pb-3 form-check form-switch">
                               <div class="row ps-5">
                                 <label class="form-check-label" for="switchMetrica#7">Total de Disco</label>                                   
-                                <input class="form-check-input switchMetrica" type="checkbox" role="switch" id="switchMetrica#7">
+                                <input class="form-check-input switchMetrica" disabled type="checkbox" role="switch" id="switchMetrica#7">
                               </div>
                             </div>
                                                                         
@@ -168,7 +168,6 @@
 <script>
   const indexPage = false;
 
-  document.getElementById('menu-cadastrar').classList.add('active');
   document.getElementById('company_name').innerText = sessionStorage.NOME_USUARIO;
 
   var idServer = sessionStorage.ID_SERVER
