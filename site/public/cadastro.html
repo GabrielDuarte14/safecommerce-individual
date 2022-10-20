@@ -93,7 +93,7 @@
                     <input type="Text" class="ipt" id="nome_ipt" 
                     placeholder="Nome da Empresa">
         
-                    <input type="Text" class="ipt" id="cnpj_ipt" 
+                    <input type="Text" class="ipt" id="cnpj_ipt" onkeyup="mascaraCNPJ(event)" maxlength="18"
                     placeholder="CNPJ">
         
                     <input type="Text" class="ipt" id="email_ipt" 
@@ -111,6 +111,39 @@
 </body>
 </html>
 <script>
+    function mascaraCNPJ(evento) {
+        if (evento.key == 'Backspace') {
+            return;
+        }
+
+        cnpj = cnpj_ipt.value.replace(/[\D]/g, '');
+        cnpjMascarado = ''
+        marcador = 0
+
+        if (cnpj.length >= 2) {
+            cnpjMascarado = cnpj[0] + cnpj[1] + "."
+            marcador = 2
+
+            if (cnpj.length >= 5) {
+                cnpjMascarado += cnpj[2] + cnpj[3] + cnpj[4] + "."
+                marcador = 5
+
+                if (cnpj.length >= 8) {
+                    cnpjMascarado += cnpj[5] + cnpj[6] + cnpj[7] + "/"
+                    marcador = 8
+
+                    if (cnpj.length >= 12) {
+                        cnpjMascarado += cnpj[8] + cnpj[9] + cnpj[10] + cnpj[11] + "-"
+                        marcador = 12
+                    }
+                }
+            }
+        }
+
+        cnpjMascarado += cnpj.substring(marcador)
+        cnpj_ipt.value = cnpjMascarado
+    }
+
     function cadastrar() {
         var nomeVar = nome_ipt.value;
         var cnpjVar = cnpj_ipt.value;
