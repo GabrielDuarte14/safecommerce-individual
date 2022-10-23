@@ -22,7 +22,7 @@ function cadastrar(req, res) {
                 empresaModel.procurarPorCNPJ(cnpj)
                 .then(function (resultado) {
                     var nomeAdmin = `Admin ${nome}`;
-                    var emailAdmin = `admin@${nome.toLowerCase()}.safecommerce`
+                    var emailAdmin = `admin-${nome.toLowerCase().replaceAll(' ', '.').normalize('NFD').replace(/[\u0300-\u036f]/g, "")}@safecommerce.com`
                     var senhaAdmin = generator.generate({
                         length: 10,
                         numbers: true,
