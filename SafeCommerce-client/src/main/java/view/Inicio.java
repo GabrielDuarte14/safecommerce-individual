@@ -150,7 +150,7 @@ public class Inicio extends javax.swing.JFrame {
     private void Monitorando(Double cpu, Double ram, Double disco) throws Exception {
         Long lDisco = looca.getGrupoDeDiscos().getDiscos().get(0).getBytesDeLeitura();
         Long eDisco = looca.getGrupoDeDiscos().getDiscos().get(0).getBytesDeEscritas();
-        System.out.println(parametros);
+       // System.out.println(parametros);
         for (int i = 0; i < parametros.size(); i++) {
             Integer atual = parametros.get(i).getFkMetrica();
             System.out.println(atual +" metrica tal");
