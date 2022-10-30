@@ -168,40 +168,10 @@ function setLinks(data) {
     for(let i in data) {
         serverLinks.innerHTML += 
         `
-        <li><a onclick="setCurrentServerPage(${data[i].idServidor})" class="nav-link text-left options-menu" role="button"><i class="bi bi-hdd"></i>${data[i].modelo}</a></li>
+        <li><a href="./servidores.html?idServer=${data[i].idServidor}" class="nav-link text-left options-menu" role="button"><i class="bi bi-hdd"></i>${data[i].modelo}</a></li>
         `
     }
 };
-
-function setCurrentServerPage(id) {
-    fetch("/servers/getCurrentServer", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            idServer: id
-        })
-    }).then((answer) => {
-        console.log(answer);
-        
-        if(answer.ok) {
-            console.log("A requisição foi um sucesso!");
-            answer.json().then(json => {   
-                sessionStorage.CURRENT_SERVER = JSON.stringify(json);
-                sessionStorage.ID_SERVER = json[0].idServidor;
-                sessionStorage.MODEL_SERVER = json[0].modelo;
-                console.log(json);  
-    
-                window.location = "./servidores.html";
-            });
-        } else {
-            console.log("ERROR: answer is not ok");
-        }
-    }).catch((answer) => {
-        console.log(`Erro: ${answer}`);
-    });
-}
 
 // Sair da dashboard
 

@@ -52,7 +52,7 @@
                             <div class="col-md-12 mt-lg-4 mt-4">
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h3 mb-0 text-gray-800" id="server_title">Servidor</h1>
-                                    <a href="./parametros.html" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                    <a id="aParametros" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                         <i class="bi bi-list-task"></i>
                                         Alterar parâmetros de coleta
                                     </a>
@@ -264,21 +264,39 @@
 </html>
 <script>
     const indexPage = false;
+    var varId = 0
 
     document.getElementById('company_name').innerText = sessionStorage.NOME_USUARIO;
 
     function setPage() {
         var serverTitle = document.getElementById('server_title')
         var titlePage = document.getElementById('title_page')
+        var linkParametros = document.getElementById('aParametros')
 
-        var modelServer = sessionStorage.MODEL_SERVER;
+        var params = new URLSearchParams(window.location.search)
+        var idServidor = params.get('idServer')
 
-        serverTitle.innerText = modelServer;
-        titlePage.innerHTML = `SafeCommerce | ${modelServer}`;
+        if (idServidor != null) {
+            varId = Number(idServidor)
+
+            var servers = JSON.parse(sessionStorage.SERVERS)
+
+            var servidor = servers.find(s => {
+                if (s.idServidor == idServidor) {
+                    return s
+                }
+            })
+
+            serverTitle.innerText = servidor.modelo;
+            titlePage.innerHTML = `SafeCommerce | ${servidor.modelo}`;
+            linkParametros.href = `./parametros.html?idServidor=${idServidor}`
+        } else {
+            window.location = './painel.html'
+        }
     }
 
-    setPage()
     getData(indexPage);
+    setPage()
 
     // Criando gráfico CPU
     var labels = [];
@@ -551,8 +569,6 @@
     );
 
     function obterDadosCPU() {
-        var varId = sessionStorage.ID_SERVER
-
         fetch(`/servers/obterDadosCPU`, {
                 method: "POST",
                 headers: {
@@ -606,8 +622,6 @@
     }
 
     function obterDadosCPUCore() {
-        var varId = sessionStorage.ID_SERVER
-
         fetch(`/servers/obterDadosCPUCore`, {
                 method: "POST",
                 headers: {
@@ -675,8 +689,6 @@
     }
 
     function obterDadosFreq() {
-        var varId = sessionStorage.ID_SERVER
-
         fetch(`/servers/obterDadosFreq`, {
                 method: "POST",
                 headers: {

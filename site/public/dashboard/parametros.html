@@ -170,7 +170,7 @@
 
   document.getElementById('company_name').innerText = sessionStorage.NOME_USUARIO;
 
-  var idServer = sessionStorage.ID_SERVER
+  var idServer = 0
 
   var parametrosAtuais = []
 
@@ -181,6 +181,23 @@
   }
 
   function obterParametros() {
+    var params = new URLSearchParams(window.location.search)
+    var idServidor = params.get('idServer')
+
+    if (idServidor != null) {
+      idServer = Number(idServidor)
+
+      var servers = JSON.parse(sessionStorage.SERVERS)
+
+      var servidor = servers.find(s => {
+          if (s.idServidor == idServidor) {
+              return s
+          }
+      })
+    } else {
+      window.location = './painel.html'
+    }
+
     fetch(`/parametros/obterParametros/${idServer}`, {
       method: 'GET',
       headers: {
