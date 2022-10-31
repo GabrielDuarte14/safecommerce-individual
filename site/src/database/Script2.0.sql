@@ -126,7 +126,6 @@ inner join Servidor as s on l.fkServidor = s.idServidor
 where m.idMetrica = 3 and m.idMetrica = 3;
 select * from leituraCoreCPU;
 
-drop view leituraCoreCPU;
 
 create view leituraFreq as 
 select
@@ -192,28 +191,27 @@ where m.idMetrica = 10 and m.idMetrica = 10;
 select * from leituraEDisco;
 
 
-SELECT idServidor FROM Servidor WHERE enderecoMac = '98:83:89:ec:db:2c';
-UPDATE Servidor SET enderecoMac =  '98:83:89:EC:DB:2C' WHERE idServidor = 1;
 select * from Parametro;
 select * from Servidor;
 select * from Leitura;
 select * from Metrica;
-select * from usuario;
-insert into Parametro values (1, 1);
-insert into Parametro values (1, 3);
-insert into Parametro values (1, 6);
-insert into Parametro values (1, 8);
-update Servidor set fkEmpresa=1 where idServidor = 1;
+select * from Usuario;
 
-delete servidor from servidor where fkEmpresa = 1;
-delete from parametro where fkMetrica = 1;
-ALTER TABLE Leitura CHANGE valor_leitura valor_leitura varchar(45);
 
-drop view leituraCpu;
+INSERT INTO Empresa VALUES(null, "SafeCommerce", "02302100000106");
 INSERT INTO Usuario VALUES (null, "Gabriel","gabriel@duarte.com","gabriel123",null,1);
-SELECT valor, horario FROM leituraCpu where idServidor = 1;
-SELECT valor, horario FROM leituraRam where idServidor = 1;
+INSERT INTO Servidor VALUES (null, "Servidor Exemplo", "Linux", "98:83:89:EC:DB:2C",1);
 
+SELECT * FROM Usuario;
+SELECT * FROM Parametro;
+insert into Parametro values (1, 1);
+INSERT INTO Parametro VALUES (1, 2);
+insert into Parametro values (1, 3);
+insert into Parametro values (1, 4);
+insert into Parametro values (1, 5);
+insert into Parametro values (1, 6);
+insert into Parametro values (1, 7);
+insert into Parametro values (1, 8);
 -- Configurar para o java carregar o csv
 SET GLOBAL local_infile=1;
 SHOW GLOBAL VARIABLES LIKE 'local_infile';
