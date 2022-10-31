@@ -278,7 +278,6 @@
 
         if (idServidor != null) {
             varId = Number(idServidor)
-
             var servers = JSON.parse(sessionStorage.SERVERS)
 
             var servidor = servers.find(s => {
@@ -1044,6 +1043,7 @@
                        // //console.log("peguei")
                        // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                         resposta;
+                        console.log(resposta[resposta.length - 1])
                         valorRam.innerHTML = resposta[resposta.length - 1].valor;
                     });
                 } else {
@@ -1110,7 +1110,8 @@
                         ////console.log(resposta[0]);
                        // //console.log("peguei")
                        // //console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                      // console.log(resposta[resposta.length - 1].valor_leitura);
+                        console.log(resposta[resposta.length - 1].valor_leitura);
+                        
                         valorRam.innerHTML = Number(resposta[resposta.length - 1].valor_leitura).toFixed() + " GB";
                     });
                 } else {

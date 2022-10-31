@@ -39,7 +39,7 @@ function cadastrar(req, res) {
                             enviarEmail(emailAdmin, senhaAdmin, email)
                             console.log("Usuário cadastrado com sucesso!")
                             res.json(resultado)
-                            console;log(senhaAdmin);
+                            console.log(senhaAdmin);
                         }).catch(function (erro) {
                             console.log(erro);
                             console.log(

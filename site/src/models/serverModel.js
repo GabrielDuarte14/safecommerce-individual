@@ -50,7 +50,7 @@ function obterDadosFreq(id) {
 }
 
 function obterDadosRam(id) {
-    var instruction = `SELECT valor, horario FROM leituraRam where idServidor = ${id};`
+    var instruction = `SELECT valor, horario FROM leituraRAM where idServidor = ${id};`
    
     return database.execute(instruction);
 }

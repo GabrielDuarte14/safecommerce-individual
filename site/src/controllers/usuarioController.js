@@ -4,28 +4,38 @@ var bcrypt = require('bcrypt');
 
 function dadosUsuarioJava(req, res) {
     var idUsuario = req.body.idUsuarioServer;
-    console.log(idUsuario + 'não sei') ;
-    usuarioModel.procurarPorId(idUsuario)
-    .then(function (resultado) {
-        console.log(`\nResultados encontrados: ${resultado.length}`);
-        console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+    var token = req.body.tokenUsuario;
+    if (idUsuario == undefined) {
+        res.status(400).send("id undefined!");
+    } else if (token == undefined) {
+        res.status(400).send("token undefined indefinida!");
+    } else {        
+        usuarioModel.procurarPorId(idUsuario)
+        .then(function (resultado) {
+            console.log(`\nResultados encontrados: ${resultado.length}`);
+            console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
-        if (resultado.length == 1) {
-      
-                    delete resultado[0].senha
-                    console.log(resultado[0])
-                    res.json(resultado[0])
+            if (resultado.length == 1) {
+                if(token == resultado[0].senha){
+                        delete resultado[0].senha
+                        res.json(resultado[0])
+                    } else {
+                        res.status(403).send("Email e/ou senha inválido(s)");
+
+                    }                    
+
+                          } else {
+                res.status(403).send("Email e/ou senha inválido(s)");
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
 
 
-        } else {
-            res.status(403).send("Email e/ou senha inválido(s)");
-        }
-
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
 }
 
 
