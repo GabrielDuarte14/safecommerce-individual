@@ -5,13 +5,13 @@ USE safecommerce;
 create table Empresa(
 	idEmpresa int primary key auto_increment,
     nome varchar(45),
-    cnpj char(14)
+    cnpj char(14) unique
 );
 
 create table Usuario(
 	idUsuario int primary key auto_increment,
     nome varchar(45),
-	email varchar(45),
+	email varchar(45) unique,
 	senha varchar(65),
 	fkUsuario int,
     foreign key (fkUsuario) references Usuario(idUsuario),
@@ -23,7 +23,7 @@ create table Servidor(
 	idServidor int primary key auto_increment,
     modelo varchar(45),
 	so varchar(45),
-    enderecoMac varchar(17),
+    enderecoMac varchar(17) unique,
     fkEmpresa int,
     foreign key (fkEmpresa) references Empresa(idEmpresa)
 );
@@ -44,7 +44,8 @@ INSERT INTO Metrica VALUES
 	(null, "Total de Disco", "GB"),
 	(null, "Porcentagem de uso de Disco", "%"),
 	(null, "Lido pelo Disco", "ms"),
-	(null, "Escrito pelo Disco", "ms");
+	(null, "Escrito pelo Disco", "ms"),
+    (null, "Temperatura CPU", "ºC");
 
 select * from Metrica;
 
@@ -62,6 +63,7 @@ create table Leitura(
     foreign key (fkMetrica) references Metrica(idMetrica),
 	dataLeitura datetime,
     valor_leitura varchar(45),
+    situacao char(1) DEFAULT 'n',
     componente varchar(45),
     primary key (fkServidor, fkMetrica, dataLeitura, componente)
 );
@@ -100,6 +102,20 @@ and Leitura.fkMetrica = Metrica.idMetrica
 ORDER BY Leitura.dataLeitura;
 select * from visualizacaoSemanal;
 
+create view visaoGeralServidores as
+select 
+	s.idServidor,
+    s.fkEmpresa,
+	s.modelo,
+    s.so,
+    s.enderecoMac,
+    (select valor_leitura from Leitura where fkServidor = s.idServidor AND fkMetrica = 2 order by dataLeitura desc limit 1) as 'qtdCPU',
+    (select valor_leitura from Leitura where fkServidor = s.idServidor AND fkMetrica = 5 order by dataLeitura desc limit 1) as 'qtdRAM',
+    (select valor_leitura from Leitura where fkServidor = s.idServidor AND fkMetrica = 7 order by dataLeitura desc limit 1) as 'qtdDisco',
+    (select dataLeitura from Leitura where fkServidor = s.idServidor order by dataLeitura desc limit 1) as 'ultimoRegistro'
+from Servidor s;
+
+select * from visaoGeralServidores;
 
 create view leituraCPU as 
 select 
